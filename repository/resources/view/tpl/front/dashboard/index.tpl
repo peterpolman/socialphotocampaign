@@ -1,9 +1,10 @@
 <article id="content">
 	<div class="container">
 		<div class="col-xs-12 col-sm-6 col-lg-8 content">
+			<img class="hoofdprijs" src="cji/img/hoofdprijs.png" alt="">
 			<h2>Knap je keuken op!</h2>
-			<p><strong>Heeft je vaatwasser het begeven? Krijg je die oude oven echt niet meer schoon? Of ben je gewoon toe aan nieuwe keuken inbouwapparatuur?</strong></p>
-			<p>Misschien is het dan wel tijd om je apparatuur te vervangen! I-KOOK geeft namelijk iedere actieperiode 2 renovatiecheques t.w.v. € 250,- weg!  </p>
+			<p><strong>Heeft je vaatwasser het begeven? Krijg je die oude oven echt niet meer schoon? Of ben je gewoon toe aan nieuwe keuken?</strong></p>
+			<p>Misschien is het dan wel tijd voor een keukenrenovatie! I-KOOK geeft namelijk iedere actieperiode 1 renovatiecheque t.w.v. € 750,- weg!  </p>
 			<p><a href="{$secure_root}keukens/doemee">Volg de stappen en doe mee</a></p>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-lg-4">

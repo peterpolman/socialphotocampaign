@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2014-09-25 15:53:41
+<?php /* Smarty version 2.6.26, created on 2015-08-31 15:48:44
          compiled from front/keukens/stap3.tpl */ ?>
 <article id="content" class="form" style="text-align: center;">
 	<div class="container">

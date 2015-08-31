@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2013-03-20 17:00:13
+<?php /* Smarty version 2.6.26, created on 2015-08-31 15:56:23
          compiled from system/login/index.tpl */ ?>
 <div id="login_screen">
 	

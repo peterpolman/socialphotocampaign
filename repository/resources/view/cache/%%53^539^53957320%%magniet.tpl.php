@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2014-09-25 11:46:26
+<?php /* Smarty version 2.6.26, created on 2015-08-31 15:55:24
          compiled from front/keukens/magniet.tpl */ ?>
 <article id="content">
 	<div class="container">

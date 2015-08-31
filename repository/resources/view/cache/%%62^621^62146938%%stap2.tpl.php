@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2015-03-18 13:50:53
+<?php /* Smarty version 2.6.26, created on 2015-08-31 15:47:50
          compiled from front/keukens/stap2.tpl */ ?>
 <article id="content" class="form">
 	<div class="container">

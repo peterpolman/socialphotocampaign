@@ -56,11 +56,11 @@ class keukensController extends WE_Controller_Crud
 		// $entries = Db::getTable('Entry')->findColumnData(
 		// 	array('status'=>'1','published'=>'1'),
 		// 	array(WE_Record::ORDER_DESC_BY_COLUMN => 'date'),
-		// 	12	// Limit 12 entries at first
+		// 	30	// Limit 30 entries at first
 		// );
 
 		$entries = Db::getTable('Entry');
-		$entries = $entries->mostVotes(0,12);
+		$entries = $entries->mostVotes(0,30);
 
 		$totalcount = Db::getTable('Entry')->findColumnData(array('status'=>1,'published'=>'1'))->count();	// Here is some room for speed improvement if needed :)
 		$this->view->assign('entries',$entries);
@@ -75,7 +75,7 @@ class keukensController extends WE_Controller_Crud
 	public function fetchAction() {
 		$orderBy = $this->getRequest()->getGet('id','datedown');
 		$from = $this->getRequest()->getGet('id2',0);
-		$to = $this->getRequest()->getGet('id3',12);
+		$to = $this->getRequest()->getGet('id3',30);
 		$order = array();
 		switch( $orderBy ) {
 			case "votesdown":

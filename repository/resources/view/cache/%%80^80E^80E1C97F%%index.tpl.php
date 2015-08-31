@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2013-03-25 07:18:51
+<?php /* Smarty version 2.6.26, created on 2015-08-31 15:56:43
          compiled from beheer/vote/index.tpl */ ?>
 <h1>Votes</h1>
 

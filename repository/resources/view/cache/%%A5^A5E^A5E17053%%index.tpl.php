@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2015-08-31 14:05:05
+<?php /* Smarty version 2.6.26, created on 2015-08-31 15:31:38
          compiled from front/keukens/index.tpl */ ?>
 	<section id="overview">	
 		<div class="container">
@@ -55,9 +55,6 @@ keukens/opknapper/<?php echo $this->_tpl_vars['entryId']; ?>
 									<?php echo $this->_tpl_vars['entry']->getTotal_vote_count(); ?>
  stemmen verzameld
 								</p>
-								<div class="fb-like" data-href="<?php echo $this->_tpl_vars['secure_root']; ?>
-keukens/opknapper/<?php echo $this->_tpl_vars['entry']->getId(); ?>
-" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
 							</div>
 						</div>
 					</li>

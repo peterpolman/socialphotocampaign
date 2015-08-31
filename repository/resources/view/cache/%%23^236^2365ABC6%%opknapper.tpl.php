@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2015-08-31 12:38:38
+<?php /* Smarty version 2.6.26, created on 2015-08-31 15:41:12
          compiled from front/keukens/opknapper.tpl */ ?>
 <section id="photo">
 	<div class="container">
@@ -36,35 +36,21 @@ cji/img/2013_altijd-op-voorraad_(app).jpg" alt="" />
 
 <article id="content">
 	<div class="container">
-		<div class="col-xs-12 col-sm-12 col-lg-8 content">
-			<div class="container">
-				<div class="col-xs-12 col-sm-4 col-lg-4">
-					<h3>Het verhaal achter de keuken van: <br /><span><?php echo $this->_tpl_vars['entry']->getFirst_name(); ?>
+		<div class="col-xs-12 col-sm-8 col-lg-8 content">
+			<h3>Het verhaal achter de keuken van: <br /><span><?php echo $this->_tpl_vars['entry']->getFirst_name(); ?>
  <?php echo $this->_tpl_vars['entry']->getLast_name(); ?>
 </span></h3>
-					<p><i><?php echo $this->_tpl_vars['entry']->getDescription(); ?>
+			<p><i><?php echo $this->_tpl_vars['entry']->getDescription(); ?>
 </i></p>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-lg-4">
-					<h3>Wil je <?php echo $this->_tpl_vars['entry']->getFirst_name(); ?>
+			<h3>Wil je <?php echo $this->_tpl_vars['entry']->getFirst_name(); ?>
  helpen met het verzamelen van stemmen?</h3>
-						<p><a class="share" href="http://www.facebook.com/sharer.php?u=<?php echo $this->_tpl_vars['secure_root']; ?>
+			<p><a class="share" href="http://www.facebook.com/sharer.php?u=<?php echo $this->_tpl_vars['secure_root']; ?>
 keukens/opknapper/<?php echo $this->_tpl_vars['entry']->getId(); ?>
 " target="_blank"><img src="<?php echo $this->_tpl_vars['secure_root']; ?>
-cji/img/share-facebook.png" height="40" alt="" /></a>
-						<p>Gebruik de bovenstaande knop om de link van <?php echo $this->_tpl_vars['entry']->getFirst_name(); ?>
+cji/img/share-facebook.png" height="auto" width="100"alt="" /></a>
+			<p>Gebruik de bovenstaande knop om de link van <?php echo $this->_tpl_vars['entry']->getFirst_name(); ?>
  op je Facebook tijdlijn te plaatsen. Zo roep je niet alleen de vrienden van <?php echo $this->_tpl_vars['entry']->getFirst_name(); ?>
 , maar ook jouw vrienden op om mee te helpen.</p>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-lg-6">
-					<section id="comments">
-						<h2>Wens <?php echo $this->_tpl_vars['entry']->getFirst_name(); ?>
- succes!</h2>
-						<div class="fb-comments" data-href="http://www.opknappertjenodig.nl/keukens/opknapper/<?php echo $this->_tpl_vars['entry']->getId(); ?>
-" data-width="650" data-num-posts="10"></div>
-					</section>
-				</div>
-			</div>
 		</div>
 		<div class="col-xs-12 col-sm-4 col-lg-4">
 			<section id="top-5">
@@ -105,6 +91,14 @@ keukens/opknapper/<?php echo $this->_tpl_vars['entryId']; ?>
 		</div>
 	</div>
 </article>
+<div class="container">
+	<section id="comments">
+		<h2>Wens <?php echo $this->_tpl_vars['entry']->getFirst_name(); ?>
+ succes!</h2>
+		<div class="fb-comments" data-href="http://www.opknappertjenodig.nl/keukens/opknapper/<?php echo $this->_tpl_vars['entry']->getId(); ?>
+" data-width="650" data-num-posts="10"></div>
+	</section>
+</div>
 <?php echo '
 	<script>
 	(function(){

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2014-09-30 11:32:29
+<?php /* Smarty version 2.6.26, created on 2015-08-31 15:48:44
          compiled from front/keukens/mail.tpl */ ?>
 <p>Hoi <?php if (isset ( $this->_tpl_vars['ontvanger'] )): ?><?php echo $this->_tpl_vars['ontvanger']->getFirst_name(); ?>
 <?php else: ?>&lt;naam&gt;<?php endif; ?>,</p>

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2013-04-22 14:53:04
+<?php /* Smarty version 2.6.26, created on 2015-08-31 15:57:38
          compiled from beheer/entry/modify.tpl */ ?>
 
 <h1>Entry bewerken</h1>

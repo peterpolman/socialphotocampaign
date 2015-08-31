@@ -56,22 +56,29 @@
 	<div id="fb-root"></div>
 
 	{literal}
-	<script>(function(d, s, id) {
-	  var js, fjs = d.getElementsByTagName(s)[0];
-	  if (d.getElementById(id)) return;
-	  js = d.createElement(s); js.id = id;
-	  js.src = "//connect.facebook.net/nl_NL/sdk.js#xfbml=1&appId=177969065690482&version=v2.0";
-	  fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));</script>
-{/literal}
-	<img src="{$secure_root}cji/img/fb_meta.png" alt="Opknappertje nodig?" style="display: none;"/>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/nl_NL/sdk.js#xfbml=1&appId=177969065690482&version=v2.0";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+	{/literal}
+		<img src="{$secure_root}cji/img/fb_meta.png" alt="Opknappertje nodig?" style="display: none;"/>
 	
-	<img id="blob0" src="{$secure_root}cji/img/photo00.png" data-offset="" alt="" />
-	<img id="blob1" src="{$secure_root}cji/img/photo01.png" data-offset="" alt="" />
-	<img id="blob2" src="{$secure_root}cji/img/photo02.png" data-offset="" alt="" />
-	<img id="blob3" src="{$secure_root}cji/img/photo03.png" data-offset="" alt="" />
-	<img id="blob4" src="{$secure_root}cji/img/photo04.png" data-offset="" alt="" />
-	<img id="blob5" src="{$secure_root}cji/img/photo05.png" data-offset="" alt="" />
+	<div id="blobs">	
+		<img id="blob0" src="{$secure_root}cji/img/photo00.png" data-offset="" alt="" />
+		<img id="blob1" src="{$secure_root}cji/img/photo01.png" data-offset="" alt="" />
+		<img id="blob2" src="{$secure_root}cji/img/photo02.png" data-offset="" alt="" />
+		<img id="blob3" src="{$secure_root}cji/img/photo03.png" data-offset="" alt="" />
+		<img id="blob4" src="{$secure_root}cji/img/photo04.png" data-offset="" alt="" />
+
+		<img id="blob5" src="{$secure_root}cji/img/photo05.png" data-offset="" alt="" />
+		<img id="blob6" src="{$secure_root}cji/img/photo06.png" data-offset="" alt="" />
+		<img id="blob7" src="{$secure_root}cji/img/photo07.png" data-offset="" alt="" />
+		<img id="blob8" src="{$secure_root}cji/img/photo08.png" data-offset="" alt="" />
+		<img id="blob9" src="{$secure_root}cji/img/photo09.png" data-offset="" alt="" />
+	</div>
 
   	<nav class="navbar navbar-default" role="navigation">
 		<div class="container">
@@ -117,7 +124,7 @@
 
 					{else}
 						<h1>Knap je keuken op!</h1>
-						<p>Maak een foto van je inbouwapparaat en maak kans op een checque t.w.v. &euro; 250,-</p>
+						<p>Maak een foto van je keuken en maak kans op een checque t.w.v. &euro; 750,-</p>
 						<ul><li><a href="{$secure_root}keukens/doemee" class="button">Doe direct mee!</a></li><li><a href="{$secure_root}keukens" class="button">De deelnemers</a></li></ul>
 					{/if}
 				</div>

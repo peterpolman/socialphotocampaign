@@ -37,7 +37,6 @@
 								<p class="vote-count">
 									{$entry->getTotal_vote_count()} stemmen verzameld
 								</p>
-								<div class="fb-like" data-href="{$secure_root}keukens/opknapper/{$entry->getId()}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
 							</div>
 						</div>
 					</li>
