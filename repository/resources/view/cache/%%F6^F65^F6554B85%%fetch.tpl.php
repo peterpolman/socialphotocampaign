@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2014-09-26 10:12:32
+<?php /* Smarty version 2.6.26, created on 2015-08-31 11:45:40
          compiled from front/keukens/fetch.tpl */ ?>
 <?php $_from = $this->_tpl_vars['entries']->getResult(); if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['entry']):

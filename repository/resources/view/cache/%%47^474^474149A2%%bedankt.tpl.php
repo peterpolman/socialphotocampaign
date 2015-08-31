@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2013-05-13 08:56:49
+<?php /* Smarty version 2.6.26, created on 2015-08-31 14:02:10
          compiled from front/contact/bedankt.tpl */ ?>
 	<section id="content">
 		<div class="wrapper">

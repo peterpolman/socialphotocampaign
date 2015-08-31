@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2013-07-03 08:52:39
+<?php /* Smarty version 2.6.26, created on 2015-08-31 14:02:09
          compiled from front/contact/mail.tpl */ ?>
 Hallo,<br/>
 <br/>

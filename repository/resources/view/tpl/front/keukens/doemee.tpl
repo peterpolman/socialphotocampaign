@@ -1,6 +1,6 @@
 <article id="content" class="form">
 	<div class="container">
-		<div class="col-xs-12 col-sm-12 col-lg-12 ">
+		<div class="col-xs-12 col-sm-12 col-lg-12 content">
 			<form action="" method="post" enctype="multipart/form-data">
 				<div class="col-xs-12 col-sm-6 col-lg-6">
 					<h2>Jouw foto</h2>

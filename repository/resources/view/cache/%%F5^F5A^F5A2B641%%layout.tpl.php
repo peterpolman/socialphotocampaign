@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2013-03-20 17:00:13
+<?php /* Smarty version 2.6.26, created on 2015-08-31 11:36:33
          compiled from system/layout/layout.tpl */ ?>
 <?php if ($this->_tpl_vars['controller'] == 'login'): ?>
 	<?php $_smarty_tpl_vars = $this->_tpl_vars;

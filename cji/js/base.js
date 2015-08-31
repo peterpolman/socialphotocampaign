@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 		var i = 0;
 		
 		$('#overview .wrapper').hover(function(){

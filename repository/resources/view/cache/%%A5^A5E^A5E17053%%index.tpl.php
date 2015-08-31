@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2015-08-31 10:28:48
+<?php /* Smarty version 2.6.26, created on 2015-08-31 14:05:05
          compiled from front/keukens/index.tpl */ ?>
 	<section id="overview">	
 		<div class="container">
@@ -85,7 +85,7 @@ keukens/opknapper/<?php echo $this->_tpl_vars['entry']->getId(); ?>
 			$(\'#name\').click(function() {
 				if ( $(this).hasClass(\'sort_down\') ) {
 					$.ajax({
-						url: "keukens/fetch/nameup/0/12"
+						url: "keukens/fetch/nameup/0/30"
 					}).done(function(data) {
 						$("#entries").html(data);
 					});
@@ -95,7 +95,7 @@ keukens/opknapper/<?php echo $this->_tpl_vars['entry']->getId(); ?>
 					$(this).addClass(\'sort_up\');
 				} else {
 					$.ajax({
-						url: "keukens/fetch/namedown/0/12"
+						url: "keukens/fetch/namedown/0/30"
 					}).done(function(data) {
 						$("#entries").html(data);
 					});
@@ -108,7 +108,7 @@ keukens/opknapper/<?php echo $this->_tpl_vars['entry']->getId(); ?>
 			$(\'#date\').click(function() {
 				if ( $(this).hasClass(\'sort_down\') ) {
 					$.ajax({
-						url: "keukens/fetch/dateup/0/12"
+						url: "keukens/fetch/dateup/0/30"
 					}).done(function(data) {
 						$("#entries").html(data);
 					});
@@ -118,7 +118,7 @@ keukens/opknapper/<?php echo $this->_tpl_vars['entry']->getId(); ?>
 					$(this).addClass(\'sort_up\');
 				} else {
 					$.ajax({
-						url: "keukens/fetch/datedown/0/12"
+						url: "keukens/fetch/datedown/0/30"
 					}).done(function(data) {
 						$("#entries").html(data);
 					});
@@ -131,7 +131,7 @@ keukens/opknapper/<?php echo $this->_tpl_vars['entry']->getId(); ?>
 			$(\'#votes\').click(function() {
 				if ( $(this).hasClass(\'sort_down\') ) {
 					$.ajax({
-						url: "keukens/fetch/votesup/0/12"
+						url: "keukens/fetch/votesup/0/30"
 					}).done(function(data) {
 						$("#entries").html(data);
 					});
@@ -141,7 +141,7 @@ keukens/opknapper/<?php echo $this->_tpl_vars['entry']->getId(); ?>
 					$(this).addClass(\'sort_up\');
 				} else {
 					$.ajax({
-						url: "keukens/fetch/votesdown/0/12"
+						url: "keukens/fetch/votesdown/0/30"
 					}).done(function(data) {
 						$("#entries").html(data);
 					});

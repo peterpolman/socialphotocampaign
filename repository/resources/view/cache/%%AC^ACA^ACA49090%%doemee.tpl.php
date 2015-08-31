@@ -1,8 +1,8 @@
-<?php /* Smarty version 2.6.26, created on 2015-08-31 10:28:47
+<?php /* Smarty version 2.6.26, created on 2015-08-31 13:37:57
          compiled from front/keukens/doemee.tpl */ ?>
 <article id="content" class="form">
 	<div class="container">
-		<div class="col-xs-12 col-sm-12 col-lg-12 ">
+		<div class="col-xs-12 col-sm-12 col-lg-12 content">
 			<form action="" method="post" enctype="multipart/form-data">
 				<div class="col-xs-12 col-sm-6 col-lg-6">
 					<h2>Jouw foto</h2>

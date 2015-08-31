@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2013-03-20 17:00:13
+<?php /* Smarty version 2.6.26, created on 2015-08-31 11:36:34
          compiled from system/layout/flash.tpl */ ?>
 <?php if ($this->_tpl_vars['flash'] != ''): ?>
 <script type="text/javascript" >

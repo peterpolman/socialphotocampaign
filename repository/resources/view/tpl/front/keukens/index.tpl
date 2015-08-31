@@ -65,7 +65,7 @@
 			$('#name').click(function() {
 				if ( $(this).hasClass('sort_down') ) {
 					$.ajax({
-						url: "keukens/fetch/nameup/0/12"
+						url: "keukens/fetch/nameup/0/30"
 					}).done(function(data) {
 						$("#entries").html(data);
 					});
@@ -75,7 +75,7 @@
 					$(this).addClass('sort_up');
 				} else {
 					$.ajax({
-						url: "keukens/fetch/namedown/0/12"
+						url: "keukens/fetch/namedown/0/30"
 					}).done(function(data) {
 						$("#entries").html(data);
 					});
@@ -88,7 +88,7 @@
 			$('#date').click(function() {
 				if ( $(this).hasClass('sort_down') ) {
 					$.ajax({
-						url: "keukens/fetch/dateup/0/12"
+						url: "keukens/fetch/dateup/0/30"
 					}).done(function(data) {
 						$("#entries").html(data);
 					});
@@ -98,7 +98,7 @@
 					$(this).addClass('sort_up');
 				} else {
 					$.ajax({
-						url: "keukens/fetch/datedown/0/12"
+						url: "keukens/fetch/datedown/0/30"
 					}).done(function(data) {
 						$("#entries").html(data);
 					});
@@ -111,7 +111,7 @@
 			$('#votes').click(function() {
 				if ( $(this).hasClass('sort_down') ) {
 					$.ajax({
-						url: "keukens/fetch/votesup/0/12"
+						url: "keukens/fetch/votesup/0/30"
 					}).done(function(data) {
 						$("#entries").html(data);
 					});
@@ -121,7 +121,7 @@
 					$(this).addClass('sort_up');
 				} else {
 					$.ajax({
-						url: "keukens/fetch/votesdown/0/12"
+						url: "keukens/fetch/votesdown/0/30"
 					}).done(function(data) {
 						$("#entries").html(data);
 					});

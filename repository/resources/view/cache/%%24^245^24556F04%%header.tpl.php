@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2015-08-31 10:28:39
+<?php /* Smarty version 2.6.26, created on 2015-08-31 13:31:00
          compiled from front/layout/header.tpl */ ?>
 <!DOCTYPE html>
 <html>
@@ -104,8 +104,7 @@ cji/img/photo04.png" data-offset="" alt="" />
 	<img id="blob5" src="<?php echo $this->_tpl_vars['secure_root']; ?>
 cji/img/photo05.png" data-offset="" alt="" />
 
-  	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	  	<div class="top-bar"></div>
+  	<nav class="navbar navbar-default" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
