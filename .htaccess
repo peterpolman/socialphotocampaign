@@ -1,0 +1,25 @@
+
+
+Options -Indexes +FollowSymlinks
+RewriteEngine on
+ErrorDocument 404 /system/error/pageNotFound
+ErrorDocument 403 /system/error/pageNotAllowed
+RewriteBase /r/
+
+#XSendFile on
+#XSendFileAllowAbove on
+
+# Downloads rewrites
+RewriteRule ^/?files/?(.*)$ download.php?f=$1 [L]
+
+# Normale pagina rewrites
+RewriteRule ^/?([^/\.]*)/?([^/\.]*)/?([^/\.]*)/?([^/\.]*)/?([^/\.]*)/?([^/\.]*)/?$ index.php?s=$1&c=$2&a=$3&id=$4&id2=$5&id3=$6 [L]
+
+# Sta alleen toegang toe tot onderstaande files en /cji (met .htaccess in die map)
+# Verbied alle andere toegang
+
+RewriteCond %{REQUEST_URI} !=/r/index.php
+RewriteCond %{REQUEST_URI} !=/app.php
+RewriteCond %{REQUEST_URI} !=/r/download.php
+RewriteCond %{REQUEST_URI} !=/favicon.ico
+RewriteRule ^.*$    -   [F]

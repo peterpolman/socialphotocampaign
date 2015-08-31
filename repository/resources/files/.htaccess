@@ -1,0 +1,14 @@
+## SITE REFERRER BANNING
+RewriteEngine on
+# Options +FollowSymlinks
+
+# alleen toegang via localhost
+#RewriteCond %{HTTP_REFERER} !^http://127.0.0.1$ [NC]
+#RewriteRule .* - [F]
+
+XSendFile on
+XSendFileAllowAbove on
+
+# scripts mogen niet uitgevoerd worden
+Options -ExecCGI
+AddHandler cgi-script .pl .py .php .jsp .htm .shtml .sh .asp .cgi

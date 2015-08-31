@@ -1,0 +1,2 @@
+Options -Indexes +FollowSymlinks -MultiViews
+RewriteEngine off

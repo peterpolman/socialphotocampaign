@@ -1,0 +1,21 @@
+##Indien er acties/wijzigingen zijn in meerdere bestanden, deze verdelen over meerdere regels met inspring van TAB
+
+## Versie: 				1.0.0.0
+## Laatste aanpassing: 	2012-11-19
+
+## Versie Benaming:
+## 1st: New version after major overhaul
+## 2nd: Major feature/function/module added or modified
+## 3rd: Minor feature/function added or modified 
+## 4th: Bugfix
+
+#Suggestielog:
+Datum:		Door:		Bestand:						Wijziging/Actie:	
+2012-19-11	GDJ			/library/Log.php				IPV eigen formatting CSV gebruiken voor opslag
+
+#Changelog:
+Datum:		Naar Versie:	Door:		Bestand:						Wijziging/Actie:					
+2012-19-11	1.0.0.0			GDJ
+	-/changelog.txt						Dit bestand is toegevoegd
+	-/library/Errorhandler.php			Header van fatal crash correct laten verwijzen naar cji mappen.
+	-/library/Log.php					$ignore argument aangemaakt om naast de "bestanden" . en .. tevens .DS_Store te negeren (en mogelijk nog meer in de toekomst)
