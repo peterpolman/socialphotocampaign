@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2015-08-31 16:12:23
+<?php /* Smarty version 2.6.26, created on 2015-09-01 13:05:10
          compiled from front/layout/header.tpl */ ?>
 <!DOCTYPE html>
 <html>
@@ -170,7 +170,7 @@ keukens/stem/">
 
 					<?php else: ?>
 						<h1>Knap je keuken op!</h1>
-						<p>Maak een foto van je keuken en maak kans op een checque t.w.v. &euro; 750,-</p>
+						<p>Maak een foto van je keuken en maak kans op een renovatiechecque t.w.v. <strong>&euro; 750,-</strong></p>
 						<ul><li><a href="<?php echo $this->_tpl_vars['secure_root']; ?>
 keukens/doemee" class="button">Doe direct mee!</a></li><li><a href="<?php echo $this->_tpl_vars['secure_root']; ?>
 keukens" class="button">De deelnemers</a></li></ul>

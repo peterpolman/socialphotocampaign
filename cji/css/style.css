@@ -95,7 +95,8 @@
 }
 */
 body {
-  font-family: 'nillandregular';
+  font-family: 'Georgia';
+  text-rendering: optimizeLegibility;
   font-size: 16px;
   background: url("../img/body.png") top center repeat; }
 
@@ -142,7 +143,6 @@ body {
   .navbar .container .nav {
     padding-top: 2em; }
     .navbar .container .nav li a {
-      font-family: 'nilland-blackregular';
       font-size: 16px;
       position: relative;
       display: block;
@@ -200,6 +200,8 @@ body {
       margin: 2em;
       text-align: center;
       color: #fff; }
+      #cta .wrapper p strong {
+        font-size: 2em; }
     #cta .wrapper ul {
       width: 100%;
       margin: 0;

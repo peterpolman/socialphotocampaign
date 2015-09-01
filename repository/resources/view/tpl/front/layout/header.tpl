@@ -124,7 +124,7 @@
 
 					{else}
 						<h1>Knap je keuken op!</h1>
-						<p>Maak een foto van je keuken en maak kans op een checque t.w.v. &euro; 750,-</p>
+						<p>Maak een foto van je keuken en maak kans op een renovatiechecque t.w.v. <strong>&euro; 750,-</strong></p>
 						<ul><li><a href="{$secure_root}keukens/doemee" class="button">Doe direct mee!</a></li><li><a href="{$secure_root}keukens" class="button">De deelnemers</a></li></ul>
 					{/if}
 				</div>

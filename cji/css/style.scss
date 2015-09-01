@@ -135,7 +135,8 @@
 }
 */
 body {
-  font-family: 'nillandregular';
+  font-family: 'Georgia';
+  text-rendering: optimizeLegibility;
   font-size: 16px;
   background: url('../img/body.png') top center repeat;
 }
@@ -182,7 +183,6 @@ body {
     .nav {
       padding-top: 2em;
       li a {
-        font-family: 'nilland-blackregular';
         font-size: 16px;
         position: relative;
         display: block;
@@ -260,6 +260,9 @@ body {
       margin: 2em;
       text-align: center;
       color: #fff;
+      strong{
+        font-size: 2em;
+      }
     }
     ul {
       width: 100%;

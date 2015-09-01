@@ -1,14 +1,16 @@
-<?php /* Smarty version 2.6.26, created on 2015-08-31 16:19:16
+<?php /* Smarty version 2.6.26, created on 2015-09-01 13:05:10
          compiled from front/dashboard/index.tpl */ ?>
 <article id="content">
 	<div class="container">
 		<div class="col-xs-12 col-sm-6 col-lg-8 content">
 			<img class="hoofdprijs" src="cji/img/hoofdprijs.png" alt="">
-			<h2>Knap je keuken op!</h2>
-			<p><strong>Heeft je vaatwasser het begeven? Krijg je die oude oven echt niet meer schoon? Of ben je gewoon toe aan nieuwe keuken?</strong></p>
-			<p>Misschien is het dan wel tijd voor een keukenrenovatie! I-KOOK geeft namelijk iedere actieperiode 1 renovatiecheque t.w.v. € 750,- weg!  </p>
-			<p><a href="<?php echo $this->_tpl_vars['secure_root']; ?>
+			<div style="display: table;">
+				<h2>Knap je keuken op!</h2>
+				<p><strong>Heeft je vaatwasser het begeven? Krijg je die oude oven echt niet meer schoon? Of ben je gewoon toe aan een nieuwe keuken?</strong></p>
+				<p>Misschien is het dan wel tijd voor een keukenrenovatie! I-KOOK geeft namelijk iedere actieperiode 1 renovatiecheque t.w.v. € 750,- weg!  </p>
+				<p><a href="<?php echo $this->_tpl_vars['secure_root']; ?>
 keukens/doemee">Volg de stappen en doe mee</a></p>
+			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-lg-4">
 			<section id="top-5">
