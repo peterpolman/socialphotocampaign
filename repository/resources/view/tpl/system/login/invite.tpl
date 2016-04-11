@@ -1,1 +1,0 @@
-Er is een nieuw wachtwoord verstuurd naar uw e-mail adres. Deze kunt u binnen enkele minuten verwachten.
