@@ -1,0 +1,59 @@
+.navbar {
+    border: 0;
+    background-color: transparent;
+}
+.navbar .container .navbar-header {
+    padding: .8em 0;
+    margin-right: 25px;
+}
+.navbar .container .navbar-header .navbar-brand {
+    padding: 0;
+}
+.navbar .container .navbar-header .navbar-brand img {
+    height: 50px;
+}
+.navbar .container .nav {
+    padding-top: 2em;
+}
+.navbar .container .nav li a {
+    position: relative;
+    display: block;
+    padding: 7px 0 3px 0;
+    text-align: center;
+    text-decoration: none;
+    color: #FFF;
+    background: transparent;
+    font-family: 'axure_handwritingregular';
+    font-size: 18px;
+}
+.navbar .container .nav li a:after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 0;
+    height: 2px;
+    content: '';
+    transition: .2s width ease;
+    background-color: #FFF;
+}
+.navbar .container .nav li a:hover {
+    background: transparent;
+}
+.navbar .container .nav li a:hover:after {
+    cursor: pointer;
+    width: 100%;
+}
+.navbar .container .nav li {
+    margin-right: 2em;
+}
+.navbar .container .nav li.active:hover {
+    background: transparent;
+}
+.navbar .container .nav li.active:hover a {
+    color: #FFFFFF;
+}
+.navbar .container .nav li.active a:after {
+    cursor: pointer;
+    width: 100%;
+}

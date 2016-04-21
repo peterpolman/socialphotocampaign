@@ -1,0 +1,38 @@
+
+body {
+    font-family: 'Georgia';
+    text-rendering: optimizeLegibility;
+    background: url("../img/body.png") top center repeat;
+}
+
+.main-container {
+  border-top: 10px solid rgba(255, 255, 255, 0.7);
+  border-bottom: 10px solid rgba(255, 255, 255, 0.7);
+  background: url('../img/section.png');
+}
+.page-contributions .main-container {
+  border: none;
+  background: none;
+}
+
+.page-contributions .main-container .region-content {
+  background: none;
+  padding: 0;
+}
+.region-content {
+  background: rgba(255,255,255,0.8);
+  padding: 1em;
+}
+
+.region-content p {
+  color: black;
+}
+
+.nav-tabs {
+    display: none;
+    margin-bottom: 0px;
+}
+
+.footer {
+  border: 0;
+}
