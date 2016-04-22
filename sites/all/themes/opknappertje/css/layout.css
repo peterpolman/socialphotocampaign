@@ -2,7 +2,7 @@
 body {
     font-family: 'Georgia';
     text-rendering: optimizeLegibility;
-    background: url("../img/body.png") top center repeat;
+    background: url("../img/body.jpg") top center repeat;
 }
 
 .main-container {
