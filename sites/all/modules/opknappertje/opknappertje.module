@@ -30,10 +30,16 @@ function _opknappertje_hero_block_content($nid) {
     $user = user_load($node->uid);
 
     if ( $node->type === 'contribution' ) {
+      $uri = $node->field_contribution[LANGUAGE_NONE][0]['uri'];
+      $image_path = image_style_url('large', $uri);
+
       $markup = '
-      <h1>De inzending van<br /><span>' . $user->realname . '</span></h1>
-      <p>Je kunt 1x per inzending stemmen.</p>
-      <ul><li>' . flag_create_link('vote', $node->nid) . '</li></ul>
+      <h1><small>De inzending van</small><br />' . $user->realname . '</h1>
+      <ul>
+        <li>' . flag_create_link('vote', $node->nid) . '</li>
+        <li><a href="" class="btn">Deel op Facebook</a></li>
+      </ul>
+      <div class="image"><img src="' . $image_path .'" alt="" /></div>
       ';
     } else {
       $markup = '
@@ -48,10 +54,38 @@ function _opknappertje_hero_block_content($nid) {
 }
 
 function opknappertje_preprocess_node(&$variables){
-
   if ($variables['type'] === 'contribution') {
-    $variables['user'] = user_load($variables['uid']);
+    $user = user_load($variables['uid']);
 
+    if ($user->field_first_name) {
+      $variables['user_profile']['first_name'] = $user->field_first_name[LANGUAGE_NONE][0]['value'];
+    }
+    if ($user->field_last_name) {
+      $variables['user_profile']['last_name'] = $user->field_last_name[LANGUAGE_NONE][0]['value'];
+    }
+    // if ($variables['user']->picture > 0) {
+    //   $file = file_load($variables['user']->picture);
+    //   $variables['user_profile']['picture'] = image_style_url('medium', $file->uri);
+    // }
+    if ($user->field_city) {
+      $variables['user_profile']['city'] = $user->field_city[LANGUAGE_NONE][0]['value'];
+    }
+
+    // Get vote count
+    $flag = flag_get_flag('vote');
+    $variables['contribution']['vote_count'] = $flag->get_count($variables['nid']);
+
+    // Get node url
+    global $base_url;
+    $variables['contribution']['url'] = $base_url . $variables['node_url'];
+  }
+  if ($variables['type'] === 'contribution' && $variables['view_mode'] === 'teaser') {
+    $variables['contribution']['image'] = image_style_url('medium', $variables['field_contribution'][0]['uri']);
+  }
+
+  if ($variables['type'] === 'contribution' && $variables['view_mode'] === 'full') {
+    $variables['contribution']['image'] = image_style_url('large', $variables['field_contribution'][0]['uri']);
+    $variables['contribution']['body'] = $variables['body'][0]['value'];
   }
 }
 ?>

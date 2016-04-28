@@ -9,6 +9,7 @@
   color: rgba(0, 0, 0, 0.7);
   border: 1px solid #c8e443;
   background: #92ad0e;
+  border-radius: 4px;
   background: -webkit-linear-gradient(#c8e443, #92ad0e);
   /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#c8e443, #92ad0e);

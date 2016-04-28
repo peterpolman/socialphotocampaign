@@ -82,59 +82,35 @@
 
 <?php
 if ($teaser) {
-  $image = image_style_url('medium',$variables['field_contribution'][0]['uri']);
 ?>
+<a href="<?php print $variables['node_url']; ?>">
+  <div class="contribution">
+  	<div class="wrapper">
+  		<div class="picture" style="background-image: url(<?php print $variables['contribution']['image']; ?>);">
 
-<div class="contribution">
-	<div class="wrapper">
-		<div class="picture" style="background-image: url(<?php print $image; ?>);">
-      <div class="vote-count">
-        <?php print flag_create_link('vote', $node->nid); ?>
   		</div>
-		</div>
-		<p class="username">
-      <?php print $variables['user']->realname; ?>
-		</p>
-		<p class="location">
-      <?php print $variables['user']->field_city[LANGUAGE_NONE][0]['value']; ?>
-		</p>
-	</div>
-</div>
+      <?php if (!empty($variables['user_profile']['first_name'])) :?>
+  		<p class="username"><?php print $variables['user_profile']['first_name']; ?><br />
+      <?php endif; ?>
+      <?php if (!empty($variables['user_profile']['city'])) :?>
+    		<span class="location"><?php print $variables['user_profile']['city']; ?></span>
+      </p>
+      <?php print $variables['contribution']['vote_count']; ?>
+      <?php endif; ?>
+  	</div>
+  </div>
+</a>
 
 <?php
 } else {
 ?>
-<article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
-  <?php if ((!$page && !empty($title)) || !empty($title_prefix) || !empty($title_suffix) || $display_submitted): ?>
-  <header>
-    <?php print render($title_prefix); ?>
-    <?php if (!$page && !empty($title)): ?>
-    <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
-    <?php endif; ?>
-    <?php print render($title_suffix); ?>
-    <?php if ($display_submitted): ?>
-    <span class="submitted">
-      <?php print $user_picture; ?>
-      <?php print $submitted; ?>
-    </span>
-    <?php endif; ?>
-  </header>
-  <?php endif; ?>
-  <?php
-    // Hide comments, tags, and links now so that we can render them later.
-    hide($content['comments']);
-    hide($content['links']);
-    hide($content['field_tags']);
-    print render($content);
-  ?>
-  <?php if (!empty($content['field_tags']) || !empty($content['links'])): ?>
-  <footer>
-    <?php print render($content['field_tags']); ?>
-    <?php print render($content['links']); ?>
-  </footer>
-  <?php endif; ?>
-  <?php print render($content['comments']); ?>
-</article>
+
+<h3>Het verhaal achter de keuken van: <br><span>Peter Polman</span></h3>
+<p><i><?php print $variables['contribution']['body']; ?></i></p>
+<h3>Wil je Peter helpen met het verzamelen van stemmen?</h3>
+<p><a class="share btn" href="http://www.facebook.com/sharer.php?u=http://opknappertjenodig.nl/keukens/opknapper/407" target="_blank">Deel op Facebook!</a>
+</p><p>Gebruik de bovenstaande knop om de link van Peter op je Facebook tijdlijn te plaatsen. Zo roep je niet alleen de vrienden van Peter, maar ook jouw vrienden op om mee te helpen.</p>
+
 <?php
 }
 ?>

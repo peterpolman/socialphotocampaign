@@ -1,3 +1,6 @@
+#blobs img {
+  /*z-index: -1;*/
+}
 #blob0 {
   top: 0px;
   left: -150px;

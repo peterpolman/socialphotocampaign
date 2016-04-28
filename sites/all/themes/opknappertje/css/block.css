@@ -8,14 +8,25 @@
   color: white;
   margin-bottom: .5em;
 }
+.block-opknappertje h1 small{
+  font-size: 23px;
+  color: white;
+}
 .block-opknappertje ul {
   width: 100%;
   display: block;
   text-align: center;
 }
 .block-opknappertje ul li {
-  display: inline-block;
+  display: inline-flex;
   margin: 1em;
+}
+.block-opknappertje .image {
+  margin-top: 100px;
+}
+.block-opknappertje .image img {
+  border: 20px solid white;
+  box-shadow: 0 0 50px rgba(0,0,0,0.5);
 }
 
 .block-title {
