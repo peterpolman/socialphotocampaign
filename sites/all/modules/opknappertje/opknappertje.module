@@ -22,7 +22,6 @@ function opknappertje_block_view($delta = '') {
 }
 
 function _opknappertje_hero_block_content($nid) {
-  // page nodes for this block content
   $markup ='';
 
   if ($nid > 0) {
@@ -34,7 +33,7 @@ function _opknappertje_hero_block_content($nid) {
       $image_path = image_style_url('large', $uri);
 
       $markup = '
-      <h1><small>De inzending van</small><br />' . $user->realname . '</h1>
+      <h1><small>De keuken van</small><br />' . $user->realname . '</h1>
       <ul>
         <li>' . flag_create_link('vote', $node->nid) . '</li>
         <li><a href="" class="btn">Deel op Facebook</a></li>

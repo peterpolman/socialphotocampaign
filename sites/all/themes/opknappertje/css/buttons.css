@@ -1,40 +1,58 @@
-.region-header .flag,
+.region-header .flag {
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  font-family: 'nilland-blackregular';
+  display: block;
+  padding: .8em 2em;
+  color: white;
+  border: 1px solid #f10022;
+  background: #f10022;
+  border-radius: 4px;
+  -webkit-transition: .2s background ease;
+  background: -webkit-linear-gradient(#f10022, #c7001c);
+  background: -o-linear-gradient(#f10022, #c7001c);
+  background: -moz-linear-gradient(#f10022, #c7001c);
+  background: linear-gradient(#f10022, #c7001c);
+}
+.region-header .flag:before {
+  float: left;
+  margin-right: 10px;
+  font-family: 'Glyphicons Halflings';
+  content: "\e005";
+  display: block;
+}
 .btn,
 .btn-default {
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
   font-family: 'nilland-blackregular';
   display: block;
-  width: 200px;
   padding: .8em 2em;
   color: rgba(0, 0, 0, 0.7);
   border: 1px solid #c8e443;
   background: #92ad0e;
   border-radius: 4px;
+  -webkit-transition: .2s background ease;
   background: -webkit-linear-gradient(#c8e443, #92ad0e);
-  /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#c8e443, #92ad0e);
-  /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(#c8e443, #92ad0e);
-  /* For Firefox 3.6 to 15 */
   background: linear-gradient(#c8e443, #92ad0e);
-  /* Standard syntax */
 }
 .region-header .flag:hover,
-.region-header .flag:active,
+.region-header .flag:active {
+  border: 1px solid #f10022;
+  text-decoration: none;
+  background: -webkit-linear-gradient(#f10022, #f10022);
+  background: -o-linear-gradient(#f10022, #f10022);
+  background: -moz-linear-gradient(#f10022, #f10022);
+  background: linear-gradient(#f10022, #f10022);
+}
 .btn:hover,
 .btn:active,
 .btn-default:hover,
 .btn-active:hover {
   border: 1px solid #c8e443;
-  -webkit-transition: .2s background ease;
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.7);
   background: -webkit-linear-gradient(#c8e443, #c8e443);
-  /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#c8e443, #c8e443);
-  /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(#c8e443, #c8e443);
-  /* For Firefox 3.6 to 15 */
   background: linear-gradient(#c8e443, #c8e443);
-  /* Standard syntax */
 }

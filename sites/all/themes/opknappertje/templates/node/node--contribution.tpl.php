@@ -83,24 +83,23 @@
 <?php
 if ($teaser) {
 ?>
-<a href="<?php print $variables['node_url']; ?>">
-  <div class="contribution">
-  	<div class="wrapper">
-  		<div class="picture" style="background-image: url(<?php print $variables['contribution']['image']; ?>);">
+<div class="contribution">
+  <a href="<?php print $variables['node_url']; ?>">
+		<div class="picture" style="background-image: url(<?php print $variables['contribution']['image']; ?>);">
 
-  		</div>
-      <?php if (!empty($variables['user_profile']['first_name'])) :?>
-  		<p class="username"><?php print $variables['user_profile']['first_name']; ?><br />
-      <?php endif; ?>
-      <?php if (!empty($variables['user_profile']['city'])) :?>
-    		<span class="location"><?php print $variables['user_profile']['city']; ?></span>
-      </p>
+		</div>
+    <div class="vote-count">
       <?php print $variables['contribution']['vote_count']; ?>
-      <?php endif; ?>
-  	</div>
-  </div>
-</a>
-
+    </div>
+    <?php if (!empty($variables['user_profile']['first_name'])) :?>
+		<span class="username"><?php print $variables['user_profile']['first_name']; ?><br />
+    <?php endif; ?>
+    <?php if (!empty($variables['user_profile']['city'])) :?>
+    </span>
+    <span class="location"><?php print $variables['user_profile']['city']; ?></span>
+    <?php endif; ?>
+  </a>
+</div>
 <?php
 } else {
 ?>
