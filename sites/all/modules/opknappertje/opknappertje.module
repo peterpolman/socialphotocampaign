@@ -5,6 +5,11 @@ function opknappertje_block_info() {
     'region' => 'header',
     'cache' => DRUPAL_NO_CACHE,
   );
+  $blocks['hero_block_default'] = array(
+    'info' => t('Hero block default'),
+    'region' => 'header',
+    'cache' => DRUPAL_NO_CACHE,
+  );
 
   return $blocks;
 }
@@ -17,6 +22,10 @@ function opknappertje_block_view($delta = '') {
       $block['subject'] = '<none>';
       $block['content'] = _opknappertje_hero_block_content(arg(1));
     break;
+    case 'hero_block_default':
+      $block['subject'] = '<none>';
+      $block['content'] = _opknappertje_hero_block_default_content();
+    break;
   }
   return $block;
 }
@@ -24,31 +33,34 @@ function opknappertje_block_view($delta = '') {
 function _opknappertje_hero_block_content($nid) {
   $markup ='';
 
-  if ($nid > 0) {
-    $node = node_load($nid);
-    $user = user_load($node->uid);
+  $node = node_load($nid);
+  $user = user_load($node->uid);
 
-    if ( $node->type === 'contribution' ) {
-      $uri = $node->field_contribution[LANGUAGE_NONE][0]['uri'];
-      $image_path = image_style_url('large', $uri);
+  if ( $node->type === 'contribution' ) {
+    $uri = $node->field_contribution[LANGUAGE_NONE][0]['uri'];
+    $image_path = image_style_url('large', $uri);
 
-      $markup = '
-      <h1><small>Een kijkje in de keuken van</small><br />' . $user->realname . '</h1>
-      <ul>
-        <li>' . flag_create_link('vote', $node->nid) . '</li>
-        <li><a href="" class="btn btn-facebook">Deel op Facebook</a></li>
-      </ul>
-      <div class="image"><img src="' . $image_path .'" alt="" /></div>
-      ';
-    } else {
-      $markup = '
-      <h1>Knap je keuken op!</h1>
-      <p>Maak een foto van je keuken en maak kans op een renovatiechecque t.w.v. <strong>€ 750,-</strong></p>
-      <ul><li><a href="/node/add/contribution" class="btn btn-default">Doe direct mee!</a></li>
-      <li><a href="/keukens" class="btn btn-default">De deelnemers</a></li></ul>
-      ';
-    }
+    $markup = '
+    <h1><small>Een kijkje in de keuken van</small><br />' . $user->realname . '</h1>
+    <ul>
+      <li>' . flag_create_link('vote', $node->nid) . '</li>
+      <li><a href="" class="btn btn-facebook">Deel op Facebook</a></li>
+    </ul>
+    <div class="image"><img src="' . $image_path .'" alt="" /></div>
+    ';
   }
+
+  return $markup;
+}
+
+function _opknappertje_hero_block_default_content() {
+  $markup = '
+  <h1>Knap je keuken op!</h1>
+  <p>Maak een account, plaats een foto van je keuken en laat je vrienden stemmen.</p>
+  <ul><li><a href="/node/add/contribution" class="btn btn-default">Doe direct mee!</a></li>
+  <li><a href="/keukens" class="btn btn-default">De deelnemers</a></li></ul>
+  ';
+
   return $markup;
 }
 
