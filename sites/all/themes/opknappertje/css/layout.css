@@ -5,17 +5,22 @@ body {
     background: url("../img/body.jpg") top center repeat;
 }
 
+#page-header {
+  position: relative;
+  z-index: 10;
+}
+
 .main-container {
   border-top: 10px solid rgba(255, 255, 255, 0.7);
   border-bottom: 10px solid rgba(255, 255, 255, 0.7);
   background: url('../img/section.png');
 }
-.page-contributions .main-container {
+.page-keukens .main-container {
   border: none;
   background: none;
 }
 
-.page-contributions .main-container .region-content {
+.page-keukens .main-container .region-content {
   background: none;
   padding: 0;
 }
@@ -35,4 +40,12 @@ body {
 
 .footer {
   border: 0;
+}
+
+#user-login .hybridauth-widget-wrapper h3,
+#user-login .hybridauth-widget-wrapper .hybridauth-widget,
+#user-login .hybridauth-widget-wrapper,
+#user-login .form-actions {
+  display: inline-block;
+  margin-right: 15px;
 }

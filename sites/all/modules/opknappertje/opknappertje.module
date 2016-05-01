@@ -33,10 +33,10 @@ function _opknappertje_hero_block_content($nid) {
       $image_path = image_style_url('large', $uri);
 
       $markup = '
-      <h1><small>De keuken van</small><br />' . $user->realname . '</h1>
+      <h1><small>Een kijkje in de keuken van</small><br />' . $user->realname . '</h1>
       <ul>
         <li>' . flag_create_link('vote', $node->nid) . '</li>
-        <li><a href="" class="btn">Deel op Facebook</a></li>
+        <li><a href="" class="btn btn-facebook">Deel op Facebook</a></li>
       </ul>
       <div class="image"><img src="' . $image_path .'" alt="" /></div>
       ';
@@ -45,7 +45,7 @@ function _opknappertje_hero_block_content($nid) {
       <h1>Knap je keuken op!</h1>
       <p>Maak een foto van je keuken en maak kans op een renovatiechecque t.w.v. <strong>€ 750,-</strong></p>
       <ul><li><a href="/node/add/contribution" class="btn btn-default">Doe direct mee!</a></li>
-      <li><a href="/contributions" class="btn btn-default">De deelnemers</a></li></ul>
+      <li><a href="/keukens" class="btn btn-default">De deelnemers</a></li></ul>
       ';
     }
   }

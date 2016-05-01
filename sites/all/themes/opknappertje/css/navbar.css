@@ -1,4 +1,23 @@
+.navbar-toggle {
+  background: white;
+  padding: 20px;
+  border: 0;
+}
+.navbar-toggle .icon-bar {
+  background: black;
+}
+.navbar-collapse {
+  /*background: black;*/
+  border: 0;
+  padding-bottom: 2em;
+}
+
+.navbar-nav.secondary {
+  float: right;
+}
+
 .navbar {
+    z-index: 500;
     border: 0;
     background-color: transparent;
 }

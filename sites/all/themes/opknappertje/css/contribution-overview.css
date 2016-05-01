@@ -38,9 +38,10 @@
   font-size: 1.5em;
   color: black;
   font-family: 'axure_handwritingregular';
-  padding: 10px 0 0;
+  display: block;
 }
 .contribution .location {
+  display: block;
   font-family: 'nillandregular';
   color: black;
 }
@@ -48,8 +49,15 @@
   float: right;
   margin: 5px 0;
   padding: 5px 15px 5px 35px;
-  background: url("../img/vote-heart-small.png") left center no-repeat;
   color: black;
   font-size: 18px;
   font-family: 'axure_handwritingregular';
+}
+.contribution .vote-count:before {
+  color: #f10022;
+  float: left;
+  margin-right: 10px;
+  font-family: 'Glyphicons Halflings';
+  content: "\e005";
+  display: inline-block;
 }

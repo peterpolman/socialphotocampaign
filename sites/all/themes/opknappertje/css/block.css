@@ -1,5 +1,5 @@
 .block-opknappertje {
-  padding: 3em 0;
+  padding: 0 0 3em 0;
   text-align: center;
 }
 .block-opknappertje h1 {
@@ -47,7 +47,7 @@
 }
 
 #block-views-contribution-top-5 .views-row {
-  border-bottom: 2px dashed black;
+  border-bottom: 2px dashed #F2F2F2;
 }
 #block-views-contribution-top-5 .views-row:after {
   content: '';
@@ -55,56 +55,38 @@
   clear: both;
 }
 #block-views-contribution-top-5 .views-row a {
-  display: table;
+  display: block;
   width: 100%;
   color: black;
   padding: .5em;
   font-family: 'axure_handwritingregular';
   margin-bottom: 0;
 }
+#block-views-contribution-top-5 .views-row a:after {
+  clear: both;
+  content: '';
+  display: block;
+}
 #block-views-contribution-top-5 .views-row a:hover {
   text-decoration: none;
   background-color: #F2F2F2;
 }
-#block-views-contribution-top-5 .views-row img {
-  width: 100%;
-  height: auto;
-}
-#block-views-contribution-top-5 .views-row .image {
-  display: table-cell;
-  vertical-align: middle;
+#block-views-contribution-top-5 .views-row .picture {
   width: 65px;
-}
-#block-views-contribution-top-5 .views-row .author {
-  display: table-cell;
-  vertical-align: middle;
-  font-size: 1.5em;
-  width: auto;
-  padding-left: 10px;
-}
-#block-views-contribution-top-5 .views-row .votes {
-  display: table-cell;
-  vertical-align: middle;
-  padding-left: 35px;
-  width: 75px;
-  font-size: 2em;
-  font-weight: bold;
-  position: relative;
-}
-#block-views-contribution-top-5 .views-row .votes:before {
-  content: '';
+  height: auto;
   float: left;
-  display: block;
-  position: absolute;
-  left: 0;
-  width: 30px;
-  height: 30px;
-  background-image: url(../img/vote-heart-small.png);
-  background-repeat: no-repeat;
-  background-position: center center;
+  margin: 0 15px 0 0;
+}
+#block-views-contribution-top-5 .views-row .username {
+  margin-top: 5px;
+}
+#block-views-contribution-top-5 .views-row .vote-count {
+  font-size: 1.1em;
+  margin-top: 10px;
+  font-size: 1.5em;
 }
 
 
 #block-views-contribution-latest .block-title {
-  margin: 3em 0 1em;
+  margin: 2em 0 1em;
 }
