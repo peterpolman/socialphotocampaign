@@ -33,21 +33,23 @@ function opknappertje_block_view($delta = '') {
 function _opknappertje_hero_block_content($nid) {
   $markup ='';
 
-  $node = node_load($nid);
-  $user = user_load($node->uid);
+  if ($nid > 0) {
+    $node = node_load($nid);
+    $user = user_load($node->uid);
 
-  if ( $node->type === 'contribution' ) {
-    $uri = $node->field_contribution[LANGUAGE_NONE][0]['uri'];
-    $image_path = image_style_url('large', $uri);
+    if ( $node->type === 'contribution' ) {
+      $uri = $node->field_contribution[LANGUAGE_NONE][0]['uri'];
+      $image_path = image_style_url('large', $uri);
 
-    $markup = '
-    <h1><small>Een kijkje in de keuken van</small><br />' . $user->realname . '</h1>
-    <ul>
-      <li>' . flag_create_link('vote', $node->nid) . '</li>
-      <li><a href="" class="btn btn-facebook">Deel op Facebook</a></li>
-    </ul>
-    <div class="image"><img src="' . $image_path .'" alt="" /></div>
-    ';
+      $markup = '
+      <h1><small>Een kijkje in de keuken van</small><br />' . $user->realname . '</h1>
+      <ul>
+        <li>' . flag_create_link('vote', $node->nid) . '</li>
+        <li><a href="" class="btn btn-facebook">Deel op Facebook</a></li>
+      </ul>
+      <div class="image"><img src="' . $image_path .'" alt="" /></div>
+      ';
+    }
   }
 
   return $markup;
