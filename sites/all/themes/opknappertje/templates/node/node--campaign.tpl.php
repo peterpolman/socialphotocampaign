@@ -1,4 +1,4 @@
-<?php if ($teaser) : ?>
+<?php if ($teaser) { ?>
 <a href="<?php print $variables['node_url']; ?>" class="campaign media">
   <div class="media-left">
     <div class="date">
@@ -15,24 +15,29 @@
     <p><?php print $variables['campaign_info']['message']; ?></p>
   </div>
 </a>
-<?php endif; ?>
-<?php
-if (!empty($variables['contributions'])) :
-foreach ($variables['contributions'] as $contribution) :
-?>
+<?php } else { ?>
 
-<div class="col-xs-12 col-sm-4 col-md-3">
-  <div class="contribution">
-    <a href="<?php print $contribution['path']; ?>">
-  		<div class="picture" style="background-image: url(<?php print $contribution['image_url']; ?>);"></div>
-      <div class="vote-count"><?php print $contribution['vote_count']; ?></div>
-      <span class="username"><?php print $contribution['first_name']; ?><br></span>
-      <span class="location"><?php print $contribution['last_name']; ?></span>
-    </a>
-  </div>
+<button class="btn sort-by-name" data-sort-value="name">Sort by name</button>
+<button class="btn sort-by-votes" data-sort-value="votes">Sort by votes</button>
+<button class="btn sort-by-created" data-sort-value="created">Sort by date</button>
+
+<div class="grid">
+<?php
+  if (!empty($variables['contributions'])) :
+    foreach ($variables['contributions'] as $contribution) :
+?>
+<div class="contribution col-xs-12 col-sm-4 col-md-3">
+  <a href="<?php print $contribution['path']; ?>">
+		<div class="picture" style="background-image: url(<?php print $contribution['image_url']; ?>);"></div>
+    <div class="vote-count"><?php print $contribution['vote_count']; ?></div>
+    <span class="username"><?php print $contribution['first_name']; ?><br></span>
+    <span class="location"><?php print $contribution['city']; ?></span>
+    <span class="created"><?php print $contribution['created']; ?></span>
+  </a>
 </div>
-
 <?php
-endforeach;
-endif;
+    endforeach;
+  endif;
+}
 ?>
+</div>
