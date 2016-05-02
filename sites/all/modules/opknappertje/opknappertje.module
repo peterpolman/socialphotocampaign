@@ -59,14 +59,106 @@ function _opknappertje_hero_block_default_content() {
   $markup = '
   <h1>Knap je keuken op!</h1>
   <p>Maak een account, plaats een foto van je keuken en laat je vrienden stemmen.</p>
-  <ul><li><a href="/node/add/contribution" class="btn btn-default">Doe direct mee!</a></li>
-  <li><a href="/keukens" class="btn btn-default">De deelnemers</a></li></ul>
+  <ul><li><a href="/node/add/contribution" class="btn btn-green">Doe direct mee!</a></li>
+  <li><a href="/keukens" class="btn btn-green">De deelnemers</a></li></ul>
   ';
 
   return $markup;
 }
 
+function opknappertje_node_insert($node) {
+  if ($node->type === 'contribution') {
+
+    // Add entity to field_contributions in the active campaign
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'campaign')
+      ->propertyCondition('status', NODE_PUBLISHED)
+      ->propertyCondition('created', $node->created, '<') // Make sure to select the latest campaign
+      ->range(0, 1);
+
+    $result = $query->execute();
+
+    if (isset($result['node'])) {
+      foreach ($result['node'] as $campaign)
+
+      $campaign = node_load($campaign->nid);
+      $campaign->field_contributions[LANGUAGE_NONE][] = array(
+        'target_id' => $node->nid,
+      );
+
+      node_save($campaign);
+
+      drupal_set_message(t('Gefeliciteerd, je inzending is aan de campagne toegevoegd!'), 'status');
+
+    } else {
+
+      drupal_set_message(t('Sorry, er zijn geen actieve campagnes waar we je inzending aan toe kunnen voegen!'), 'error');
+
+    }
+
+  }
+
+}
+function _opknappertje_campaign_time_left($current, $target) {
+  $output = '';
+
+  if($target > $current){
+    $span = $target - $current;
+    $span = ceil($span / (60 * 60 * 24));
+
+    $output = t('Doe snel mee! Nog minder dan @amount_of_days te gaan.', array('@amount_of_days' => $span));
+
+  } else {
+    $output = t('Helaas, deze campagne is al afgelopen!');
+
+  }
+
+  return $output;
+}
+
 function opknappertje_preprocess_node(&$variables){
+  if ($variables['type'] === 'campaign' && $variables['view_mode'] === 'teaser') {
+
+    $variables['campaign_info'] = array(
+      'start_date' => $variables['field_date'][0]['value'],
+      'end_date' => $variables['field_date'][0]['value2'],
+      'message' => _opknappertje_campaign_time_left(time(), $variables['field_date'][0]['value2']),
+    );
+
+  }
+  if ($variables['type'] === 'campaign' && $variables['view_mode'] === 'full') {
+
+    foreach ($variables['field_contributions'] as $contribution) {
+      $node = $contribution['entity'];
+      $user = user_load($node->uid);
+
+      // Get contribution image
+      $image_url = image_style_url('medium', $node->field_contribution[LANGUAGE_NONE][0]['uri']);
+
+      // Get user data
+      $first_name = ($user->field_first_name) ? $user->field_first_name[LANGUAGE_NONE][0]['value'] : '';
+      $last_name = ($user->field_last_name) ? $user->field_last_name[LANGUAGE_NONE][0]['value'] : '';
+      $city = ($user->field_city) ? $user->field_city[LANGUAGE_NONE][0]['value'] : '';
+
+      // Get vote count
+      $flag = flag_get_flag('vote');
+      $vote_count = $flag->get_count($node->nid);
+
+      // Add to variables array
+      $variables['contributions'][] = array(
+        'path' => drupal_lookup_path('alias', 'node/' . $node->nid),
+        'image_url' => $image_url,
+        'first_name' => $first_name,
+        'last_name' => $last_name,
+        'city' => $city,
+        'vote_count' => $vote_count,
+      );
+
+    }
+
+  }
+
   if ($variables['type'] === 'contribution') {
     $user = user_load($variables['uid']);
 
@@ -92,6 +184,7 @@ function opknappertje_preprocess_node(&$variables){
     global $base_url;
     $variables['contribution']['url'] = $base_url . $variables['node_url'];
   }
+
   if ($variables['type'] === 'contribution' && $variables['view_mode'] === 'teaser') {
     $variables['contribution']['image'] = image_style_url('medium', $variables['field_contribution'][0]['uri']);
   }
@@ -99,6 +192,36 @@ function opknappertje_preprocess_node(&$variables){
   if ($variables['type'] === 'contribution' && $variables['view_mode'] === 'full') {
     $variables['contribution']['image'] = image_style_url('large', $variables['field_contribution'][0]['uri']);
     $variables['contribution']['body'] = $variables['body'][0]['value'];
+
+    $og_image = array(
+		  '#tag' => 'meta',
+		  '#attributes' => array(
+		    'property' => 'og:image',
+		    'content' => $variables['contribution']['image'],
+		  ),
+		);
+
+		drupal_add_html_head($og_image, 'og_image');
+
+		$og_title = array(
+		 '#tag' => 'meta',
+		 '#attributes' => array(
+			 'property' => 'og:title',
+			 'content' => $variables['title'],
+		 ),
+		);
+
+		drupal_add_html_head($og_title, 'og_title');
+
+		$og_description = array(
+		 '#tag' => 'meta',
+		 '#attributes' => array(
+			 'property' => 'og:description',
+			 'content' => 'Stem op de keuken van ' . $variables['user_profile']['first_name'] . '! ' . $variables['user_profile']['first_name'] . ' maakt dan meer kans om een 750,- te winnen.',
+		 ),
+		);
+
+		drupal_add_html_head($og_description, 'og_description');
   }
 }
 ?>

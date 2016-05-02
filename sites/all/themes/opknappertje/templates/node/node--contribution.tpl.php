@@ -103,12 +103,6 @@ if ($teaser) {
 <?php
 } else {
 ?>
-<?php
-sdpm($variables);
-
-
-?>
-
 <h3>Het verhaal achter de keuken van: <br><span>
   <?php print $variables['user_profile']['first_name']; ?>
   <?php print $variables['user_profile']['last_name']; ?>
@@ -116,7 +110,7 @@ sdpm($variables);
  </h3>
 <p><i><?php print $variables['contribution']['body']; ?></i></p>
 <h3>Wil je <?php print $variables['user_profile']['first_name']; ?> helpen met het verzamelen van stemmen?</h3>
-<p><a class="btn btn-facebook" href="http://www.facebook.com/sharer.php?u=http://opknappertjenodig.nl/keukens/opknapper/407" target="_blank">Deel op Facebook!</a>
+<p><a class="btn btn-facebook" href="https://www.facebook.com/dialog/share?app_id=177969065690482&display=popup&href=<?php print htmlentities( $base_url . "/" . $variables["alias"] ); ?>&redirect_uri=<?php print htmlentities( $base_url . "/" . $variables["contribution_alias"] ); ?>" target="_blank">Deel op Facebook!</a>
 </p><p>Gebruik de bovenstaande knop om de link van <?php print $variables['user_profile']['first_name']; ?> op je Facebook tijdlijn te plaatsen. Zo roep je niet alleen de vrienden van Peter, maar ook jouw vrienden op om mee te helpen.</p>
 
 <?php

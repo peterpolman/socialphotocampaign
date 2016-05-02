@@ -1,0 +1,43 @@
+
+.node-type-campaign:not(.page-node-edit) .main-container {
+  border: none;
+  background: none;
+}
+
+.node-type-campaign:not(.page-node-edit) .main-container .region-content {
+  background: none;
+  padding: 0;
+}
+
+.campaign {
+  display: block;
+  border-bottom: 1px dashed #333;
+  padding: 15px 0;
+  color: black;
+}
+.campaign:after {
+  clear: both;
+  content: '';
+  display: block;
+}
+.campaign h3 {
+  margin-top: 0;
+}
+.campaign:hover {
+  color: black;
+  text-decoration: none;
+}
+.campaign .date {
+  width: 75px;
+  text-align: center;
+  background: white;
+}
+.campaign .date .month {
+  text-transform: uppercase;
+  background: #f10022;
+  color: #fff;
+}
+.campaign .date .day {
+  font-weight: 700;
+  font-size: 2em;
+}

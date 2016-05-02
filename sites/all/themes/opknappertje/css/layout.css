@@ -15,15 +15,7 @@ body {
   border-bottom: 10px solid rgba(255, 255, 255, 0.7);
   background: url('../img/section.png');
 }
-.page-keukens .main-container {
-  border: none;
-  background: none;
-}
 
-.page-keukens .main-container .region-content {
-  background: none;
-  padding: 0;
-}
 .region-content {
   background: rgba(255,255,255,0.8);
   padding: 1em;
