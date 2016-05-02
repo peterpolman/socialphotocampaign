@@ -42,7 +42,7 @@ function _opknappertje_hero_block_content($nid) {
       $image_path = image_style_url('large', $uri);
 
       $markup = '
-      <h1><small>Een kijkje in de keuken van</small><br />' . $user->realname . '</h1>
+      <h1><small>Een kijkje in de keuken van</small><br />' . $user->field_first_name[LANGUAGE_NONE][0]['value']  . ' ' . $user->field_last_name[LANGUAGE_NONE][0]['value'] . '</h1>
       <ul>
         <li>' . flag_create_link('vote', $node->nid) . '</li>
         <li><a href="" class="btn btn-facebook">Deel op Facebook</a></li>
@@ -107,7 +107,7 @@ function _opknappertje_campaign_time_left($current, $target) {
     $span = $target - $current;
     $span = ceil($span / (60 * 60 * 24));
 
-    $output = t('Doe snel mee! Nog minder dan @amount_of_days te gaan.', array('@amount_of_days' => $span));
+    $output = t('Doe snel mee! Nog minder dan @amount_of_days dagen te gaan.', array('@amount_of_days' => $span));
 
   } else {
     $output = t('Helaas, deze campagne is al afgelopen!');
@@ -222,6 +222,12 @@ function opknappertje_preprocess_node(&$variables){
 		);
 
 		drupal_add_html_head($og_description, 'og_description');
+
+    global $base_url;
+    $path = drupal_get_path_alias('node/' . $variables['nid']);
+    $path_alias = 'https://www.facebook.com/dialog/share?app_id=177969065690482&display=popup&href=' . htmlentities( $base_url . '/' . $path ) . '&redirect_uri=' . htmlentities( $base_url . '/' . $path);
+
+    $variables['contribution']['fb_share_link'] = $path_alias;
   }
 }
 ?>

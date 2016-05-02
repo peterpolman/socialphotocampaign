@@ -15,11 +15,7 @@
     <p><?php print $variables['campaign_info']['message']; ?></p>
   </div>
 </a>
-
-
-
 <?php endif; ?>
-
 <?php
 if (!empty($variables['contributions'])) :
 foreach ($variables['contributions'] as $contribution) :

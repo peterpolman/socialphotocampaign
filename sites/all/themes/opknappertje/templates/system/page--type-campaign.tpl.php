@@ -1,15 +1,15 @@
 <div id="blobs">
-	<img id="blob0" class="hidden-xs" src="/<?php print drupal_get_path('theme',$GLOBALS['theme']); ?>/img/photo00.png" data-offset="" alt="" />
-	<img id="blob1" class="hidden-xs" src="/<?php print drupal_get_path('theme',$GLOBALS['theme']); ?>/img/photo01.png" data-offset="" alt="" />
-	<img id="blob2" class="hidden-xs" src="/<?php print drupal_get_path('theme',$GLOBALS['theme']); ?>/img/photo02.png" data-offset="" alt="" />
-	<img id="blob3" class="hidden-xs" src="/<?php print drupal_get_path('theme',$GLOBALS['theme']); ?>/img/photo03.png" data-offset="" alt="" />
-	<img id="blob4" class="hidden-xs" src="/<?php print drupal_get_path('theme',$GLOBALS['theme']); ?>/img/photo04.png" data-offset="" alt="" />
+	<div id="blob0" class="hidden-xs"></div>
+	<div id="blob1" class="hidden-xs"></div>
+	<div id="blob2" class="hidden-xs"></div>
+	<div id="blob3" class="hidden-xs"></div>
+	<div id="blob4" class="hidden-xs"></div>
 
-	<img id="blob5" class="hidden-xs" src="/<?php print drupal_get_path('theme',$GLOBALS['theme']); ?>/img/photo05.png" data-offset="" alt="" />
-	<img id="blob6" class="hidden-xs" src="/<?php print drupal_get_path('theme',$GLOBALS['theme']); ?>/img/photo06.png" data-offset="" alt="" />
-	<img id="blob7" class="hidden-xs" src="/<?php print drupal_get_path('theme',$GLOBALS['theme']); ?>/img/photo07.png" data-offset="" alt="" />
-	<img id="blob8" class="hidden-xs" src="/<?php print drupal_get_path('theme',$GLOBALS['theme']); ?>/img/photo08.png" data-offset="" alt="" />
-	<img id="blob9" class="hidden-xs" src="/<?php print drupal_get_path('theme',$GLOBALS['theme']); ?>/img/photo09.png" data-offset="" alt="" />
+	<div id="blob5" class="hidden-xs"></div>
+	<div id="blob6" class="hidden-xs"></div>
+	<div id="blob7" class="hidden-xs"></div>
+	<div id="blob8" class="hidden-xs"></div>
+	<div id="blob9" class="hidden-xs"></div>
 </div>
 
 <header id="navbar" role="banner" class="<?php print $navbar_classes; ?>">
