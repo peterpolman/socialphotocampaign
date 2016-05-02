@@ -1,17 +1,3 @@
-<div id="blobs">
-	<div id="blob0" class="hidden-xs"></div>
-	<div id="blob1" class="hidden-xs"></div>
-	<div id="blob2" class="hidden-xs"></div>
-	<div id="blob3" class="hidden-xs"></div>
-	<div id="blob4" class="hidden-xs"></div>
-
-	<div id="blob5" class="hidden-xs"></div>
-	<div id="blob6" class="hidden-xs"></div>
-	<div id="blob7" class="hidden-xs"></div>
-	<div id="blob8" class="hidden-xs"></div>
-	<div id="blob9" class="hidden-xs"></div>
-</div>
-
 <header id="navbar" role="banner" class="<?php print $navbar_classes; ?>">
   <div class="<?php print $container_class; ?>">
     <div class="navbar-header">
