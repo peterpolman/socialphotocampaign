@@ -127,7 +127,7 @@ function opknappertje_preprocess_node(&$variables){
     );
 
   }
-  if (!empty($variables['field_contributions'][LANGUAGE_NONE]) && $variables['type'] === 'campaign' && $variables['view_mode'] === 'full') {
+  if ($variables['type'] === 'campaign' && $variables['view_mode'] === 'full') {
 
     foreach ($variables['field_contributions'] as $contribution) {
       $node = $contribution['entity'];
