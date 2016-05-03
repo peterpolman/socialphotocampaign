@@ -129,7 +129,7 @@ function opknappertje_preprocess_node(&$variables){
   }
   if ($variables['type'] === 'campaign' && $variables['view_mode'] === 'full') {
 
-    foreach ($variables['field_contributions'] as $contribution) {
+    foreach ($variables['field_contributions'][LANGUAGE_NONE] as $contribution) {
       $node = $contribution['entity'];
       $user = user_load($node->uid);
 
