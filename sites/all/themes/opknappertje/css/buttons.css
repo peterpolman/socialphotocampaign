@@ -1,3 +1,4 @@
+.btn-red,
 .region-header .flag {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   font-family: 'nilland-blackregular';
@@ -28,7 +29,6 @@
   content: "\e013";
   display: block;
 }
-
 .region-header .unflag-action:before {
   float: left;
   margin-right: 10px;
@@ -36,10 +36,13 @@
   content: "\e014";
   display: block;
 }
+.btn-red:hover,
+.btn-red.active,
 .region-header .flag:hover,
 .region-header .flag:active {
   border: 1px solid #f10022;
   text-decoration: none;
+  color: white;
   background: -webkit-linear-gradient(#f10022, #f10022);
   background: -o-linear-gradient(#f10022, #f10022);
   background: -moz-linear-gradient(#f10022, #f10022);

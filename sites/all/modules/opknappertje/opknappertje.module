@@ -60,7 +60,7 @@ function _opknappertje_hero_block_default_content() {
   <h1>Knap je keuken op!</h1>
   <p>Maak een account, plaats een foto van je keuken en laat je vrienden stemmen.</p>
   <ul><li><a href="/node/add/contribution" class="btn btn-green">Doe direct mee!</a></li>
-  <li><a href="/keukens" class="btn btn-green">De deelnemers</a></li></ul>
+  <li><a href="/campagnes" class="btn btn-green">De deelnemers</a></li></ul>
   ';
 
   return $markup;
@@ -127,7 +127,7 @@ function opknappertje_preprocess_node(&$variables){
     );
 
   }
-  if ($variables['type'] === 'campaign' && $variables['view_mode'] === 'full') {
+  if (!empty($variables['field_contributions'][LANGUAGE_NONE]) && $variables['type'] === 'campaign' && $variables['view_mode'] === 'full') {
 
     foreach ($variables['field_contributions'] as $contribution) {
       $node = $contribution['entity'];

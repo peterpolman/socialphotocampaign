@@ -1,78 +1,27 @@
-.navbar-toggle {
-  background: white;
-  padding: 20px;
+#navbar {
+  padding-top: 25px;
+  margin-bottom: 0;
+}
+.navbar {
+  background: transparent;
   border: 0;
 }
-.navbar-toggle .icon-bar {
-  background: black;
+.navbar-nav {
+  margin-top: 15px;
 }
-.navbar-collapse {
-  /*background: black;*/
-  border: 0;
-  padding-bottom: 2em;
+.navbar-nav > li {
+  margin: 0 5px;
 }
-
+.navbar-nav > li > a {
+  color: white !important;
+  font-family: 'axure_handwritingregular';
+  padding: .5em 1em;
+}
+.navbar-nav > li.active > a {
+  background: transparent !important;
+  border: 2px solid white;
+  border-radius: 5px;
+}
 .navbar-nav.secondary {
   float: right;
-}
-
-.navbar {
-    z-index: 500;
-    border: 0;
-    background-color: transparent;
-}
-.navbar .container .navbar-header {
-    padding: .8em 0;
-    margin-right: 25px;
-}
-.navbar .container .navbar-header .navbar-brand {
-    padding: 0;
-}
-.navbar .container .navbar-header .navbar-brand img {
-    height: 50px;
-}
-.navbar .container .nav {
-    padding-top: 2em;
-}
-.navbar .container .nav li a {
-    position: relative;
-    display: block;
-    padding: 7px 0 3px 0;
-    text-align: center;
-    text-decoration: none;
-    color: #FFF;
-    background: transparent;
-    font-family: 'axure_handwritingregular';
-    font-size: 18px;
-}
-.navbar .container .nav li a:after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: block;
-    width: 0;
-    height: 2px;
-    content: '';
-    transition: .2s width ease;
-    background-color: #FFF;
-}
-.navbar .container .nav li a:hover {
-    background: transparent;
-}
-.navbar .container .nav li a:hover:after {
-    cursor: pointer;
-    width: 100%;
-}
-.navbar .container .nav li {
-    margin-right: 2em;
-}
-.navbar .container .nav li.active:hover {
-    background: transparent;
-}
-.navbar .container .nav li.active:hover a {
-    color: #FFFFFF;
-}
-.navbar .container .nav li.active a:after {
-    cursor: pointer;
-    width: 100%;
 }

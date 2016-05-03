@@ -17,22 +17,23 @@
 </a>
 <?php } else { ?>
 
-<button class="btn sort-by-name" data-sort-value="name">Sort by name</button>
-<button class="btn sort-by-votes" data-sort-value="votes">Sort by votes</button>
-<button class="btn sort-by-created" data-sort-value="created">Sort by date</button>
-
+<div class="view-filters">
+  <span>Sorteer:</span>
+  <button class="btn btn-red sort-by-name" data-sort-value="name">Naam</button>
+  <button class="btn btn-red sort-by-votes" data-sort-value="votes">Stemmen</button>
+  <button class="btn btn-red sort-by-created" data-sort-value="created">Datum</button>
+</div>
 <div class="grid">
 <?php
   if (!empty($variables['contributions'])) :
     foreach ($variables['contributions'] as $contribution) :
 ?>
-<div class="contribution col-xs-12 col-sm-4 col-md-3">
+<div class="contribution col-xs-12 col-sm-4 col-md-3" data-created="<?php print $contribution['created']; ?>" data-name="<?php print $contribution['first_name']; ?>" data-votecount="<?php print $contribution['vote_count']; ?>">
   <a href="<?php print $contribution['path']; ?>">
 		<div class="picture" style="background-image: url(<?php print $contribution['image_url']; ?>);"></div>
     <div class="vote-count"><?php print $contribution['vote_count']; ?></div>
     <span class="username"><?php print $contribution['first_name']; ?><br></span>
     <span class="location"><?php print $contribution['city']; ?></span>
-    <span class="created"><?php print $contribution['created']; ?></span>
   </a>
 </div>
 <?php
