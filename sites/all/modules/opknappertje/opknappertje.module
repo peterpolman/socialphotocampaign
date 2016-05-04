@@ -128,8 +128,8 @@ function opknappertje_preprocess_node(&$variables){
 
   }
   if ($variables['type'] === 'campaign' && $variables['view_mode'] === 'full') {
-
-    foreach ($variables['field_contributions'][LANGUAGE_NONE] as $contribution) {
+    sdpm($variables['field_contributions']);
+    foreach ($variables['field_contributions'] as $contribution) {
       $node = $contribution['entity'];
       $user = user_load($node->uid);
 
