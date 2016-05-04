@@ -74,7 +74,7 @@ function opknappertje_node_insert($node) {
     $query->entityCondition('entity_type', 'node')
       ->entityCondition('bundle', 'campaign')
       ->propertyCondition('status', NODE_PUBLISHED)
-      ->fieldCondition('field_date', 'value2', $node->created, '<') // Make sure to select the latest campaign
+      ->fieldCondition('field_date', 'value2', $node->created, '>') // Make sure to select the latest campaign
       ->range(0, 1);
 
     $result = $query->execute();
