@@ -9,6 +9,7 @@ body {
 #page-header {
   position: relative;
   z-index: 10;
+  min-height: 200px;
 }
 
 .main-container {
