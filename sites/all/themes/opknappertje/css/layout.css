@@ -1,8 +1,9 @@
 
 body {
-    font-family: 'Georgia';
-    text-rendering: optimizeLegibility;
-    background: url("../img/body.jpg") top center repeat;
+  padding-top: 80px !important;
+  font-family: 'Georgia';
+  text-rendering: optimizeLegibility;
+  background: url("../img/body.jpg") top center repeat;
 }
 
 #page-header {

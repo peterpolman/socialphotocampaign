@@ -1,13 +1,28 @@
+
+
 #navbar {
-  padding-top: 25px;
   margin-bottom: 0;
 }
 .navbar {
-  background: transparent;
   border: 0;
+  padding: 5px 0 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.75);
+}
+.navbar-header .logo img{
+  margin-top: 5px;
+  margin-left: 10px;
+  height: 40px;
+}
+.not-logged-in .navbar-nav{
+  margin-top: 12px;
+}
+.navbar-toggle {
+  margin-top: 18px;
 }
 .navbar-nav {
-  margin-top: 15px;
+  margin-top: 5px;
+  float: right;
+  clear: right;
 }
 .navbar-nav > li {
   margin: 0 5px;
@@ -15,7 +30,7 @@
 .navbar-nav > li > a {
   color: white !important;
   font-family: 'axure_handwritingregular';
-  padding: .5em 1em;
+  padding: .3em .8em;
 }
 .navbar-nav > li.active > a {
   background: transparent !important;
@@ -23,5 +38,25 @@
   border-radius: 5px;
 }
 .navbar-nav.secondary {
+  margin-top: 0;
   float: right;
+}
+.navbar-nav.secondary > li > a {
+  font-size: .8em;
+  color: #9d9d9d !important;
+}
+.navbar-nav.secondary > li > a:hover {
+  color: white;
+}
+.navbar-nav.secondary li:first-child a:before {
+  content: "\e008";
+  display: inline;
+  font-family: 'Glyphicons Halflings';
+  margin-right: 5px;
+}
+.navbar-nav.secondary li:last-child a:before {
+  content: "\e163";
+  display: inline;
+  font-family: 'Glyphicons Halflings';
+  margin-right: 5px;
 }
