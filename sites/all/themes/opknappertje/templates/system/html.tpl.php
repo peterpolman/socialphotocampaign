@@ -17,15 +17,6 @@
   <div id="blobs">
   	<div id="blob0" class="hidden-xs"></div>
   	<div id="blob1" class="hidden-xs"></div>
-  	<div id="blob2" class="hidden-xs"></div>
-  	<div id="blob3" class="hidden-xs"></div>
-  	<div id="blob4" class="hidden-xs"></div>
-
-  	<div id="blob5" class="hidden-xs"></div>
-  	<div id="blob6" class="hidden-xs"></div>
-  	<div id="blob7" class="hidden-xs"></div>
-  	<div id="blob8" class="hidden-xs"></div>
-  	<div id="blob9" class="hidden-xs"></div>
   </div>
   <div id="skip-link">
     <a href="#main-content" class="element-invisible element-focusable"><?php print t('Skip to main content'); ?></a>
@@ -33,6 +24,5 @@
   <?php print $page_top; ?>
   <?php print $page; ?>
   <?php print $page_bottom; ?>
-  <script src="https://npmcdn.com/isotope-layout@3.0/dist/isotope.pkgd.min.js"></script>
 </body>
 </html>

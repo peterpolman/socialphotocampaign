@@ -27,4 +27,5 @@ regions[page_bottom]    = 'Page bottom'
 stylesheets[all][] = css/bootstrap.min.css
 stylesheets[all][] = css/style.css
 
+scripts[] = js/isotope.pkgd.min.js
 scripts[] = js/base.js

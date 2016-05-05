@@ -2,89 +2,19 @@
   z-index: -1;
 }
 #blob0 {
+  position: absolute;
   top: 0px;
-  left: -150px;
-  width: 209px;
-  height: 223px;
-  background: url('../img/photo00.png') center center / cover no-repeat;
+  left: 0px;
+  width: 297px;
+  height: 1336px;
+  background: url('../img/bg-left.png') center center / cover no-repeat;
 }
 
 #blob1 {
-  top: 200px;
-  left: -150px;
-  width: 309px;
-  height: 490px;
-  background: url('../img/photo01.png') center center / cover no-repeat;
-}
-
-#blob2 {
-  top: 650px;
-  left: -150px;
-  width: 243px;
-  height: 317px;
-  background: url('../img/photo02.png') center center / cover no-repeat;
-}
-
-#blob3 {
-  top: 900px;
-  left: -150px;
-  width: 246px;
-  height: 372px;
-  background: url('../img/photo03.png') center center / cover no-repeat;
-}
-
-#blob4 {
+  position: absolute;
   top: 0px;
-  right: -150px;
-  width: 330px;
-  height: 156px;
-  background: url('../img/photo04.png') center center / cover no-repeat;
+  right: 0px;
+  width: 297px;
+  height: 1516px;
+  background: url('../img/bg-right.png') center center / cover no-repeat;
 }
-
-#blob5 {
-  top: 50px;
-  right: -150px;
-  width: 293px;
-  height: 354px;
-  background: url('../img/photo05.png') center center / cover no-repeat;
-}
-
-#blob6 {
-  top: 400px;
-  right: -150px;
-  width: 320px;
-  height: 317px;
-  background: url('../img/photo06.png') center center / cover no-repeat;
-}
-
-#blob7 {
-  top: 700px;
-  right: -150px;
-  width: 100px;
-  height: 100px;
-  background: url('../img/photo07.png') center center / cover no-repeat;
-}
-
-#blob8 {
-  top: 750px;
-  right: -150px;
-  width: 312px;
-  height: 321px;
-  background: url('../img/photo08.png') center center / cover no-repeat;
-}
-
-#blob9 {
-  top: 1000px;
-  right: -150px;
-  width: 304px;
-  height: 413px;
-  background: url('../img/photo09.png') center center / cover no-repeat;
-}
-
-#blob0, #blob1, #blob2, #blob3 {
-  position: absolute;
-  left: 0; }
-
-#blob4, #blob5, #blob6, #blob7, #blob8, #blob9 {
-  position: absolute;
-  right: 0; }
