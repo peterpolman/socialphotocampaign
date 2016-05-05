@@ -14,7 +14,10 @@
   height: 40px;
 }
 .not-logged-in .navbar-nav{
-  margin-top: 12px;
+  margin-top: 20px;
+}
+body.toolbar .navbar-fixed-top {
+  top: 30px !important;
 }
 .navbar-toggle {
   margin-top: 18px;
