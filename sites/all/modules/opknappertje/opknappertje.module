@@ -14,6 +14,12 @@ function opknappertje_block_info() {
     'info' => t('Hero block campaign'),
     'region' => 'header',
     'cache' => DRUPAL_NO_CACHE,
+    'attributes' => array('classes'=>'')
+  );
+  $blocks['hero_block_campaign_top5'] = array(
+    'info' => t('Hero block campaign top 5'),
+    'region' => 'header',
+    'cache' => DRUPAL_NO_CACHE,
   );
 
   return $blocks;
@@ -35,9 +41,93 @@ function opknappertje_block_view($delta = '') {
       $block['subject'] = '<none>';
       $block['content'] = _opknappertje_hero_block_campaign_content(arg(1));
     break;
+    case 'hero_block_campaign_top5':
+      $block['subject'] = t('Top 5');
+      $block['content'] = _opknappertje_hero_block_campaign_top5_content(arg(1));
+    break;
   }
 
   return $block;
+}
+
+function _opknappertje_image_from_fid($fid, $image_style = 'thumbnail') {
+  $uri = file_load($fid)->uri;
+  $image_url = image_style_url($image_style, $uri);
+
+  return $image_url;
+}
+
+function _opknappertje_create_contribution_info_array($node, $user) {
+  // Get contribution image
+  $image_url = image_style_url('medium', $node->field_contribution[LANGUAGE_NONE][0]['uri']);
+
+  // Get user data
+  $first_name = ($user->field_first_name) ? $user->field_first_name[LANGUAGE_NONE][0]['value'] : '';
+  $last_name = ($user->field_last_name) ? $user->field_last_name[LANGUAGE_NONE][0]['value'] : '';
+  $city = ($user->field_city) ? $user->field_city[LANGUAGE_NONE][0]['value'] : '';
+
+  // Get vote count
+  $flag = flag_get_flag('vote');
+  $vote_count = $flag->get_count($node->nid);
+
+  // Add to array
+  $contribution_info = array(
+    'path' => drupal_lookup_path('alias', 'node/' . $node->nid),
+    'image_url' => $image_url,
+    'first_name' => $first_name,
+    'last_name' => $last_name,
+    'city' => $city,
+    'vote_count' => $vote_count,
+    'created' => $node->created,
+    'picture' => _opknappertje_image_from_fid($node->picture),
+  );
+
+  return $contribution_info;
+
+}
+
+function _opknappertje_hero_block_campaign_top5_content() {
+
+  // Load active campaign
+  $node = _opknappertje_get_active_campaign(time());
+
+  // Load the node
+  if (isset($node->nid)) {
+    $node = node_load($node->nid);
+    $markup = '<ul>';
+
+    foreach ($node->field_contributions[LANGUAGE_NONE] as $contribution) {
+
+      $node = node_load($contribution['target_id']);
+      $user = user_load($node->uid);
+
+      $contribution_info  = _opknappertje_create_contribution_info_array($node, $user);
+
+      $markup .= '<li>
+      <a href="/'. $contribution_info['path'] .'" class="contribution">
+      <div class="picture">
+      <img class="img-responsive" src="'. $contribution_info['picture'] .'" width="100" height="100" alt="">
+      </div>
+      <div class="vote-count">
+      '.$contribution_info['vote_count'].'
+      </div>
+      <span class="username">
+      '.$contribution_info['first_name'].'
+      </span>
+      <span class="location">
+      '.$contribution_info['city'].'
+      </span>
+      </a>';
+    }
+
+    $markup .= '</ul>';
+
+  } else {
+    $markup = t('Er zijn nog geen inzendingen op de lopende campagne.');
+  }
+
+  return $markup;
+
 }
 
 function _opknappertje_hero_block_campaign_content($nid) {
@@ -68,13 +158,13 @@ function _opknappertje_hero_block_campaign_content($nid) {
 }
 
 
-function _opknappertje_get_active_campaign($node){
+function _opknappertje_get_active_campaign($current_time){
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'campaign')
     ->propertyCondition('status', NODE_PUBLISHED) // Make sure to select a published campaign
-    ->fieldCondition('field_date', 'value', $node->created, '<') // Make sure to select an active campaign
-    ->fieldCondition('field_date', 'value2', $node->created, '>') // Make sure to select an active campaign
+    ->fieldCondition('field_date', 'value', $current_time, '<') // Make sure to select an active campaign
+    ->fieldCondition('field_date', 'value2', $current_time, '>') // Make sure to select an active campaign
     ->propertyOrderBy('created', 'DESC') // Make sure to select the newest campaign in the array
     ->range(0, 1); // Make sure to select only one
 
@@ -93,7 +183,7 @@ function _opknappertje_get_active_campaign($node){
 }
 
 function _opknappertje_user_contribution_unique_validate($node){
-  $active_campaign = _opknappertje_get_active_campaign($node);
+  $active_campaign = _opknappertje_get_active_campaign($node->created);
 
   if ($active_campaign != FALSE) {
     // Get the active campaign node
@@ -131,7 +221,7 @@ function _opknappertje_user_contribution_unique_validate($node){
 
 function opknappertje_node_validate($node, $form, &$form_state) {
   if ($node->type === 'contribution') {
-    $active_campaign = _opknappertje_get_active_campaign($node);
+    $active_campaign = _opknappertje_get_active_campaign($node->created);
     $unique_contribution = _opknappertje_user_contribution_unique_validate($node, $active_campaign);
 
     if ($active_campaign == FALSE) {
@@ -189,7 +279,7 @@ function _opknappertje_hero_block_default_content() {
 function opknappertje_node_insert($node) {
   if ($node->type === 'contribution') {
 
-    $campaign =_opknappertje_get_active_campaign($node);
+    $campaign =_opknappertje_get_active_campaign($node->created);
     $campaign = node_load($campaign->nid);
     $campaign->field_contributions[LANGUAGE_NONE][] = array(
       'target_id' => $node->nid,

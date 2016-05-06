@@ -39,25 +39,31 @@
   text-align: center;
 }
 
-#block-views-contribution-top-5 {
+#block-opknappertje-hero-block-campaign-top5 {
   background: white;
+  padding: 0;
 }
-#block-views-contribution-top-5 .block-title {
+#block-opknappertje-hero-block-campaign-top5 .block-title {
   background: url('../img/dark-grungewall.png');
   padding: .5em 0;
   text-align: center;
   margin: 0;
 }
-
-#block-views-contribution-top-5 .views-row {
-  border-bottom: 2px dashed #F2F2F2;
+#block-opknappertje-hero-block-campaign-top5 ul {
+  margin: 0;
 }
-#block-views-contribution-top-5 .views-row:after {
+#block-opknappertje-hero-block-campaign-top5 li {
+  border-bottom: 2px dashed #F2F2F2;
+  display: block;
+  margin: 0;
+  text-align: left;
+}
+#block-opknappertje-hero-block-campaign-top5 li:after {
   content: '';
   display: block;
   clear: both;
 }
-#block-views-contribution-top-5 .views-row a {
+#block-opknappertje-hero-block-campaign-top5 li a {
   display: block;
   width: 100%;
   color: black;
@@ -65,25 +71,28 @@
   font-family: 'axure_handwritingregular';
   margin-bottom: 0;
 }
-#block-views-contribution-top-5 .views-row a:after {
+#block-opknappertje-hero-block-campaign-top5 li a:after {
   clear: both;
   content: '';
   display: block;
 }
-#block-views-contribution-top-5 .views-row a:hover {
+#block-opknappertje-hero-block-campaign-top5 li a:hover {
   text-decoration: none;
   background-color: #F2F2F2;
 }
-#block-views-contribution-top-5 .views-row .picture {
+#block-opknappertje-hero-block-campaign-top5 li .picture {
   width: 65px;
   height: auto;
   float: left;
   margin: 0 15px 0 0;
 }
-#block-views-contribution-top-5 .views-row .username {
+#block-opknappertje-hero-block-campaign-top5 li .picture img {
+  border-radius: 50%;
+}
+#block-opknappertje-hero-block-campaign-top5 li .username {
   margin-top: 5px;
 }
-#block-views-contribution-top-5 .views-row .vote-count {
+#block-opknappertje-hero-block-campaign-top5 li .vote-count {
   font-size: 1.1em;
   margin-top: 10px;
   font-size: 1.5em;

@@ -22,7 +22,7 @@ if ($teaser) {
 } else {
   $links = '';
   if ($user->uid == $variables['uid']) {
-    $links = '<a href="/node/' . $variables['nid'] . '/edit">Bewerk je pagina</a>';
+    $links = '<a href="/node/' . $variables['nid'] . '/edit">Bewerk je pagina (debug)</a>';
   }
 ?>
 <?php print $links; ?>
