@@ -41,3 +41,10 @@
   font-weight: 700;
   font-size: 2em;
 }
+
+.campaign.inactive .date .month {
+  background: gray;
+}
+.campaign.inactive .date .day {
+  color: gray;
+}

@@ -1,5 +1,5 @@
 <?php if ($teaser) { ?>
-<a href="<?php print $variables['node_url']; ?>" class="campaign media">
+<a href="<?php print $variables['node_url']; ?>" class="campaign media <?php print $variables['campaign_info']['status']; ?>">
   <div class="media-left">
     <div class="date">
       <div class="month">

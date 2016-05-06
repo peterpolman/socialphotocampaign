@@ -10,6 +10,11 @@ function opknappertje_block_info() {
     'region' => 'header',
     'cache' => DRUPAL_NO_CACHE,
   );
+  $blocks['hero_block_campaign'] = array(
+    'info' => t('Hero block campaign'),
+    'region' => 'header',
+    'cache' => DRUPAL_NO_CACHE,
+  );
 
   return $blocks;
 }
@@ -26,8 +31,113 @@ function opknappertje_block_view($delta = '') {
       $block['subject'] = '<none>';
       $block['content'] = _opknappertje_hero_block_default_content();
     break;
+    case 'hero_block_campaign':
+      $block['subject'] = '<none>';
+      $block['content'] = _opknappertje_hero_block_campaign_content(arg(1));
+    break;
   }
+
   return $block;
+}
+
+function _opknappertje_hero_block_campaign_content($nid) {
+  $node = node_load($nid);
+
+  $text = _opknappertje_campaign_time_left(time(), $node->field_date[LANGUAGE_NONE][0]['value2']);
+  $status = _opknappertje_campaign_status(time(), $node->field_date[LANGUAGE_NONE][0]);
+
+  $markup = '<h2>' . $text . '</h2>';
+
+  if ($status === 'active') {
+    $markup .= '<ul><li>
+                <a class="btn btn-green" href="/node/add/contribution">Doe snel mee!</a>
+                </li></ul>';
+  } else {
+    $markup .= '<ul><li>
+                <a class="btn btn-green" href="/campagnes">Kies een andere campagne</a>
+                </li></ul>';
+  }
+
+  return $markup;
+}
+
+
+function _opknappertje_get_active_campaign($node){
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'campaign')
+    ->propertyCondition('status', NODE_PUBLISHED) // Make sure to select a published campaign
+    ->fieldCondition('field_date', 'value2', $node->created, '>') // Make sure to select an active campaign
+    ->propertyOrderBy('created', 'DESC') // Make sure to select the newest campaign in the array
+    ->range(0, 1); // Make sure to select only one
+
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    foreach ($result['node'] as $campaign) {
+      // Return the campaign
+      return $campaign;
+    }
+  } else {
+    // Return false when there are no active campaigns
+    return FALSE;
+  }
+
+}
+
+function _opknappertje_user_contribution_unique_validate($node){
+  $active_campaign = _opknappertje_get_active_campaign($node);
+
+  if ($active_campaign != FALSE) {
+    // Get the active campaign node
+    $node = node_load($active_campaign->nid);
+
+    // Loop through contributions if they exist
+    if (!empty($node->field_contributions[LANGUAGE_NONE])) {
+
+      foreach ($node->field_contributions[LANGUAGE_NONE] as $contribution) {
+
+        // Load the current user
+        global $user;
+
+        // Load the contrib
+        $contribution = node_load($contribution['target_id']);
+
+        // See if node with current uid exists
+        if ($contribution->uid == $user->uid) {
+
+          return FALSE;
+
+        }
+
+      }
+
+    }
+
+  } else {
+    // there is no active campaign
+  }
+
+  return TRUE;
+
+}
+
+function opknappertje_node_validate($node, $form, &$form_state) {
+  if ($node->type === 'contribution') {
+    $active_campaign = _opknappertje_get_active_campaign($node);
+    $unique_contribution = _opknappertje_user_contribution_unique_validate($node, $active_campaign);
+
+    if ($active_campaign == FALSE) {
+      form_set_error('field_contribution', t('Sorry, er is geen actieve campagne.'));
+
+    }
+    elseif ($unique_contribution == FALSE) {
+      form_set_error('field_contribution', t('Sorry, je mag maar 1x per campagne een inzending plaatsen.'));
+
+    }
+
+  }
+
 }
 
 function _opknappertje_hero_block_content($nid) {
@@ -45,11 +155,14 @@ function _opknappertje_hero_block_content($nid) {
       <h1><small>Een kijkje in de keuken van</small><br />' . $user->field_first_name[LANGUAGE_NONE][0]['value']  . ' ' . $user->field_last_name[LANGUAGE_NONE][0]['value'] . '</h1>
       <ul>
         <li>' . flag_create_link('vote', $node->nid) . '</li>
-        <li><a href="" class="btn btn-facebook">Deel op Facebook</a></li>
+        <li>
+        <a class="btn btn-facebook" href="' . _create_fb_share_link($node->nid) . '" target="_blank">Deel op Facebook!</a>
+        </li>
       </ul>
       <div class="image"><img src="' . $image_path .'" alt="" /></div>
       ';
     }
+
   }
 
   return $markup;
@@ -69,33 +182,19 @@ function _opknappertje_hero_block_default_content() {
 function opknappertje_node_insert($node) {
   if ($node->type === 'contribution') {
 
-    // Add entity to field_contributions in the active campaign
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'campaign')
-      ->propertyCondition('status', NODE_PUBLISHED)
-      ->fieldCondition('field_date', 'value2', $node->created, '>') // Make sure to select the latest campaign
-      ->range(0, 1);
+    $campaign =_opknappertje_get_active_campaign($node);
+    $campaign = node_load($campaign->nid);
+    $campaign->field_contributions[LANGUAGE_NONE][] = array(
+      'target_id' => $node->nid,
+    );
 
-    $result = $query->execute();
+    node_save($campaign);
 
-    if (isset($result['node'])) {
-      foreach ($result['node'] as $campaign)
+    drupal_set_message(t('Gefeliciteerd, je inzending is aan de campagne toegevoegd!'), 'status');
 
-      $campaign = node_load($campaign->nid);
-      $campaign->field_contributions[LANGUAGE_NONE][] = array(
-        'target_id' => $node->nid,
-      );
+  } else {
 
-      node_save($campaign);
-
-      drupal_set_message(t('Gefeliciteerd, je inzending is aan de campagne toegevoegd!'), 'status');
-
-    } else {
-
-      drupal_set_message(t('Sorry, er zijn geen actieve campagnes waar we je inzending aan toe kunnen voegen!'), 'error');
-
-    }
+    drupal_set_message(t('Sorry, er zijn geen actieve campagnes waar we je inzending aan toe kunnen voegen. Neem contact op met de beheerder.'), 'error');
 
   }
 
@@ -104,10 +203,10 @@ function _opknappertje_campaign_time_left($current, $target) {
   $output = '';
 
   if($target > $current){
-    $span = $target - $current;
-    $span = ceil($span / (60 * 60 * 24));
+    $days = $target - $current;
+    $days = ceil($days / (60 * 60 * 24));
 
-    $output = t('Doe snel mee! Nog minder dan @amount_of_days dagen te gaan.', array('@amount_of_days' => $span));
+    $output = t('Nog minder dan @amount_of_days dagen te gaan.', array('@amount_of_days' => $days));
 
   } else {
     $output = t('Helaas, deze campagne is al afgelopen!');
@@ -117,6 +216,29 @@ function _opknappertje_campaign_time_left($current, $target) {
   return $output;
 }
 
+
+function _create_fb_share_link($nid) {
+  global $base_url;
+
+  $path = drupal_get_path_alias('node/' . $nid);
+  $path_alias = 'https://www.facebook.com/dialog/share?app_id=177969065690482&display=popup&href=' . htmlentities( $base_url . '/' . $path ) . '&redirect_uri=' . htmlentities( $base_url . '/' . $path);
+
+  return $path_alias;
+}
+
+function _opknappertje_campaign_status($current, $date) {
+  $status = '';
+
+  if ($current > $date['value'] && $current < $date['value2']) {
+    $status = 'active';
+
+  } else {
+    $status = 'inactive';
+
+  }
+  return $status;
+}
+
 function opknappertje_preprocess_node(&$variables){
   if ($variables['type'] === 'campaign' && $variables['view_mode'] === 'teaser') {
 
@@ -124,37 +246,46 @@ function opknappertje_preprocess_node(&$variables){
       'start_date' => $variables['field_date'][0]['value'],
       'end_date' => $variables['field_date'][0]['value2'],
       'message' => _opknappertje_campaign_time_left(time(), $variables['field_date'][0]['value2']),
+      'status' => _opknappertje_campaign_status(time(), $variables['field_date'][0]),
     );
 
   }
   if ($variables['type'] === 'campaign' && $variables['view_mode'] === 'full') {
-    foreach ($variables['field_contributions'] as $contribution) {
-      $node = $contribution['entity'];
-      $user = user_load($node->uid);
 
-      // Get contribution image
-      $image_url = image_style_url('medium', $node->field_contribution[LANGUAGE_NONE][0]['uri']);
+    // @todo This check for grid rendering is worthless
+    if (isset($variables['field_contributions'])) {
 
-      // Get user data
-      $first_name = ($user->field_first_name) ? $user->field_first_name[LANGUAGE_NONE][0]['value'] : '';
-      $last_name = ($user->field_last_name) ? $user->field_last_name[LANGUAGE_NONE][0]['value'] : '';
-      $city = ($user->field_city) ? $user->field_city[LANGUAGE_NONE][0]['value'] : '';
+      foreach ($variables['field_contributions'] as $contribution) {
+        $node = $contribution['entity'];
+        $user = user_load($node->uid);
 
-      // Get vote count
-      $flag = flag_get_flag('vote');
-      $vote_count = $flag->get_count($node->nid);
+        // Get contribution image
+        $image_url = image_style_url('medium', $node->field_contribution[LANGUAGE_NONE][0]['uri']);
 
-      // Add to variables array
-      $variables['contributions'][] = array(
-        'path' => drupal_lookup_path('alias', 'node/' . $node->nid),
-        'image_url' => $image_url,
-        'first_name' => $first_name,
-        'last_name' => $last_name,
-        'city' => $city,
-        'vote_count' => $vote_count,
-        'created' => $node->created,
-      );
+        // Get user data
+        $first_name = ($user->field_first_name) ? $user->field_first_name[LANGUAGE_NONE][0]['value'] : '';
+        $last_name = ($user->field_last_name) ? $user->field_last_name[LANGUAGE_NONE][0]['value'] : '';
+        $city = ($user->field_city) ? $user->field_city[LANGUAGE_NONE][0]['value'] : '';
 
+        // Get vote count
+        $flag = flag_get_flag('vote');
+        $vote_count = $flag->get_count($node->nid);
+
+        // Add to variables array
+        $variables['contributions'][] = array(
+          'path' => drupal_lookup_path('alias', 'node/' . $node->nid),
+          'image_url' => $image_url,
+          'first_name' => $first_name,
+          'last_name' => $last_name,
+          'city' => $city,
+          'vote_count' => $vote_count,
+          'created' => $node->created,
+        );
+
+      }
+
+    } else {
+      drupal_set_message(t('Er zijn nog geen inzendingen voor deze campagne'), 'warning');
     }
 
   }
@@ -223,11 +354,7 @@ function opknappertje_preprocess_node(&$variables){
 
 		drupal_add_html_head($og_description, 'og_description');
 
-    global $base_url;
-    $path = drupal_get_path_alias('node/' . $variables['nid']);
-    $path_alias = 'https://www.facebook.com/dialog/share?app_id=177969065690482&display=popup&href=' . htmlentities( $base_url . '/' . $path ) . '&redirect_uri=' . htmlentities( $base_url . '/' . $path);
-
-    $variables['contribution']['fb_share_link'] = $path_alias;
+    $variables['contribution']['fb_share_link'] = _create_fb_share_link($variables['nid']);
   }
 }
 ?>
