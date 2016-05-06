@@ -229,7 +229,7 @@ function _create_fb_share_link($nid) {
 function _opknappertje_campaign_status($current, $date) {
   $status = '';
 
-  if ($current > $date['value'] && $current < $date['value2']) {
+  if ($current < $date['value2']) {
     $status = 'active';
 
   } else {
