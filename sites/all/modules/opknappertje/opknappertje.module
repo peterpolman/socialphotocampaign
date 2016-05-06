@@ -25,7 +25,7 @@ function opknappertje_block_view($delta = '') {
   switch ($delta) {
     case 'hero_block':
       $block['subject'] = '<none>';
-      $block['content'] = _opknappertje_hero_block_content(arg(1));
+      $block['content'] = _opknappertje_hero_block_content(arg(1), arg(2));
     break;
     case 'hero_block_default':
       $block['subject'] = '<none>';
@@ -43,7 +43,7 @@ function opknappertje_block_view($delta = '') {
 function _opknappertje_hero_block_campaign_content($nid) {
   $node = node_load($nid);
 
-  $text = _opknappertje_campaign_time_left(time(), $node->field_date[LANGUAGE_NONE][0]['value2']);
+  $text = _opknappertje_campaign_time_left(time(), $node->field_date[LANGUAGE_NONE][0]);
   $status = _opknappertje_campaign_status(time(), $node->field_date[LANGUAGE_NONE][0]);
 
   $markup = '<h2>' . $text . '</h2>';
@@ -52,6 +52,12 @@ function _opknappertje_hero_block_campaign_content($nid) {
     $markup .= '<ul><li>
                 <a class="btn btn-green" href="/node/add/contribution">Doe snel mee!</a>
                 </li></ul>';
+    $markup .= '<div class="view-filters">
+                  <span>Sorteer:</span>
+                  <button class="btn btn-red sort-by-name" data-sort-value="name">Naam</button>
+                  <button class="btn btn-red sort-by-votes" data-sort-value="votes">Stemmen</button>
+                  <button class="btn btn-red sort-by-created" data-sort-value="created">Datum</button>
+                </div>';
   } else {
     $markup .= '<ul><li>
                 <a class="btn btn-green" href="/campagnes">Kies een andere campagne</a>
@@ -67,6 +73,7 @@ function _opknappertje_get_active_campaign($node){
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'campaign')
     ->propertyCondition('status', NODE_PUBLISHED) // Make sure to select a published campaign
+    ->fieldCondition('field_date', 'value', $node->created, '<') // Make sure to select an active campaign
     ->fieldCondition('field_date', 'value2', $node->created, '>') // Make sure to select an active campaign
     ->propertyOrderBy('created', 'DESC') // Make sure to select the newest campaign in the array
     ->range(0, 1); // Make sure to select only one
@@ -140,10 +147,10 @@ function opknappertje_node_validate($node, $form, &$form_state) {
 
 }
 
-function _opknappertje_hero_block_content($nid) {
+function _opknappertje_hero_block_content($nid, $action) {
   $markup ='';
 
-  if ($nid > 0) {
+  if ($nid > 0 && $action != 'edit') {
     $node = node_load($nid);
     $user = user_load($node->uid);
 
@@ -199,16 +206,22 @@ function opknappertje_node_insert($node) {
   }
 
 }
-function _opknappertje_campaign_time_left($current, $target) {
+function _opknappertje_campaign_time_left($current, $date) {
   $output = '';
 
-  if($target > $current){
-    $days = $target - $current;
+  if ($date['value'] < $current && $date['value2'] > $current ){
+    $days = $date['value2'] - $current;
     $days = ceil($days / (60 * 60 * 24));
 
     $output = t('Nog minder dan @amount_of_days dagen te gaan.', array('@amount_of_days' => $days));
 
-  } else {
+  }
+  elseif ($date['value'] > $current){
+    $date = date('d-m-Y H:i', $date['value']);
+
+    $output = t('Deze campagne start op @date.', array('@date' => $date));
+  }
+  else {
     $output = t('Helaas, deze campagne is al afgelopen!');
 
   }
@@ -229,7 +242,7 @@ function _create_fb_share_link($nid) {
 function _opknappertje_campaign_status($current, $date) {
   $status = '';
 
-  if ($current < $date['value2']) {
+  if ($current > $date['value'] && $current < $date['value2']) {
     $status = 'active';
 
   } else {
@@ -245,7 +258,7 @@ function opknappertje_preprocess_node(&$variables){
     $variables['campaign_info'] = array(
       'start_date' => $variables['field_date'][0]['value'],
       'end_date' => $variables['field_date'][0]['value2'],
-      'message' => _opknappertje_campaign_time_left(time(), $variables['field_date'][0]['value2']),
+      'message' => _opknappertje_campaign_time_left(time(), $variables['field_date'][0]),
       'status' => _opknappertje_campaign_status(time(), $variables['field_date'][0]),
     );
 

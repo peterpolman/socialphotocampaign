@@ -20,7 +20,12 @@ if ($teaser) {
 </div>
 <?php
 } else {
+  $links = '';
+  if ($user->uid == $variables['uid']) {
+    $links = '<a href="/node/' . $variables['nid'] . '/edit">Bewerk je pagina</a>';
+  }
 ?>
+<?php print $links; ?>
 <h3>Het verhaal achter de keuken van: <br><span>
   <?php print $variables['user_profile']['first_name']; ?>
   <?php print $variables['user_profile']['last_name']; ?>

@@ -16,13 +16,6 @@
   </div>
 </a>
 <?php } else { ?>
-
-<div class="view-filters">
-  <span>Sorteer:</span>
-  <button class="btn btn-red sort-by-name" data-sort-value="name">Naam</button>
-  <button class="btn btn-red sort-by-votes" data-sort-value="votes">Stemmen</button>
-  <button class="btn btn-red sort-by-created" data-sort-value="created">Datum</button>
-</div>
 <div class="grid">
 <?php
   if (!empty($variables['contributions'])) :
