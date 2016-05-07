@@ -5,7 +5,8 @@ function opknappertje_preprocess_block(&$variables) {
     $flag = flag_get_flag('vote', arg(1));
     $vote_count = $flag->get_count(arg(1));
 
-    $variables['block']->subject = 'Al ' .$vote_count . ' personen hebben gestemd!';
+    $block_title = ($vote_count == 1 ) ?  'Al ' . $vote_count .' persoon heeft gestemd!' : 'Al ' . $vote_count . ' personen hebben gestemd!';
+    $variables['block']->subject = $block_title;
   }
 }
 

@@ -12,16 +12,20 @@
 }
 #block-views-votes-vote-users img {
   border-radius: 50%;
-  width: 75px;
-  height: 75px;
-  border: 7px solid white;
+  width: 50px;
+  height: 50px;
+  border: 5px solid white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.75);
+  transition: .2s transform ease;
 }
-
-#block-views-votes-vote-users .views-field-picture:hover + .views-field-name {
+#block-views-votes-vote-users img:hover {
+  transform: scale(1.1);
+}
+#block-views-votes-vote-users .views-field-picture:hover + .views-field-field-first-name {
   display: block;
 }
-#block-views-votes-vote-users .views-field-name {
-  width: 100%;
+#block-views-votes-vote-users .views-field-field-first-name {
+  min-width: 100%;
   text-align: center;
   border-radius: 5px;
   position: absolute;
