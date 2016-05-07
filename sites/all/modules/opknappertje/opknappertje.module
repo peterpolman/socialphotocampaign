@@ -96,9 +96,21 @@ function _opknappertje_hero_block_campaign_top5_content() {
     $node = node_load($node->nid);
     $markup = '<ul>';
 
+    $contribution_array = array();
+
+    // Order the array of nids based on flag count
     foreach ($node->field_contributions[LANGUAGE_NONE] as $contribution) {
 
-      $node = node_load($contribution['target_id']);
+      $flag = flag_get_flag('vote');
+      $vote_count = $flag->get_count($contribution['target_id']);
+      $contribution_array[$contribution['target_id']] = $vote_count;
+    }
+
+    arsort($contribution_array);
+
+    foreach ($contribution_array as $key => $value) {
+
+      $node = node_load($key);
       $user = user_load($node->uid);
 
       $contribution_info  = _opknappertje_create_contribution_info_array($node, $user);
@@ -117,7 +129,8 @@ function _opknappertje_hero_block_campaign_top5_content() {
       <span class="location">
       '.$contribution_info['city'].'
       </span>
-      </a>';
+      </a>
+      </li>';
     }
 
     $markup .= '</ul>';
