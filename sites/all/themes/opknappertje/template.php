@@ -1,5 +1,14 @@
 <?php
 
+function opknappertje_preprocess_block(&$variables) {
+  if ($variables['block']->delta == 'votes-vote_users') {
+    $flag = flag_get_flag('vote', arg(1));
+    $vote_count = $flag->get_count(arg(1));
+
+    $variables['block']->subject = 'Al ' .$vote_count . ' personen hebben gestemd!';
+  }
+}
+
  /**
   * Variables preprocess function for the "page" theming hook.
   */
