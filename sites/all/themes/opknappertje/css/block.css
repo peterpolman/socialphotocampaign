@@ -1,26 +1,26 @@
-#block-views-votes-block {
+#block-views-votes-vote-users {
   max-width: 970px;
   width: 100%;
   margin: 0 auto;
   text-align: center;
   padding: 2em 0;
 }
-#block-views-votes-block .views-row {
+#block-views-votes-vote-users .views-row {
   display: inline-block;
   margin: 5px;
   position: relative;
 }
-#block-views-votes-block img {
+#block-views-votes-vote-users img {
   border-radius: 50%;
   width: 75px;
   height: 75px;
   border: 7px solid white;
 }
 
-#block-views-votes-block .views-field-picture:hover + .views-field-name {
+#block-views-votes-vote-users .views-field-picture:hover + .views-field-name {
   display: block;
 }
-#block-views-votes-block .views-field-name {
+#block-views-votes-vote-users .views-field-name {
   width: 100%;
   text-align: center;
   border-radius: 5px;
