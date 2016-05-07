@@ -1,9 +1,7 @@
 <?php
 
 function opknappertje_preprocess_block(&$variables) {
-  sdpm($variables['block']->delta);
-  
-  if ($variables['block']->delta == 'votes-vote_users') {
+  if (strtolower($variables['block']->delta) == 'votes-vote_users') {
     $flag = flag_get_flag('vote', arg(1));
     $vote_count = $flag->get_count(arg(1));
 
