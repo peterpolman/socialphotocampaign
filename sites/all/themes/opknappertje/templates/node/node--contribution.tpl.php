@@ -21,11 +21,21 @@ if ($teaser) {
 <?php
 } else {
   $links = '';
-  if ($user->uid == $variables['uid']) {
-    $links = '<a href="/node/' . $variables['nid'] . '/edit">Bewerk je pagina (debug)</a>';
-  }
+  if ($user->uid == $variables['uid']) :
 ?>
-<?php print $links; ?>
+<div class="btn-group pull-right">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="/node/<?php print $variables['nid']; ?>/edit">Bewerken</a></li>
+    <li><a href="<?php print $variables['contribution']['fb_share_link']; ?>">Delen</a></li>
+    <li><a href="/node/<?php print $variables['nid']; ?>/delete">Verwijderen</a></li>
+  </ul>
+</div>
+<?php
+  endif;
+?>
 <h3>Het verhaal achter de keuken van: <br><span>
   <?php print $variables['user_profile']['first_name']; ?>
   <?php print $variables['user_profile']['last_name']; ?>

@@ -1,3 +1,11 @@
+html,
+body {
+  padding-top: 80px !important;
+  font-family: 'Georgia';
+  text-rendering: optimizeLegibility;
+  background: url("../img/body.jpg") top center repeat;
+}
+
 #blobs {
   z-index: -1;
 }

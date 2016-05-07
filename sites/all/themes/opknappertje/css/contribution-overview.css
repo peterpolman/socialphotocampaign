@@ -1,3 +1,10 @@
+.page-type-contribution #block-system-main:before {
+  content: "\e114";
+  display: block;
+  float: right;
+  font-size: 2em;
+  font-family: 'Glyphicon Halflings';
+}
 .view-contribution:after {
   content: '';
   display: block;

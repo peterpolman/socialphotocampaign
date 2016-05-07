@@ -219,11 +219,8 @@ function _opknappertje_user_contribution_unique_validate($node){
           return FALSE;
 
         }
-
       }
-
     }
-
   } else {
     // there is no active campaign
   }
@@ -241,7 +238,7 @@ function opknappertje_node_validate($node, $form, &$form_state) {
       form_set_error('field_contribution', t('Sorry, er is geen actieve campagne.'));
 
     }
-    elseif ($unique_contribution == FALSE) {
+    elseif ($unique_contribution == FALSE && $form['#node_edit_form'] != TRUE) {
       form_set_error('field_contribution', t('Sorry, je mag maar 1x per campagne een inzending plaatsen.'));
 
     }
@@ -253,7 +250,7 @@ function opknappertje_node_validate($node, $form, &$form_state) {
 function _opknappertje_hero_block_content($nid, $action) {
   $markup ='';
 
-  if ($nid > 0 && $action != 'edit') {
+  if (is_numeric($nid) && $action != 'edit' && $action != 'delete') {
     $node = node_load($nid);
     $user = user_load($node->uid);
 
@@ -272,7 +269,6 @@ function _opknappertje_hero_block_content($nid, $action) {
       <div class="image"><img src="' . $image_path .'" alt="" /></div>
       ';
     }
-
   }
 
   return $markup;
