@@ -25,15 +25,17 @@
   display: block;
 }
 #block-views-votes-vote-users .views-field-field-first-name {
+  z-index: 2;
   min-width: 100%;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 3px;
   position: absolute;
-  top: -35px;
+  top: -40px;
   background: white;
   padding: 5px 10px;
   color: black;
   display: none;
+  font-family: 'axure_handwritingregular';
 }
 .block-opknappertje {
   padding: 3em 0;

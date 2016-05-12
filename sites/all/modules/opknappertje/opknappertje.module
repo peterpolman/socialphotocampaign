@@ -25,6 +25,16 @@ function opknappertje_block_info() {
   return $blocks;
 }
 
+function opknappertje_preprocess_block(&$variables) {
+  if (strtolower($variables['block']->delta) == 'votes-vote_users') {
+    $flag = flag_get_flag('vote', arg(1));
+    $vote_count = $flag->get_count(arg(1));
+
+    $block_title = ($vote_count == 1 ) ?  'Al ' . $vote_count .' persoon heeft gestemd!' : 'Al ' . $vote_count . ' personen hebben gestemd!';
+    $variables['block']->subject = $block_title;
+  }
+}
+
 function opknappertje_block_view($delta = '') {
   $block = array();
 
@@ -235,7 +245,7 @@ function opknappertje_node_validate($node, $form, &$form_state) {
     $unique_contribution = _opknappertje_user_contribution_unique_validate($node, $active_campaign);
 
     if ($active_campaign == FALSE) {
-      form_set_error('field_contribution', t('Sorry, er is geen actieve campagne.'));
+      form_set_error('field_contribution', t('Sorry, er zijn op dit moment geen lopende campagnes.'));
 
     }
     elseif ($unique_contribution == FALSE && $form['#node_edit_form'] != TRUE) {
@@ -279,7 +289,7 @@ function _opknappertje_hero_block_default_content() {
   <h1>Knap je keuken op!</h1>
   <p>Maak een account, plaats een foto van je keuken en laat je vrienden stemmen.</p>
   <ul><li><a href="/node/add/contribution" class="btn btn-green">Doe direct mee!</a></li>
-  <li><a href="/campagnes" class="btn btn-green">De deelnemers</a></li></ul>
+  <li><a href="/campagnes" class="btn btn-green">Onze campagnes</a></li></ul>
   ';
 
   return $markup;
@@ -297,10 +307,6 @@ function opknappertje_node_insert($node) {
     node_save($campaign);
 
     drupal_set_message(t('Gefeliciteerd, je inzending is aan de campagne toegevoegd!'), 'status');
-
-  } else {
-
-    drupal_set_message(t('Sorry, er zijn geen actieve campagnes waar we je inzending aan toe kunnen voegen. Neem contact op met de beheerder.'), 'error');
 
   }
 

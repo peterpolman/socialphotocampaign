@@ -89,32 +89,29 @@
 
 
 
-.hybridauth-widget a {
-  min-width: 260px;
-  font-size: 1.1em;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-  font-family: 'nilland-blackregular';
-  display: inline-block;
-  padding: .8em 2em !important;
-  color: white;
+.hybridauth-widget-wrapper ul.hybridauth-widget li a {
   border-radius: 4px;
+  border: 1px solid transparent;
+  display: inline-block;
+  color: white;
+  padding: 6px 12px;
   background: -o-linear-gradient(#168eea, #137dcf);
   background: -moz-linear-gradient(#168eea, #137dcf);
   background: -webkit-linear-gradient(#168eea, #137dcf);
   background: linear-gradient(#168eea, #137dcf);
-  border: 1px solid #168eea;
+  border-color: #168eea;
 }
-.hybridauth-widget a .hybridauth-icon {
+.hybridauth-widget-wrapper ul.hybridauth-widget li a .hybridauth-icon {
   display: none;
 }
-.hybridauth-widget a:before {
+.hybridauth-widget-wrapper ul.hybridauth-widget li a:before {
   float: left;
   margin-right: 10px;
   font-family: 'Glyphicons Halflings';
   content: "\e066";
   display: inline-block;
 }
-.hybridauth-widget a:after {
+.hybridauth-widget-wrapper ul.hybridauth-widget li a:after {
   content: 'Inloggen via Facebook';
   display: inline-block;
 }
@@ -124,12 +121,12 @@
 
 .btn-facebook {
   color: white;
-  min-width: 260px;
-  font-size: 1.1em;
+  /*min-width: 260px;*/
+  /*font-size: 1.1em;*/
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   font-family: 'nilland-blackregular';
   display: inline-block;
-  padding: .8em 2em !important;
+  /*padding: .8em 2em !important;*/
   color: white;
   border-radius: 4px;
   background: -o-linear-gradient(#168eea, #137dcf);

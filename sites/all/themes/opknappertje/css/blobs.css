@@ -1,6 +1,11 @@
-html,
+body.navbar-is-fixed-top {
+    padding-top: 75px !important;
+}
+body.navbar-is-fixed-top.toolbar {
+    padding-top: 105px !important;
+}
+
 body {
-  padding-top: 80px !important;
   font-family: 'Georgia';
   text-rendering: optimizeLegibility;
   background: url("../img/body.jpg") top center repeat;
@@ -11,7 +16,7 @@ body {
 }
 #blob0 {
   position: absolute;
-  top: 76px;
+  top: auto;
   left: 0px;
   width: 297px;
   height: 1336px;
@@ -20,7 +25,7 @@ body {
 
 #blob1 {
   position: absolute;
-  top: 76px;
+  top: auto;
   right: 0px;
   width: 297px;
   height: 1516px;

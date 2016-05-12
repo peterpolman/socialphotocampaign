@@ -30,9 +30,12 @@ body.toolbar .navbar-fixed-top {
   margin-top: 5px;
   float: right;
   clear: right;
+  text-align: center;
+  margin: 0;
 }
 .navbar-nav > li {
   margin: 0 5px;
+  width: auto;
 }
 .navbar-nav > li > a {
   color: white !important;

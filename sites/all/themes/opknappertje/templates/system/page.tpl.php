@@ -45,47 +45,55 @@
 
   <?php print render($page['header']); ?>
 </header> <!-- /#page-header -->
-  <div class="main-container">
-    <div class="<?php print $container_class; ?>">
-      <div class="row">
+<div class="main-container">
+  <div class="<?php print $container_class; ?>">
+    <div class="row">
 
-        <?php if (!empty($page['sidebar_first'])): ?>
-          <aside class="col-sm-4" role="complementary">
-            <?php print render($page['sidebar_first']); ?>
-          </aside>  <!-- /#sidebar-first -->
+      <?php if (!empty($page['sidebar_first'])): ?>
+        <aside class="col-sm-4" role="complementary">
+          <?php print render($page['sidebar_first']); ?>
+        </aside>  <!-- /#sidebar-first -->
+      <?php endif; ?>
+
+      <section class="col-sm-8">
+        <?php if (!empty($page['highlighted'])): ?>
+          <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
         <?php endif; ?>
-
-        <section class="col-sm-8">
-          <?php if (!empty($page['highlighted'])): ?>
-            <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
-          <?php endif; ?>
-          <?php if (!empty($breadcrumb)): print $breadcrumb; endif;?>
-          <a id="main-content"></a>
-          <?php print $messages; ?>
-          <?php if (!empty($tabs)): ?>
-            <?php print render($tabs); ?>
-          <?php endif; ?>
-          <?php if (!empty($page['help'])): ?>
-            <?php print render($page['help']); ?>
-          <?php endif; ?>
-          <?php if (!empty($action_links)): ?>
-            <ul class="action-links"><?php print render($action_links); ?></ul>
-          <?php endif; ?>
-          <?php print render($page['content']); ?>
-        </section>
-
-        <?php if (!empty($page['sidebar_second'])): ?>
-          <aside class="col-sm-4" role="complementary">
-            <?php print render($page['sidebar_second']); ?>
-          </aside>  <!-- /#sidebar-second -->
+        <?php if (!empty($breadcrumb)): print $breadcrumb; endif;?>
+        <a id="main-content"></a>
+        <?php print $messages; ?>
+        <?php if (!empty($tabs)): ?>
+          <?php print render($tabs); ?>
         <?php endif; ?>
+        <?php if (!empty($page['help'])): ?>
+          <?php print render($page['help']); ?>
+        <?php endif; ?>
+        <?php if (!empty($action_links)): ?>
+          <ul class="action-links"><?php print render($action_links); ?></ul>
+        <?php endif; ?>
+        <?php print render($page['content']); ?>
+      </section>
+
+      <?php if (!empty($page['sidebar_second'])): ?>
+        <aside class="col-sm-4" role="complementary">
+          <?php print render($page['sidebar_second']); ?>
+        </aside>  <!-- /#sidebar-second -->
+      <?php endif; ?>
 
     </div>
   </div>
 </div>
 
+<?php if (!empty($page['content_bottom'])): ?>
+  <div class="content-bottom <?php print $container_class; ?>">
+    <?php print render($page['content_bottom']); ?>
+  </div>
+<?php endif; ?>
+
 <?php if (!empty($page['footer'])): ?>
-  <footer class="footer <?php print $container_class; ?>">
-    <?php print render($page['footer']); ?>
+  <footer class="footer">
+    <div class="<?php print $container_class; ?>">
+      <?php print render($page['footer']); ?>
+    </div>
   </footer>
 <?php endif; ?>

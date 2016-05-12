@@ -1,19 +1,6 @@
 <?php
 
-function opknappertje_preprocess_block(&$variables) {
-  if (strtolower($variables['block']->delta) == 'votes-vote_users') {
-    $flag = flag_get_flag('vote', arg(1));
-    $vote_count = $flag->get_count(arg(1));
-
-    $block_title = ($vote_count == 1 ) ?  'Al ' . $vote_count .' persoon heeft gestemd!' : 'Al ' . $vote_count . ' personen hebben gestemd!';
-    $variables['block']->subject = $block_title;
-  }
-}
-
- /**
-  * Variables preprocess function for the "page" theming hook.
-  */
- function opknappertje_preprocess_page(&$vars) {
+function opknappertje_preprocess_page(&$vars) {
 
    // Do we have a node?
    if (isset($vars['node'])) {
