@@ -294,7 +294,8 @@ function _opknappertje_hero_block_default_content() {
   $markup = '
   <h1>Knap je keuken op!</h1>
   <p>Log in met je Facebook account, plaats een foto van je keuken en deel je inzending op Facebook om je vrienden te laten stemmen.</p>
-  <ul><li><a href="/node/add/contribution" class="btn btn-green">Doe direct mee!</a></li>
+  <ul>
+  <li><a href="/node/add/contribution" class="btn btn-green">Doe direct mee!</a></li>
   <li><a href="/campagnes" class="btn btn-green">Onze campagnes</a></li></ul>
   ';
 
@@ -477,8 +478,23 @@ function opknappertje_preprocess_node(&$variables){
   }
 
   if ($variables['type'] === 'contribution' && $variables['view_mode'] === 'full') {
+
+    global $base_url;
+
+    $variables['alias'] = drupal_get_path_alias('node/' . $variables['nid']);
     $variables['contribution']['image'] = image_style_url('large', $variables['field_contribution'][0]['uri']);
     $variables['contribution']['body'] = $variables['body'][0]['value'];
+
+
+  	$og_url = array(
+  	 '#tag' => 'meta',
+  	 '#attributes' => array(
+  		 'property' => 'og:url',
+  		 'content' => $base_url . '/' . $variables['alias']
+  	 ),
+  	);
+
+  	drupal_add_html_head($og_url, 'og_url');
 
     $og_image = array(
 		  '#tag' => 'meta',
