@@ -1,5 +1,28 @@
 <?php
 
+function opknappertje_theme(&$existing, $type, $theme, $path){
+  $hooks = array();
+
+  // Make user-register.tpl.php available
+  $hooks['user_register_form'] = array (
+     'render element' => 'form',
+     'path' => drupal_get_path('theme','opknappertje'),
+     'template' => 'user-register',
+     'preprocess functions' => array('opknappertje_preprocess_user_register_form'),
+  );
+
+  return $hooks;
+}
+
+function opknappertje_preprocess_user_register_form(&$vars) {
+  $args = func_get_args();
+  array_shift($args);
+  $form_state['build_info']['args'] = $args;
+  $vars['form'] = drupal_build_form('user_register_form', $form_state['build_info']['args']);
+
+  sdpm($vars);
+}
+
 function opknappertje_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'user_register') {
     sdpm($form);
