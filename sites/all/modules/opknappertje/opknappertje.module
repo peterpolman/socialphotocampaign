@@ -310,7 +310,7 @@ function _opknappertje_hero_block_content($nid, $action) {
       $uri = $node->field_contribution[LANGUAGE_NONE][0]['uri'];
       $image_path = image_style_url('large', $uri);
 
-      if (isset($user->nid)) {
+      if (isset($user->uid) && $user->uid > 0) {
         $primary_action = flag_create_link('vote', $node->nid);
       } else {
         $primary_action = '<a class="btn btn-green" href="/inloggen">Inloggen!</a>';
