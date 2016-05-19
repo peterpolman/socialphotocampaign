@@ -205,7 +205,7 @@ function _opknappertje_hero_block_campaign_content($nid) {
 
   if ($status === 'active') {
     $markup .= '<ul><li>
-                <a class="btn btn-green" href="/node/add/contribution">Doe snel mee!</a>
+                <a class="btn btn-green" href="/node/add/contribution">Doe ook mee!</a>
                 </li></ul>';
     $markup .= '<div class="view-filters">
                   <span>Sorteer:</span>
@@ -310,10 +310,16 @@ function _opknappertje_hero_block_content($nid, $action) {
       $uri = $node->field_contribution[LANGUAGE_NONE][0]['uri'];
       $image_path = image_style_url('large', $uri);
 
+      if (isset($user->nid)) {
+        $primary_action = flag_create_link('vote', $node->nid);
+      } else {
+        $primary_action = '<a class="btn btn-green" href="/inloggen">Inloggen!</a>';
+      }
+
       $markup = '
       <h1><small>Een kijkje in de keuken van</small><br />' . $user->field_first_name[LANGUAGE_NONE][0]['value']  . ' ' . $user->field_last_name[LANGUAGE_NONE][0]['value'] . '</h1>
       <ul>
-        <li>' . flag_create_link('vote', $node->nid) . '</li>
+        <li>' . $primary_action . '</li>
         <li>
         <a class="btn btn-large btn-facebook" href="' . _create_fb_share_link($node->nid) . '" target="_blank">Deel op Facebook!</a>
         </li>
