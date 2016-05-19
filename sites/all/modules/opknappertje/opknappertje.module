@@ -1,5 +1,9 @@
 <?php
 
+function opknappertje_user_update(&$edit, $account, $category) {
+  drupal_set_message(t('Je profiel is bijgewerkt.'), 'status');
+}
+
 function opknappertje_block_info() {
   $blocks['hero_block'] = array(
     'info' => t('Hero block'),
@@ -19,6 +23,11 @@ function opknappertje_block_info() {
   );
   $blocks['hero_block_campaign_top5'] = array(
     'info' => t('Hero block campaign top 5'),
+    'region' => 'header',
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  $blocks['hero_block_user_edit'] = array(
+    'info' => t('Hero block user edit'),
     'region' => 'header',
     'cache' => DRUPAL_NO_CACHE,
   );
@@ -56,9 +65,35 @@ function opknappertje_block_view($delta = '') {
       $block['subject'] = t('Top 5');
       $block['content'] = _opknappertje_hero_block_campaign_top5_content(arg(1));
     break;
+    case 'hero_block_user_edit':
+      $block['subject'] = t('User edit');
+      $block['content'] = _opknappertje_hero_block_user_edit(arg(1));
+    break;
   }
 
   return $block;
+}
+
+function _opknappertje_hero_block_user_edit($uid) {
+
+  global $base_url;
+
+  $node = _opknappertje_get_active_campaign(time());
+  $path = drupal_get_path_alias('node/' . $node->nid);
+  $user = user_load($uid);
+
+  $markup = '<h1><small>Profiel van </small><br />' . $user->field_first_name[LANGUAGE_NONE][0]['value']  . ' ' . $user->field_last_name[LANGUAGE_NONE][0]['value'] . '</h1>
+            <ul>
+              <li>
+              <a class="brn btn-red" href="' . $base_url . '/' . $path . '">Stem nu!</a>
+              </li>
+              <li>
+              <a class="btn btn-green" href="/node/add/contribution">Doe ook mee</a>
+              </li>
+            </ul>
+            <p>Stem nu op een inzending van je vrienden of doe zelf ook mee.</p>';
+
+ return $markup;
 }
 
 function _opknappertje_image_from_fid($fid, $image_style = 'thumbnail') {

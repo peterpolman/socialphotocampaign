@@ -37,7 +37,9 @@
   display: block;
 }
 .btn-red:hover,
-.region-header .flag:hover {
+.btn-red.active,
+.region-header .flag:hover,
+.region-header .flag:active {
   border: 1px solid #f10022;
   text-decoration: none;
   color: white;
@@ -73,7 +75,8 @@
   background: -moz-linear-gradient(#c8e443, #92ad0e);
   background: linear-gradient(#c8e443, #92ad0e);
 }
-.btn-green:hover {
+.btn-green:hover,
+.btn-green:active {
   border: 1px solid #c8e443;
   text-decoration: none;
   background: -webkit-linear-gradient(#c8e443, #c8e443);
@@ -112,6 +115,7 @@
   content: 'Inloggen via Facebook';
   display: inline-block;
 }
+
 
 
 
