@@ -1,3 +1,6 @@
+.hybridauth-widget-wrapper {
+  background: white;
+}
 #block-views-votes-vote-users {
   max-width: 970px;
   width: 100%;

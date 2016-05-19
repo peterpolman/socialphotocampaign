@@ -109,44 +109,50 @@ function _opknappertje_hero_block_campaign_top5_content() {
     $contribution_array = array();
 
     // Order the array of nids based on flag count
-    foreach ($node->field_contributions[LANGUAGE_NONE] as $contribution) {
+    if (!empty($node->field_contributions[LANGUAGE_NONE])) {
 
-      $flag = flag_get_flag('vote');
-      $vote_count = $flag->get_count($contribution['target_id']);
-      $contribution_array[$contribution['target_id']] = $vote_count;
+      foreach ($node->field_contributions[LANGUAGE_NONE] as $contribution) {
+
+        $flag = flag_get_flag('vote');
+        $vote_count = $flag->get_count($contribution['target_id']);
+        $contribution_array[$contribution['target_id']] = $vote_count;
+      }
+
+      arsort($contribution_array);
+
+      foreach ($contribution_array as $key => $value) {
+
+        $node = node_load($key);
+        $user = user_load($node->uid);
+
+        $contribution_info  = _opknappertje_create_contribution_info_array($node, $user);
+
+        $markup .= '<li>
+        <a href="/'. $contribution_info['path'] .'" class="contribution">
+        <div class="picture">
+        <img class="img-responsive" src="'. $contribution_info['picture'] .'" width="100" height="100" alt="">
+        </div>
+        <div class="vote-count">
+        '.$contribution_info['vote_count'].'
+        </div>
+        <span class="username">
+        '.$contribution_info['first_name'].'
+        </span>
+        <span class="location">
+        '.$contribution_info['city'].'
+        </span>
+        </a>
+        </li>';
+      }
+
+      $markup .= '</ul>';
+
+    } else {
+      $markup = t('Er zijn nog geen inzendingen op de lopende campagne.');
     }
-
-    arsort($contribution_array);
-
-    foreach ($contribution_array as $key => $value) {
-
-      $node = node_load($key);
-      $user = user_load($node->uid);
-
-      $contribution_info  = _opknappertje_create_contribution_info_array($node, $user);
-
-      $markup .= '<li>
-      <a href="/'. $contribution_info['path'] .'" class="contribution">
-      <div class="picture">
-      <img class="img-responsive" src="'. $contribution_info['picture'] .'" width="100" height="100" alt="">
-      </div>
-      <div class="vote-count">
-      '.$contribution_info['vote_count'].'
-      </div>
-      <span class="username">
-      '.$contribution_info['first_name'].'
-      </span>
-      <span class="location">
-      '.$contribution_info['city'].'
-      </span>
-      </a>
-      </li>';
-    }
-
-    $markup .= '</ul>';
 
   } else {
-    $markup = t('Er zijn nog geen inzendingen op de lopende campagne.');
+    $markup = t('Er is geen lopende campagne.');
   }
 
   return $markup;
@@ -287,12 +293,44 @@ function _opknappertje_hero_block_content($nid, $action) {
 function _opknappertje_hero_block_default_content() {
   $markup = '
   <h1>Knap je keuken op!</h1>
-  <p>Maak een account, plaats een foto van je keuken en laat je vrienden stemmen.</p>
+  <p>Log in met je Facebook account, plaats een foto van je keuken en deel je inzending op Facebook om je vrienden te laten stemmen.</p>
   <ul><li><a href="/node/add/contribution" class="btn btn-green">Doe direct mee!</a></li>
   <li><a href="/campagnes" class="btn btn-green">Onze campagnes</a></li></ul>
   ';
 
   return $markup;
+}
+
+function opknappertje_node_delete($node) {
+  if ($node->type === 'contribution') {
+    $nid = $node->nid;
+
+    // Get all the existing campagins
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'campaign');
+
+    $result = $query->execute();
+
+    if (isset($result['node'])) {
+
+      // Loop through the campaigns
+      foreach ($result['node'] as $campaign) {
+        // Load the full campaign node
+        $campaign = node_load($campaign->nid);
+        // Get the contributions
+        $contributions = $campaign->field_contributions[LANGUAGE_NONE];
+        // Unset reference to this node
+        foreach ($campaign->field_contributions[LANGUAGE_NONE] as $key => $contribution) {
+          if ($contribution['target_id'] == $nid) {
+              unset($campaign->field_contributions[LANGUAGE_NONE][$key]);
+          }
+        }
+        // Save the campaign
+        node_save($campaign);
+      }
+    }
+  }
 }
 
 function opknappertje_node_insert($node) {
