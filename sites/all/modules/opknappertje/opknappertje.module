@@ -1,4 +1,17 @@
 <?php
+
+function opknappertje_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'user_register') {
+    sdpm($form);
+    // $order = array('your_other_fieldset', 'account', 'picture', 'captcha');
+    // foreach ($order as $key => $value){
+    //   if (isset($form[$value])){
+    //     $form[$value]['#weight'] = $key;
+    //   }
+    // }
+  }
+}
+
 function opknappertje_block_info() {
   $blocks['hero_block'] = array(
     'info' => t('Hero block'),
@@ -279,9 +292,10 @@ function _opknappertje_hero_block_content($nid, $action) {
       <ul>
         <li>' . flag_create_link('vote', $node->nid) . '</li>
         <li>
-        <a class="btn btn-facebook" href="' . _create_fb_share_link($node->nid) . '" target="_blank">Deel op Facebook!</a>
+        <a class="btn btn-large btn-facebook" href="' . _create_fb_share_link($node->nid) . '" target="_blank">Deel op Facebook!</a>
         </li>
       </ul>
+      <p>Stem nu en deel je inzending op Facebook om stemmen te krijgen!</p>
       <div class="image"><img src="' . $image_path .'" alt="" /></div>
       ';
     }
@@ -484,7 +498,6 @@ function opknappertje_preprocess_node(&$variables){
     $variables['alias'] = drupal_get_path_alias('node/' . $variables['nid']);
     $variables['contribution']['image'] = image_style_url('large', $variables['field_contribution'][0]['uri']);
     $variables['contribution']['body'] = $variables['body'][0]['value'];
-
 
   	$og_url = array(
   	 '#tag' => 'meta',

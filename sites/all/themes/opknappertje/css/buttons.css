@@ -37,9 +37,7 @@
   display: block;
 }
 .btn-red:hover,
-.btn-red.active,
-.region-header .flag:hover,
-.region-header .flag:active {
+.region-header .flag:hover {
   border: 1px solid #f10022;
   text-decoration: none;
   color: white;
@@ -75,8 +73,7 @@
   background: -moz-linear-gradient(#c8e443, #92ad0e);
   background: linear-gradient(#c8e443, #92ad0e);
 }
-.btn-green:hover,
-.btn-green:active {
+.btn-green:hover {
   border: 1px solid #c8e443;
   text-decoration: none;
   background: -webkit-linear-gradient(#c8e443, #c8e443);
@@ -121,12 +118,12 @@
 
 .btn-facebook {
   color: white;
-  /*min-width: 260px;*/
-  /*font-size: 1.1em;*/
+  min-width: 260px;
+  font-size: 1.1em;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   font-family: 'nilland-blackregular';
   display: inline-block;
-  /*padding: .8em 2em !important;*/
+  padding: .8em 2em;
   color: white;
   border-radius: 4px;
   background: -o-linear-gradient(#168eea, #137dcf);
