@@ -310,7 +310,7 @@ function _opknappertje_hero_block_content($nid, $action) {
       $uri = $node->field_contribution[LANGUAGE_NONE][0]['uri'];
       $image_path = image_style_url('large', $uri);
 
-      if (isset($user->uid) && $user->uid > 0) {
+      if ( user_is_logged_in() ) {
         $primary_action = flag_create_link('vote', $node->nid);
       } else {
         $primary_action = '<a class="btn btn-green" href="/inloggen">Inloggen!</a>';
@@ -324,7 +324,7 @@ function _opknappertje_hero_block_content($nid, $action) {
         <a class="btn btn-large btn-facebook" href="' . _create_fb_share_link($node->nid) . '" target="_blank">Deel op Facebook!</a>
         </li>
       </ul>
-      <p>Stem nu en deel je inzending op Facebook om stemmen te krijgen!</p>
+      <p>Login, stem direct of deel de inzending op Facebook om stemmen te krijgen!</p>
       <div class="image"><img src="' . $image_path .'" alt="" /></div>
       ';
     }
