@@ -28,7 +28,7 @@ body.toolbar .navbar-fixed-top {
 }
 .navbar-nav {
   margin-top: 5px;
-  float: right;
+  float: right !important;
   clear: right;
   text-align: center;
   margin: 0;
@@ -40,7 +40,7 @@ body.toolbar .navbar-fixed-top {
 .navbar-nav > li > a {
   color: white !important;
   font-family: 'axure_handwritingregular';
-  padding: .3em .8em;
+  padding: .3em .8em !important;
 }
 .navbar-nav > li.active > a {
   background: transparent !important;
