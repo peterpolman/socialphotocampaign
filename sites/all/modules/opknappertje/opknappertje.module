@@ -247,42 +247,35 @@ function _opknappertje_get_active_campaign($current_time){
 
 }
 
-function _opknappertje_user_contribution_unique_validate($node){
-  $active_campaign = _opknappertje_get_active_campaign($node->created);
-
+function _opknappertje_user_contribution_unique_validate($node, $active_campaign){
   if ($active_campaign != FALSE) {
     // Get the active campaign node
     $node = node_load($active_campaign->nid);
+    $validation = TRUE;
 
     // Loop through contributions if they exist
     if (!empty($node->field_contributions[LANGUAGE_NONE])) {
-
       foreach ($node->field_contributions[LANGUAGE_NONE] as $contribution) {
-
         // Load the current user
         global $user;
-
         // Load the contrib
         $contribution = node_load($contribution['target_id']);
 
         // See if node with current uid exists
         if ($contribution->uid == $user->uid) {
-
-          return FALSE;
-
+          $validation = FALSE;
         }
       }
     }
-  } else {
-    // there is no active campaign
+
+    if ($validation == FALSE) {
+      return FALSE;
+    }
   }
-
-  return TRUE;
-
 }
 
 function opknappertje_node_validate($node, $form, &$form_state) {
-  if ($node->type === 'contribution') {
+  if ($node->type === 'contribution' && arg(1) == 'add') {
     $active_campaign = _opknappertje_get_active_campaign($node->created);
     $unique_contribution = _opknappertje_user_contribution_unique_validate($node, $active_campaign);
 
@@ -290,7 +283,7 @@ function opknappertje_node_validate($node, $form, &$form_state) {
       form_set_error('field_contribution', t('Sorry, er zijn op dit moment geen lopende campagnes.'));
 
     }
-    elseif ($unique_contribution == FALSE && $form['#node_edit_form'] != TRUE) {
+    if ($unique_contribution == FALSE) {
       form_set_error('field_contribution', t('Sorry, je mag maar 1x per campagne een inzending plaatsen.'));
 
     }
@@ -313,7 +306,7 @@ function _opknappertje_hero_block_content($nid, $action) {
       if ( user_is_logged_in() ) {
         $primary_action = flag_create_link('vote', $node->nid);
       } else {
-        $primary_action = '<a class="btn btn-green" href="/inloggen">Inloggen!</a>';
+        $primary_action = '<a class="btn btn-red" href="/inloggen">Stem nu!</a>';
       }
 
       $markup = '
@@ -324,7 +317,7 @@ function _opknappertje_hero_block_content($nid, $action) {
         <a class="btn btn-large btn-facebook" href="' . _create_fb_share_link($node->nid) . '" target="_blank">Deel op Facebook!</a>
         </li>
       </ul>
-      <p>Login, stem direct of deel de inzending op Facebook om stemmen te krijgen!</p>
+      <p>Login en stem direct of deel de inzending op Facebook om stemmen te krijgen!</p>
       <div class="image"><img src="' . $image_path .'" alt="" /></div>
       ';
     }
@@ -562,7 +555,7 @@ function opknappertje_preprocess_node(&$variables){
 		 '#tag' => 'meta',
 		 '#attributes' => array(
 			 'property' => 'og:description',
-			 'content' => 'Stem op de keuken van ' . $variables['user_profile']['first_name'] . '! ' . $variables['user_profile']['first_name'] . ' maakt dan meer kans om een 750,- te winnen.',
+			 'content' => 'Stem op de keuken van ' . $variables['user_profile']['first_name'] . '! ' . $variables['user_profile']['first_name'] . ' maakt dan meer kans om een renovatiecheque t.w.v. &euro; 750,- te winnen.',
 		 ),
 		);
 
@@ -577,7 +570,7 @@ function opknappertje_preprocess_node(&$variables){
     );
 
     drupal_add_html_head($fb_app_id, 'fb_app_id');
-    
+
     $variables['contribution']['fb_share_link'] = _create_fb_share_link($variables['nid']);
   }
 }
