@@ -23,15 +23,22 @@
 body.toolbar .navbar-fixed-top {
   top: 30px !important;
 }
-.navbar-toggle {
+.navbar-inverse .navbar-toggle {
   margin-top: 18px;
+  background: transparent;
+  border-color: transparent;
+
+  &:hover {
+    background: transparent;
+  }
 }
 .navbar-nav {
-  margin-top: 5px;
-  float: right !important;
-  clear: right;
-  text-align: center;
   margin: 0;
+  @include MQ($small) {
+    float: right !important;
+    clear: right;
+    text-align: center;
+  }
 }
 .navbar-nav > li {
   margin: 0 5px;

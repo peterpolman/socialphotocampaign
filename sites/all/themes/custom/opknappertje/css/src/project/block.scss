@@ -1,9 +1,6 @@
 #edit-locale {
   display: none;
 }
-.hybridauth-widget-wrapper {
-  background: rgba(255,255,255,0.8);
-}
 #block-views-votes-vote-users {
   max-width: 970px;
   width: 100%;
@@ -49,9 +46,13 @@
 }
 .block-opknappertje h1 {
   font-family: 'axure_handwritingregular';
-  font-size: 5em;
   color: white;
   margin-bottom: .5em;
+  font-size: 3em;
+
+  @include MQ($small) {
+    font-size: 5em;
+  }
 }
 .block-opknappertje h2 {
   color: white;

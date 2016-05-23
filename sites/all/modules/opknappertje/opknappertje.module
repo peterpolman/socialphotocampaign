@@ -156,7 +156,9 @@ function _opknappertje_hero_block_campaign_top5_content() {
 
       arsort($contribution_array);
 
-      foreach ($contribution_array as $key => $value) {
+      $contributions = array_slice($contribution_array, 0, 5, TRUE);
+
+      foreach ($contributions as $key => $value) {
 
         $node = node_load($key);
         $user = user_load($node->uid);
@@ -572,6 +574,39 @@ function opknappertje_preprocess_node(&$variables){
     drupal_add_html_head($fb_app_id, 'fb_app_id');
 
     $variables['contribution']['fb_share_link'] = _create_fb_share_link($variables['nid']);
+  }
+}
+
+function opknappertje_preprocess_menu_link(&$vars) {
+  $element = &$vars['element'];
+
+  // Create dynamic link to refer to contributions overview
+  if($element['#title'] == 'Deelnemers') {
+    $node = _opknappertje_get_active_campaign(time());
+    $path = drupal_get_path_alias('node/' . $node->nid);
+
+    $element['#href'] = '/' . $path;
+  }
+
+}
+
+function opknappertje_preprocess_page(&$vars) {
+  // Do we have a node?
+  if (isset($vars['node'])) {
+    // Ref suggestions cuz it's stupid long.
+    $suggests = &$vars['theme_hook_suggestions'];
+
+    // Get path arguments.
+    $args = arg();
+
+    // Remove first argument of "node".
+    unset($args[0]);
+
+    // Set type.
+    $type = "page__type_{$vars['node']->type}";
+
+    // Bring it all together.
+    $suggests = array_merge($suggests, array($type), theme_get_suggestions($args, $type) );
   }
 }
 ?>
