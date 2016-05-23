@@ -34,6 +34,7 @@ body.toolbar .navbar-fixed-top {
 }
 .navbar-nav {
   margin: 0;
+  float: left;
   @include MQ($small) {
     float: right !important;
     clear: right;

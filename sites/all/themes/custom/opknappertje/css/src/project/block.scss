@@ -77,8 +77,12 @@
 }
 .block-opknappertje .image img {
   max-width: 100%;
-  border: 20px solid white;
   box-shadow: 0 0 50px rgba(0,0,0,0.5);
+  border: 10px solid white;
+
+  @include MQ($small) {
+      border: 20px solid white;
+  }
 }
 
 .block-title {
