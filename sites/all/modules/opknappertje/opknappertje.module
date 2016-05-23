@@ -528,7 +528,7 @@ function opknappertje_preprocess_node(&$variables){
     $variables['contribution']['image'] = image_style_url('large', $variables['field_contribution'][0]['uri']);
     $variables['contribution']['body'] = $variables['body'][0]['value'];
 
-  	$og_url = array(
+    $og_url = array(
   	 '#tag' => 'meta',
   	 '#attributes' => array(
   		 'property' => 'og:url',
@@ -568,6 +568,16 @@ function opknappertje_preprocess_node(&$variables){
 
 		drupal_add_html_head($og_description, 'og_description');
 
+    $fb_app_id = array(
+     '#tag' => 'meta',
+     '#attributes' => array(
+       'property' => 'fb:app_id',
+       'content' => ''
+     ),
+    );
+
+    drupal_add_html_head($fb_app_id, 'fb_app_id');
+    
     $variables['contribution']['fb_share_link'] = _create_fb_share_link($variables['nid']);
   }
 }
