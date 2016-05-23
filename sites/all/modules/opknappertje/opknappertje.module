@@ -31,6 +31,11 @@ function opknappertje_block_info() {
     'region' => 'header',
     'cache' => DRUPAL_NO_CACHE,
   );
+  $blocks['facebook_comments_content'] = array(
+    'info' => t('Facebook Comments'),
+    'region' => 'content_bottom',
+    'cache' => DRUPAL_NO_CACHE,
+  );
 
   return $blocks;
 }
@@ -69,9 +74,21 @@ function opknappertje_block_view($delta = '') {
       $block['subject'] = t('User edit');
       $block['content'] = _opknappertje_hero_block_user_edit(arg(1));
     break;
+    case 'facebook_comments_content':
+      $block['subject'] = t('Laat een berichtje achter');
+      $block['content'] = _opknappertje_facebook_comments_content(arg(1));
+    break;
   }
 
   return $block;
+}
+
+function _opknappertje_facebook_comments_content($nid) {
+  $path = _create_fb_share_link($nid);
+
+  $markup = '<div class="fb-comments" data-href="' . $path . '" data-numposts="5"></div>';
+
+  return $markup;
 }
 
 function _opknappertje_hero_block_user_edit($uid) {
