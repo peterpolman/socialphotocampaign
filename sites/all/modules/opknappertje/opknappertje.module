@@ -1,8 +1,65 @@
 <?php
+function opknappertje_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
 
-function opknappertje_user_update(&$edit, $account, $category) {
-  drupal_set_message(t('Je profiel is bijgewerkt.'), 'status');
+  // If we're resetting password, then give a message.
+  if (isset($_SESSION['form_validate'])) {
+    $_SESSION['form_validate'] = FALSE;
+  }
+
+  // Check if user is forced to change their password. If so, remove the current
+  // password field.
+  if (_opknappertje_force_field_submission_check($user)) {
+    // The user is redirected. A message needs to be set informing them of the reason
+    drupal_set_message(t('Vul je woonplaats nog even in.'), 'error', FALSE);
+  }
 }
+
+function opknappertje_init() {
+  global $user;
+
+  // Get the url for the change password screen.
+  $user_edit_url = preg_replace('/!uid/', $user->uid, 'user/!uid/edit');
+
+  // Redirects should only happen if the user is logged in and not on the user edit page
+  if (user_is_logged_in() && current_path() != $user_edit_url && current_path() != '/user/logout') {
+    $redirect = FALSE;
+
+    // Check to see if a field submission is empty
+    $pending_change = _opknappertje_force_field_submission_check($user);
+
+    // if pending change set redirect to true
+    if ($pending_change) {
+      $redirect = TRUE;
+    }
+
+    //
+    if ($redirect) {
+      // We put it in a session variable, because we can't determine
+      // here if we need to display it.
+      $_SESSION['form_validate'] = TRUE;
+
+      // Redirect the user to the change password page
+      drupal_goto($user_edit_url);
+    }
+  }
+}
+function _opknappertje_force_field_submission_check($user) {
+  // Now check if there is a field entry
+  $user = user_load($user->uid);
+  $field_entry = $user->field_city[LANGUAGE_NONE][0]['value'];
+
+  // If there is an entry in the password reset table for this UID
+  // that means the UID already changed the password.
+  if ($field_entry) {
+    return FALSE;
+  }
+
+  return TRUE;
+}
+// function opknappertje_user_update(&$edit, $account, $category) {
+//   drupal_set_message(t('Je profiel is bijgewerkt.'), 'status');
+// }
 
 function opknappertje_block_info() {
   $blocks['hero_block'] = array(
@@ -96,7 +153,12 @@ function _opknappertje_hero_block_user_edit($uid) {
   global $base_url;
 
   $node = _opknappertje_get_active_campaign(time());
-  $path = drupal_get_path_alias('node/' . $node->nid);
+  if ($node != FALSE) {
+    $path = drupal_get_path_alias('node/' . $node->nid);
+  } else {
+    $path = '';
+  }
+
   $user = user_load($uid);
 
   $markup = '<h1><small>Profiel van </small><br />' . $user->field_first_name[LANGUAGE_NONE][0]['value']  . ' ' . $user->field_last_name[LANGUAGE_NONE][0]['value'] . '</h1>
@@ -267,16 +329,18 @@ function _opknappertje_get_active_campaign($current_time){
 }
 
 function _opknappertje_user_contribution_unique_validate($node, $active_campaign){
+  // Load the current user
+  global $user;
+
+  $validation = TRUE;
+
   if ($active_campaign != FALSE) {
     // Get the active campaign node
     $node = node_load($active_campaign->nid);
-    $validation = TRUE;
 
     // Loop through contributions if they exist
     if (!empty($node->field_contributions[LANGUAGE_NONE])) {
       foreach ($node->field_contributions[LANGUAGE_NONE] as $contribution) {
-        // Load the current user
-        global $user;
         // Load the contrib
         $contribution = node_load($contribution['target_id']);
 
@@ -286,11 +350,9 @@ function _opknappertje_user_contribution_unique_validate($node, $active_campaign
         }
       }
     }
-
-    if ($validation == FALSE) {
-      return FALSE;
-    }
   }
+
+  return $validation;
 }
 
 function opknappertje_node_validate($node, $form, &$form_state) {
@@ -600,11 +662,12 @@ function opknappertje_preprocess_menu_link(&$vars) {
   // Create dynamic link to refer to contributions overview
   if($element['#title'] == 'Deelnemers') {
     $node = _opknappertje_get_active_campaign(time());
-    $path = drupal_get_path_alias('node/' . $node->nid);
+    if ($node != FALSE ) {
+      $path = drupal_get_path_alias('node/' . $node->nid);
 
-    $element['#href'] = '/' . $path;
+      $element['#href'] = '/' . $path;
+    }
   }
-
 }
 
 function opknappertje_preprocess_page(&$vars) {
