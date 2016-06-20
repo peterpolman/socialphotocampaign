@@ -71,6 +71,12 @@
         <?php if (!empty($action_links)): ?>
           <ul class="action-links"><?php print render($action_links); ?></ul>
         <?php endif; ?>
+        <?php
+        if (module_exists('hybridauth') && arg(1) == 64) {
+          $element['#type'] = 'hybridauth_widget';
+          print drupal_render($element);
+        }
+        ?>
         <?php print render($page['content']); ?>
       </section>
 

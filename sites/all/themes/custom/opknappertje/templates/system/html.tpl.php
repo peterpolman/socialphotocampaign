@@ -12,6 +12,7 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <?php print $scripts; ?>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 </head>
 <body<?php print $body_attributes; ?>>
 <div id="fb-root"></div>

@@ -30,6 +30,7 @@ stylesheets[all][0] = css/project.css
 ; ========================================
 
 scripts[] = js/isotope.pkgd.min.js
+scripts[] = js/jquery.countdown.js
 scripts[] = js/base.js
 
 ; ========================================

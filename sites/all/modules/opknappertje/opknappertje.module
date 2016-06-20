@@ -78,9 +78,14 @@ function opknappertje_block_info() {
     'cache' => DRUPAL_NO_CACHE,
     'attributes' => array('classes'=>'')
   );
-  $blocks['hero_block_campaign_top5'] = array(
-    'info' => t('Hero block campaign top 5'),
-    'region' => 'header',
+  // $blocks['hero_block_campaign_top5'] = array(
+  //   'info' => t('Hero block campaign top 5'),
+  //   'region' => 'header',
+  //   'cache' => DRUPAL_NO_CACHE,
+  // );
+  $blocks['hero_block_campaign_countdown'] = array(
+    'info' => t('Hero block campaign countdown'),
+    'region' => 'sidebar_first',
     'cache' => DRUPAL_NO_CACHE,
   );
   $blocks['hero_block_user_edit'] = array(
@@ -123,9 +128,13 @@ function opknappertje_block_view($delta = '') {
       $block['subject'] = '<none>';
       $block['content'] = _opknappertje_hero_block_campaign_content(arg(1));
     break;
-    case 'hero_block_campaign_top5':
-      $block['subject'] = t('Top 5');
-      $block['content'] = _opknappertje_hero_block_campaign_top5_content(arg(1));
+    // case 'hero_block_campaign_top5':
+    //   $block['subject'] = t('Top 5');
+    //   $block['content'] = _opknappertje_hero_block_campaign_top5_content(arg(1));
+    // break;
+    case 'hero_block_campaign_countdown':
+      $block['subject'] = t('De Deadline');
+      $block['content'] = _opknappertje_hero_block_campaign_countdown_callback(arg(1));
     break;
     case 'hero_block_user_edit':
       $block['subject'] = t('User edit');
@@ -173,6 +182,7 @@ function _opknappertje_hero_block_user_edit($uid) {
             <p>Stem nu op een inzending van je vrienden of doe zelf ook mee.</p>';
 
  return $markup;
+
 }
 
 function _opknappertje_image_from_fid($fid, $image_style = 'thumbnail') {
@@ -209,6 +219,209 @@ function _opknappertje_create_contribution_info_array($node, $user) {
 
   return $contribution_info;
 
+}
+
+function secondsToTime($seconds) {
+    $now = time();
+    $dtF = new \DateTime("@$now");
+    $dtT = new \DateTime("@$seconds");
+
+    $days = $dtF->diff($dtT)->format('%a');
+    $hours = $dtF->diff($dtT)->format('%h');
+    $minutes = $dtF->diff($dtT)->format('%i');
+    $seconds = $dtF->diff($dtT)->format('%s');
+
+    $togo = array(
+      'days' => $days,
+      'hours' => $hours,
+      'minutes' => $minutes,
+      'seconds' => $seconds,
+    );
+
+    return $togo;
+}
+
+function _opknappertje_hero_block_campaign_countdown_callback() {
+  // Load active campaign
+  $node = _opknappertje_get_active_campaign(time());
+
+  if (isset($node)) {
+    date_default_timezone_set('Europe/Amsterdam');
+
+    // Get deadline
+    $node = node_load($node->nid);
+    $date = date('d:h:i:s', $node->field_date[LANGUAGE_NONE][0]['value2']);
+    $end_date = secondsToTime( $node->field_date[LANGUAGE_NONE][0]['value2'] );
+
+    $markup = '';
+
+    if ($end_date['days'] > 0) {
+      $end_date['days'] = sprintf("%02d", $end_date['days']);
+      $end_date['hours'] = sprintf("%02d", $end_date['hours']);
+      $end_date['minutes'] = sprintf("%02d", $end_date['minutes']);
+
+      $markup .= '<div class="countdown-days">';
+      $markup .= '
+      <div class="bloc-time hours" data-init-value="'.$end_date['days'].'">
+        <span class="count-title">Dagen</span>
+        <div class="figure hours hours-1">
+          <span class="top">'.substr($end_date['days'], 0, 1).'</span>
+          <span class="top-back">
+            <span>'.substr($end_date['days'], 0, 1).'</span>
+          </span>
+          <span class="bottom">'.substr($end_date['days'], 0, 1).'</span>
+          <span class="bottom-back">
+            <span>'.substr($end_date['days'], 0, 1).'</span>
+          </span>
+        </div>
+
+        <div class="figure hours hours-2">
+          <span class="top">'.substr($end_date['days'], 1, 2).'</span>
+          <span class="top-back">
+            <span>'.substr($end_date['days'], 1, 2).'</span>
+          </span>
+          <span class="bottom">'.substr($end_date['days'], 1, 2).'</span>
+          <span class="bottom-back">
+            <span>'.substr($end_date['days'], 1, 2).'</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="bloc-time min" data-init-value="'.$end_date['hours'].'">
+        <span class="count-title">Uren</span>
+        <div class="figure min min-1">
+          <span class="top">'.substr($end_date['hours'], 0, 1).'</span>
+          <span class="top-back">
+            <span>'.substr($end_date['hours'], 0, 1).'</span>
+          </span>
+          <span class="bottom">'.substr($end_date['hours'], 0, 1).'</span>
+          <span class="bottom-back">
+            <span>'.substr($end_date['hours'], 0, 1).'</span>
+          </span>
+        </div>
+
+        <div class="figure min min-2">
+         <span class="top">'.substr($end_date['hours'], 1, 2).'</span>
+          <span class="top-back">
+            <span>'.substr($end_date['hours'], 1, 2).'</span>
+          </span>
+          <span class="bottom">'.substr($end_date['hours'], 1, 2).'</span>
+          <span class="bottom-back">
+            <span>'.substr($end_date['hours'], 1, 2).'</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="bloc-time sec" data-init-value="'.$end_date['minutes'].'">
+        <span class="count-title">Minuten</span>
+        <div class="figure sec sec-1">
+          <span class="top">'.substr($end_date['minutes'], 0, 1).'</span>
+          <span class="top-back">
+            <span>'.substr($end_date['minutes'], 0, 1).'</span>
+          </span>
+          <span class="bottom">'.substr($end_date['minutes'], 0, 1).'</span>
+          <span class="bottom-back">
+            <span>'.substr($end_date['minutes'], 0, 1).'</span>
+          </span>
+        </div>
+
+        <div class="figure sec sec-2">
+          <span class="top">'.substr($end_date['minutes'], 1, 2).'</span>
+          <span class="top-back">
+            <span>'.substr($end_date['minutes'], 1, 2).'</span>
+          </span>
+          <span class="bottom">'.substr($end_date['minutes'], 1, 2).'</span>
+          <span class="bottom-back">
+            <span>'.substr($end_date['minutes'], 1, 2).'</span>
+          </span>
+        </div>
+      </div>';
+  } else {
+    $markup .= '<div class="countdown">';
+    $markup .= '
+    <div class="bloc-time hours" data-init-value="'.$end_date['hours'].'">
+      <span class="count-title">Uren</span>
+      <div class="figure hours hours-1">
+        <span class="top">0</span>
+        <span class="top-back">
+          <span>0</span>
+        </span>
+        <span class="bottom">0</span>
+        <span class="bottom-back">
+          <span>0</span>
+        </span>
+      </div>
+
+      <div class="figure hours hours-2">
+        <span class="top">0</span>
+        <span class="top-back">
+          <span>0</span>
+        </span>
+        <span class="bottom">0</span>
+        <span class="bottom-back">
+          <span>0</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="bloc-time min" data-init-value="'.$end_date['minutes'].'">
+      <span class="count-title">Minuten</span>
+      <div class="figure min min-1">
+        <span class="top">0</span>
+        <span class="top-back">
+          <span>0</span>
+        </span>
+        <span class="bottom">0</span>
+        <span class="bottom-back">
+          <span>0</span>
+        </span>
+      </div>
+
+      <div class="figure min min-2">
+       <span class="top">0</span>
+        <span class="top-back">
+          <span>0</span>
+        </span>
+        <span class="bottom">0</span>
+        <span class="bottom-back">
+          <span>0</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="bloc-time sec" data-init-value="'.$end_date['seconds'].'">
+      <span class="count-title">Seconden</span>
+      <div class="figure sec sec-1">
+        <span class="top">0</span>
+        <span class="top-back">
+          <span>0</span>
+        </span>
+        <span class="bottom">0</span>
+        <span class="bottom-back">
+          <span>0</span>
+        </span>
+      </div>
+
+      <div class="figure sec sec-2">
+        <span class="top">0</span>
+        <span class="top-back">
+          <span>0</span>
+        </span>
+        <span class="bottom">0</span>
+        <span class="bottom-back">
+          <span>0</span>
+        </span>
+      </div>
+    </div>';
+  }
+
+  $markup .= '</div>';
+
+  } else {
+    $markup = '<p>Er is geen actieve campagne.</p>';
+  }
+
+  return $markup;
 }
 
 function _opknappertje_hero_block_campaign_top5_content() {
