@@ -6,143 +6,77 @@
     text-align: center;
     margin: 0;
   }
-
-  .count-title {
-    display: block;
-    margin-bottom: 15px;
-    font-size: 1em;
-    color: #1a1a1a;
-    text-transform: uppercase;
-  }
-
-  // Countdown
-  .countdown-days,
-  .countdown {
+  .flip-clock-wrapper {
     background: white;
-    padding: 25px 5px;
-    width: 100%;
+    padding: 5em 0 0;
     margin: 0;
-
-    &:after {
-      content: '';
-      display: block;
-      clear: both;
+  }
+  .flip-clock-wrapper ul {
+    width: 30px;
+    height: 50px;
+    padding: 18px;
+    margin: 2px;
+  }
+  .flip-clock-divider {
+    width: 10px;
+  }
+  .flip-clock-divider .flip-clock-label {
+    right: auto !important;
+    margin-left: 10px;
+    font-family: Georgia;
+    font-size: 0;
+  }
+  .flip-clock-divider .flip-clock-dot {
+    display: none;
+  }
+  .flip-clock-wrapper ul li a div {
+    font-size: 20px !important;
+    line-height: 50px !important;
+  }
+  .days .flip-clock-label {
+    &:before {
+      top: -20px;
+      position: relative;
+      font-size: 14px !important;
+      content: 'Dagen';
     }
   }
-
-    .bloc-time {
-      float: left;
-      margin-right: 15px;
-      text-align: center;
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-
-    .figure {
+  .hours .flip-clock-label {
+    font-size: 0;
+    &:before {
+      top: -20px;
       position: relative;
-      float: left;
-      height: 55px;
-      width: 50px;
-      margin-right: 5px;
-      background-color: black;
-      border-radius: 8px;
-      @include box-shadow(0 3px 4px 0 rgba(0, 0, 0, .2),inset 2px 4px 0 0 rgba(255, 255, 255, .08));
-
-      &:last-child {
-        margin-right: 0;
-      }
-
-      >span {
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin: auto;
-        font: normal 2.5em/50px 'Arial Black';
-        font-weight: 700;
-        color: white;
-      }
-
-      .top, .bottom-back {
-        &:after {
-          content: "";
-          position: absolute;
-          z-index: -1;
-          left: 0;
-          bottom: 0;
-          width: 100%;
-          height: 100%;
-          border-bottom: 1px solid rgba(0, 0, 0, .1);
-        }
-      }
-
-      .top {
-        z-index: 3;
-        background-color: black;
-        transform-origin: 50% 100%;
-        -webkit-transform-origin: 50% 100%;
-        @include border-top-radius(10px);
-        @include transform(perspective(200px));
-      }
-
-      .bottom {
-        z-index: 1;
-
-        &:before {
-          content: "";
-          position: absolute;
-          display: block;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 50%;
-          background-color: rgba(0, 0, 0, .02);
-        }
-      }
-
-      .bottom-back {
-        z-index: 2;
-        top: 0;
-        height: 50%;
-        overflow: hidden;
-        background-color: black;
-        @include border-top-radius(10px);
-
-        span {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          margin: auto;
-        }
-      }
-
-      .top, .top-back {
-        height: 50%;
-        overflow: hidden;
-        @include backface-visibility(hidden);
-      }
-
-      .top-back {
-        z-index: 4;
-        bottom: 0;
-        background-color: black;
-        -webkit-transform-origin: 50% 0;
-        transform-origin: 50% 0;
-        @include transform(perspective(200px) rotateX(180deg));
-        @include border-bottom-radius(10px);
-
-        span {
-          position: absolute;
-          top: -100%;
-          left: 0;
-          right: 0;
-          margin: auto;
-        }
-      }
+      font-size: 14px !important;
+      content: 'Uren';
     }
-
+  }
+  .minutes .flip-clock-label {
+    font-size: 0;
+    &:before {
+      top: -20px;
+      position: relative;
+      font-size: 14px !important;
+      content: 'Minuten';
+    }
+  }
+  .seconds .flip-clock-label {
+    font-size: 0;
+    &:before {
+      top: -20px;
+      position: relative;
+      font-size: 14px !important;
+      content: 'Seconden';
+    }
+  }
+  .clock[data-timestamp] {
+    .days {
+      display: none;
+    }
+    .days + ul,
+    .days + ul + ul {
+      display: none;
+    }
+  }
 }
 
 #edit-locale {
@@ -191,7 +125,7 @@
   padding: 3em 0;
   text-align: center;
 }
-.block-opknappertje h1 {
+.block-opknappertje .content h1 {
   font-family: 'axure_handwritingregular';
   color: white;
   margin-bottom: .5em;
@@ -201,28 +135,28 @@
     font-size: 5em;
   }
 }
-.block-opknappertje h2 {
+.block-opknappertje .content h2 {
   color: white;
 }
-.block-opknappertje h1 small{
+.block-opknappertje .content  h1 small{
   font-size: 23px;
   color: white;
 }
-.block-opknappertje ul {
+.block-opknappertje .content ul {
   width: 100%;
   display: block;
   text-align: center;
   padding: 0;
 }
-.block-opknappertje ul li {
+.block-opknappertje .content ul li {
   display: inline-flex;
   margin: 1em;
 }
-.block-opknappertje .image {
+.block-opknappertje .content .image {
   margin-top: 100px;
 
 }
-.block-opknappertje .image img {
+.block-opknappertje .content .image img {
   max-width: 100%;
   box-shadow: 0 0 50px rgba(0,0,0,0.5);
   border: 10px solid white;

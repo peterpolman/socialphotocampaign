@@ -23,14 +23,15 @@ regions[page_bottom] = Page bottom
 ; Stylesheets
 ; ========================================
 
-stylesheets[all][0] = css/project.css
+stylesheets[all][] = css/project.css
+stylesheets[all][] = css/flipclock.css
 
 ; ========================================
 ; Scripts
 ; ========================================
 
 scripts[] = js/isotope.pkgd.min.js
-scripts[] = js/jquery.countdown.js
+scripts[] = js/flipclock.min.js
 scripts[] = js/base.js
 
 ; ========================================
