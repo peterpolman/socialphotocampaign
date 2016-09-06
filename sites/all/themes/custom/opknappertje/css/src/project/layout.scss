@@ -1,19 +1,20 @@
-#page-header {
+body:not(.page-node-add):not(.page-campagnes) #page-header {
   position: relative;
   z-index: 10;
-  min-height: 200px;
+  min-height: 470px;
+  background: url(../img/bg-header-default.png) no-repeat;
+  background-position: center top;
+  background-size: auto 470px;
+  margin-top: 70px;
 }
 
 .main-container {
   padding: 1em 0;
-  border-top: 10px solid rgba(255, 255, 255, 0.7);
-  border-bottom: 10px solid rgba(255, 255, 255, 0.7);
-  background: url('../img/section.png');
 }
 
 .hybridauth-widget-wrapper,
 .region-content {
-  background: rgba(255,255,255,0.8);
+  background: white;
   padding: 1em;
 }
 .region-content p {

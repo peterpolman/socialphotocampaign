@@ -9,8 +9,7 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.75);
 }
 .navbar-inverse {
-  background-color: transparent;
-  background: url('../img/dark-grungewall.png');
+  background-color: $brand-primary;
 }
 .navbar-header .logo img{
   margin-top: 5px;
@@ -46,14 +45,15 @@ body.toolbar .navbar-fixed-top {
   width: auto;
 }
 .navbar-nav > li > a {
+  font-size: .9em;
   color: white !important;
-  font-family: 'axure_handwritingregular';
-  padding: .3em .8em !important;
+  font-family: $font-family-handwritten;
+  padding: .3em .5em !important;
 }
 .navbar-nav > li.active > a {
   background: transparent !important;
   border: 2px solid white;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 .navbar-nav.secondary {
   margin-top: 0;
@@ -61,7 +61,7 @@ body.toolbar .navbar-fixed-top {
 }
 .navbar-nav.secondary > li > a {
   font-size: .8em;
-  color: #9d9d9d !important;
+  color: black !important;
 }
 .navbar-nav.secondary > li > a:hover {
   color: white;

@@ -217,11 +217,11 @@ $databases = array (
   array (
     'default' =>
     array (
-      'database' => 'opk',
-      'username' => 'opk',
-      'password' => 'opk',
-      'host' => 'localhost',
-      'port' => '',
+      'database' => 'ikookdisru_dtb3',
+      'username' => 'root',
+      'password' => 'root',
+      'host' => 'db',
+      'port' => '3306',
       'driver' => 'mysql',
       'prefix' => '',
     ),
@@ -600,3 +600,6 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
 # $conf['theme_debug'] = TRUE;
 
 // error_reporting(0); // Disable all errors.
+
+// ini_set('memory_limit', '256M');
+// ini_set('max_execution_time', 100);

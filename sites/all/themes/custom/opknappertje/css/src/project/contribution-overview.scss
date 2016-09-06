@@ -42,9 +42,9 @@
 }
 
 .contribution .username {
-  font-size: 1.5em;
+  font-size: 1.3em;
   color: black;
-  font-family: 'axure_handwritingregular';
+  font-family: $font-family-handwritten;
   display: block;
 }
 .contribution .location {
@@ -58,7 +58,7 @@
   padding: 5px 15px 5px 35px;
   color: black;
   font-size: 18px;
-  font-family: 'axure_handwritingregular';
+  font-family: $font-family-handwritten;
 }
 .contribution .vote-count:before {
   color: #f10022;

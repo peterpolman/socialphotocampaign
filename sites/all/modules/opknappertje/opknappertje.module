@@ -83,6 +83,11 @@ function opknappertje_block_info() {
   //   'region' => 'header',
   //   'cache' => DRUPAL_NO_CACHE,
   // );
+  $blocks['hero_block_campaign_phases'] = array(
+    'info' => t('Campaign phases'),
+    'region' => 'content_bottom',
+    'cache' => DRUPAL_NO_CACHE,
+  );
   $blocks['hero_block_campaign_countdown'] = array(
     'info' => t('Hero block campaign countdown'),
     'region' => 'sidebar_first',
@@ -122,7 +127,7 @@ function opknappertje_block_view($delta = '') {
     break;
     case 'hero_block_default':
       $block['subject'] = '<none>';
-      $block['content'] = _opknappertje_hero_block_default_content();
+      $block['content'] = _opknappertje_hero_block_default_content(arg(1));
     break;
     case 'hero_block_campaign':
       $block['subject'] = '<none>';
@@ -132,6 +137,10 @@ function opknappertje_block_view($delta = '') {
     //   $block['subject'] = t('Top 5');
     //   $block['content'] = _opknappertje_hero_block_campaign_top5_content(arg(1));
     // break;
+    case 'hero_block_campaign_phases':
+      $block['subject'] = '<none>';
+      $block['content'] = _opknappertje_hero_block_campaign_phases_content();
+    break;
     case 'hero_block_campaign_countdown':
       $block['subject'] = t('De Deadline');
       $block['content'] = _opknappertje_hero_block_campaign_countdown_callback(arg(1));
@@ -149,6 +158,44 @@ function opknappertje_block_view($delta = '') {
   return $block;
 }
 
+function _opknappertje_hero_block_campaign_phases_content() {
+  $active_signup_campaign = _opknappertje_get_active_signup_period(time());
+  $active_voting_campaign = _opknappertje_get_active_voting_period(time());
+
+sdpm($active_signup_campaign);
+sdpm($active_voting_campaign);
+
+  //
+  // $campaign = node_load($nid->nid);
+  //
+  //
+  // $signup_start = $campaign->field_signup_date[LANGUAGE_NONE][0]['value2'];
+  //
+  // sdpm($campaign);
+
+  if ($active_signup_campaign == FALSE && $active_voting_campaign == FALSE) {
+    // Future campaign
+    $markup = '<h2>Nieuwe campagne start op xx xxx xxxx</h2>';
+
+    // Create a function that can grab the first future campaign and load the node here
+    $signup_start = $campaign->field_signup_date[LANGUAGE_NONE][0]['value'];
+    
+    sdpm($signup_start);
+  }
+
+  if ($active_signup_campaign != TRUE && $active_voting_campaign != FALSE) {
+    // Signup is active
+    $markup = '<h2>Er kan nu worden ingezonden!</h2>';
+  }
+
+  if ($active_signup_campaign != FALSE && $active_voting_campaign != TRUE) {
+    // Voting is active
+    $markup = '<h2>Er kan nu worden gestemd!</h2>';
+  }
+
+  return $markup;
+}
+
 function _opknappertje_facebook_comments_content($nid) {
   $path = _create_fb_share_link($nid);
 
@@ -161,7 +208,7 @@ function _opknappertje_hero_block_user_edit($uid) {
 
   global $base_url;
 
-  $node = _opknappertje_get_active_campaign(time());
+  $node = _opknappertje_get_active_voting_period(time());
   if ($node != FALSE) {
     $path = drupal_get_path_alias('node/' . $node->nid);
   } else {
@@ -244,7 +291,7 @@ function secondsToTime($timestamp) {
 
 function _opknappertje_hero_block_campaign_countdown_callback() {
   // Load active campaign
-  $node = _opknappertje_get_active_campaign(time());
+  $node = _opknappertje_get_active_voting_period(time());
 
   if (!empty($node)) {
     date_default_timezone_set('Europe/Amsterdam');
@@ -302,7 +349,7 @@ function _opknappertje_hero_block_campaign_countdown_callback() {
 function _opknappertje_hero_block_campaign_top5_content() {
 
   // Load active campaign
-  $node = _opknappertje_get_active_campaign(time());
+  $node = _opknappertje_get_active_voting_period(time());
 
   // Load the node
   if (isset($node->nid)) {
@@ -365,35 +412,62 @@ function _opknappertje_hero_block_campaign_top5_content() {
 }
 
 function _opknappertje_hero_block_campaign_content($nid) {
-  $node = node_load($nid);
+  if (is_numeric($nid)) {
+    $node = node_load($nid);
 
-  $text = _opknappertje_campaign_time_left(time(), $node->field_date[LANGUAGE_NONE][0]);
-  $status = _opknappertje_campaign_status(time(), $node->field_date[LANGUAGE_NONE][0]);
+    $text = _opknappertje_campaign_time_left(time(), $node->field_date[LANGUAGE_NONE][0]);
 
-  $markup = '<div class="content"><h2>' . $text . '</h2>';
+    $status = _opknappertje_campaign_status(time(), $node->field_date[LANGUAGE_NONE][0]);
 
-  if ($status === 'active') {
-    $markup .= '<ul><li>
-                <a class="btn btn-green" href="/node/add/contribution">Doe ook mee!</a>
-                </li></ul>';
-    $markup .= '<div class="view-filters">
-                  <span>Sorteer:</span>
-                  <button class="btn btn-red sort-by-name" data-sort-value="name">Naam</button>
-                  <button class="btn btn-red sort-by-votes" data-sort-value="votes">Stemmen</button>
-                  <button class="btn btn-red sort-by-created" data-sort-value="created">Datum</button>
-                </div>';
-  } else {
-    $markup .= '<ul><li>
-                <a class="btn btn-green" href="/campagnes">Kies een andere campagne</a>
-                </li></ul>';
+    $markup = '<div class="content"><h2>' . $text . '</h2>';
+
+    if ($status === 'active') {
+      $markup .= '<ul><li>
+                  <a class="btn btn-green" href="/node/add/contribution">Doe ook mee!</a>
+                  </li></ul>';
+      $markup .= '<div class="view-filters">
+                    <span>Sorteer:</span>
+                    <button class="btn btn-red sort-by-name" data-sort-value="name">Naam</button>
+                    <button class="btn btn-red sort-by-votes" data-sort-value="votes">Stemmen</button>
+                    <button class="btn btn-red sort-by-created" data-sort-value="created">Datum</button>
+                  </div>';
+    } else {
+      $markup .= '<ul><li>
+                  <a class="btn btn-green" href="/node/add/contribution">Schrijf je in</a>
+                  </li></ul>';
+    }
+    $markup .= '</div>';
+
+    return $markup;
   }
-  $markup .= '</div>';
 
-  return $markup;
 }
 
+function _opknappertje_get_active_signup_period($current_time){
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'campaign')
+    ->propertyCondition('status', NODE_PUBLISHED) // Make sure to select a published campaign
+    ->fieldCondition('field_signup_date', 'value', $current_time, '<') // Make sure to select an active campaign
+    ->fieldCondition('field_signup_date', 'value2', $current_time, '>') // Make sure to select an active campaign
+    ->propertyOrderBy('created', 'DESC') // Make sure to select the newest campaign in the array
+    ->range(0, 1); // Make sure to select only one
 
-function _opknappertje_get_active_campaign($current_time){
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    foreach ($result['node'] as $campaign) {
+      // Return the campaign
+      return $campaign;
+    }
+  } else {
+    // Return false when there are no active signup period
+    return FALSE;
+  }
+
+}
+
+function _opknappertje_get_active_voting_period($current_time){
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'campaign')
@@ -446,7 +520,7 @@ function _opknappertje_user_contribution_unique_validate($node, $active_campaign
 
 function opknappertje_node_validate($node, $form, &$form_state) {
   if ($node->type === 'contribution' && arg(1) == 'add') {
-    $active_campaign = _opknappertje_get_active_campaign($node->created);
+    $active_campaign = _opknappertje_get_active_voting_period($node->created);
     $unique_contribution = _opknappertje_user_contribution_unique_validate($node, $active_campaign);
 
     if ($active_campaign == FALSE) {
@@ -496,10 +570,47 @@ function _opknappertje_hero_block_content($nid, $action) {
   return $markup;
 }
 
-function _opknappertje_hero_block_default_content() {
-  $markup = '
-  <div class="content"><h1>Knap je keuken op!</h1>
-  <p>Log in met je Facebook account, plaats een foto van je keuken en deel je inzending op Facebook om je vrienden te laten stemmen.</p>
+function _opknappertje_hero_block_default_content($nid) {
+  $markup = '<div class="content"><h1>Knap je keuken op!</h1>
+  <p>Log in met je Facebook account, plaats een foto van je keuken en deel je inzending op Facebook om je vrienden te laten stemmen.</p>';
+
+  // Create carousel here.
+  $node = node_load($nid);
+
+  if (!empty($node->field_carousel[LANGUAGE_NONE])) {
+    $markup .= '<div id="carousel" class="carousel slide container" data-ride="carousel">
+    <ol class="carousel-indicators">';
+
+    foreach($node->field_carousel[LANGUAGE_NONE] as $key => $item) {
+      $image_url = image_style_url('carousel', $item['uri']);
+
+      if ($key == 0) {
+        $markup .= '<li data-target="#carousel" data-slide-to="'.$key.'" class="active"></li>';
+      }
+      else {
+        $markup .= '<li data-target="#carousel" data-slide-to="'.$key.'"></li>';
+      }
+    }
+
+    $markup .= '</ol>
+    <div class="carousel-inner" role="listbox">';
+
+    foreach($node->field_carousel[LANGUAGE_NONE] as $key => $item) {
+      $image_url = image_style_url('carousel', $item['uri']);
+
+      if ($key == 0) {
+        $markup .= '<div class="item active"><img src="'.$image_url.'" alt="'.$item['alt'].'" /></div>';
+      }
+      else {
+        $markup .= '<div class="item"><img src="'.$image_url.'" alt="'.$item['alt'].'" /></div>';
+      }
+
+    }
+
+    $markup .= '</div></div>';
+  }
+
+  $markup .= '
   <ul>
   <li><a href="/node/add/contribution" class="btn btn-green">Doe direct mee!</a></li>
   <li><a href="/campagnes" class="btn btn-green">Onze campagnes</a></li></ul></div>
@@ -543,7 +654,7 @@ function opknappertje_node_delete($node) {
 function opknappertje_node_insert($node) {
   if ($node->type === 'contribution') {
 
-    $campaign =_opknappertje_get_active_campaign($node->created);
+    $campaign =_opknappertje_get_active_voting_period($node->created);
     $campaign = node_load($campaign->nid);
     $campaign->field_contributions[LANGUAGE_NONE][] = array(
       'target_id' => $node->nid,
@@ -569,7 +680,7 @@ function _opknappertje_campaign_time_left($current, $date) {
   elseif ($date['value'] > $current){
     $date = date('d-m-Y H:i', $date['value']);
 
-    $output = t('Deze campagne start op @date.', array('@date' => $date));
+    $output = t('Je kunt stemmen vanaf @date.', array('@date' => $date));
   }
   else {
     $output = t('Helaas, deze campagne is al afgelopen!');
@@ -750,7 +861,7 @@ function opknappertje_preprocess_menu_link(&$vars) {
 
   // Create dynamic link to refer to contributions overview
   if($element['#title'] == 'Deelnemers') {
-    $node = _opknappertje_get_active_campaign(time());
+    $node = _opknappertje_get_active_voting_period(time());
     if ($node != FALSE ) {
       $path = drupal_get_path_alias('node/' . $node->nid);
 

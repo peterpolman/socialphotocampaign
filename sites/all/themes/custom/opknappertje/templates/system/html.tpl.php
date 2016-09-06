@@ -23,10 +23,6 @@
     js.src = "//connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v2.6&appId=177969065690482";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));</script>
-  <div id="blobs">
-  	<div id="blob0" class="hidden-xs"></div>
-  	<div id="blob1" class="hidden-xs"></div>
-  </div>
   <div id="skip-link">
     <a href="#main-content" class="element-invisible element-focusable"><?php print t('Skip to main content'); ?></a>
   </div>
