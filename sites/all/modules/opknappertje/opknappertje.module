@@ -1,4 +1,19 @@
 <?php
+
+/*
+* Implements hook_menu_alter.
+*/
+function opknappertje_menu_alter(&$items) {
+  $active_signup_campaign = _opknappertje_get_active_signup_period(time());
+
+  if ($active_signup_campaign == FALSE) {
+    $items['node/add/contribution']['access callback'] = FALSE;
+    menu_rebuild();
+  }
+
+}
+
+
 function opknappertje_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   global $user;
 
@@ -162,35 +177,66 @@ function _opknappertje_hero_block_campaign_phases_content() {
   $active_signup_campaign = _opknappertje_get_active_signup_period(time());
   $active_voting_campaign = _opknappertje_get_active_voting_period(time());
 
-sdpm($active_signup_campaign);
-sdpm($active_voting_campaign);
+  if ($active_signup_campaign != FALSE && $active_voting_campaign == FALSE) {
 
-  //
-  // $campaign = node_load($nid->nid);
-  //
-  //
-  // $signup_start = $campaign->field_signup_date[LANGUAGE_NONE][0]['value2'];
-  //
-  // sdpm($campaign);
+    $campaign = node_load($active_signup_campaign->nid);
 
-  if ($active_signup_campaign == FALSE && $active_voting_campaign == FALSE) {
-    // Future campaign
-    $markup = '<h2>Nieuwe campagne start op xx xxx xxxx</h2>';
+    $signup_start = format_date( $campaign->field_signup_date[LANGUAGE_NONE][0]['value'], 'custom', 'd F Y');
+    $vote_start = format_date( $campaign->field_date[LANGUAGE_NONE][0]['value'], 'custom', 'd F Y');
+    $vote_end = format_date( $campaign->field_date[LANGUAGE_NONE][0]['value2'], 'custom', 'd F Y');
 
-    // Create a function that can grab the first future campaign and load the node here
-    $signup_start = $campaign->field_signup_date[LANGUAGE_NONE][0]['value'];
-    
-    sdpm($signup_start);
-  }
-
-  if ($active_signup_campaign != TRUE && $active_voting_campaign != FALSE) {
     // Signup is active
     $markup = '<h2>Er kan nu worden ingezonden!</h2>';
+    $markup .= '<div class="tile active"><a href="/node/add/contribution">
+    <i class="fa fa-envelope" aria-hidden="true"></i>
+    Doe mee en stuur nu in!</a></div>';
+    $markup .= '<div class="tile"><span>
+    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+    Openen stembus <br /><strong>' . $vote_start . '</strong></span></div>';
+    $markup .= '<div class="tile"><span>
+    <i class="fa fa-trophy" aria-hidden="true"></i>
+    Winnaar bekend <br /><strong>' . $vote_end . '</strong></span></div>';
+
   }
 
-  if ($active_signup_campaign != FALSE && $active_voting_campaign != TRUE) {
+  if ($active_signup_campaign == FALSE && $active_voting_campaign != FALSE) {
+    $campaign = node_load($active_voting_campaign->nid);
+    $path = drupal_get_path_alias('node/' . $campaign->nid);
+    $vote_end = format_date( $campaign->field_date[LANGUAGE_NONE][0]['value2'], 'custom', 'd F Y');
+
     // Voting is active
     $markup = '<h2>Er kan nu worden gestemd!</h2>';
+    $markup .= '<div class="tile disabled"><span>
+    <i class="fa fa-envelope" aria-hidden="true"></i>
+    De inzendtermijn is verstreken.</span></div>';
+    $markup .= '<div class="tile active"><a href="'.$path.'">
+    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+    Stem nu op je favoriet!</a></div>';
+    $markup .= '<div class="tile"><span>
+    <i class="fa fa-trophy" aria-hidden="true"></i>
+    Winnaar bekend <br /><strong>' . $vote_end . '</strong></span></div>';
+  }
+
+  if ($active_signup_campaign == FALSE && $active_voting_campaign == FALSE) {
+
+    // Get the latest campaign
+    $campaign = _opknappertje_get_latest_campaign(time());
+    // sdpm($campaign->nid);
+
+    // Get the referenced nodes
+    $winner = _opknappertje_get_campaign_winner(68);
+
+    // Future campaign
+    $markup = '<h2>Op het moment zijn er geen actieve campagnes.</h2>';
+    $markup .= '<div class="tile disabled"><span>
+    <i class="fa fa-envelope" aria-hidden="true"></i>
+    De inzendtermijn is verstreken.</span></div>';
+    $markup .= '<div class="tile disabled"><span>
+    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+    De stemperiode is verstreken.</span></div>';
+    $markup .= '<div class="tile winner"><span>
+    <i class="fa fa-trophy" aria-hidden="true"></i>
+    Laatste winnaar <br /><strong>' . $winner . '</strong></span></div>';
   }
 
   return $markup;
@@ -443,6 +489,51 @@ function _opknappertje_hero_block_campaign_content($nid) {
 
 }
 
+function _opknappertje_get_campaign_winner($campaign_id){
+  $query = db_query("SELECT field_contributions_target_id FROM {field_data_field_contributions} WHERE entity_id = :entity_id", array(':entity_id' => $campaign_id));
+	$result = $query->fetchAllAssoc('field_contributions_target_id');
+
+  foreach($result as $contrib) {
+    // Get the flag values
+    $flag = flag_get_flag('vote');
+    $vote_count = $flag->get_count($contrib->field_contributions_target_id);
+    $contribution_votes[$contrib->field_contributions_target_id] = $vote_count;
+  }
+
+  // Sort and grab highest
+  arsort($contribution_votes);
+  $winning_contrib = key($contribution_votes);
+
+  // Get the author and set $winner
+  $winning_contrib = node_load($winning_contrib);
+  $winning_user = user_load($winning_contrib->uid);
+
+  return $winning_user->realname;
+}
+
+function _opknappertje_get_latest_campaign($current_time){
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'campaign')
+    ->propertyCondition('status', NODE_PUBLISHED) // Make sure to select a published campaign
+    ->fieldCondition('field_signup_date', 'value2', $current_time, '<') // Condition to make sure not to load an active campaign
+    ->propertyOrderBy('created', 'DESC') // Make sure to select the newest campaign in the array
+    ->range(0, 1); // Make sure to select only one
+
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    foreach ($result['node'] as $campaign) {
+      // Return the campaign
+      return $campaign;
+    }
+  } else {
+    // Return false when there are no active signup period
+    return FALSE;
+  }
+
+}
+
 function _opknappertje_get_active_signup_period($current_time){
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
@@ -546,11 +637,16 @@ function _opknappertje_hero_block_content($nid, $action) {
     if ( $node->type === 'contribution' ) {
       $uri = $node->field_contribution[LANGUAGE_NONE][0]['uri'];
       $image_path = image_style_url('large', $uri);
+      $active_voting_campaign = _opknappertje_get_active_voting_period(time());
 
-      if ( user_is_logged_in() ) {
+      if ( user_is_logged_in() && $active_voting_campaign != FALSE) {
         $primary_action = flag_create_link('vote', $node->nid);
-      } else {
+      }
+      elseif ($active_voting_campaign != FALSE) {
         $primary_action = '<a class="btn btn-red" href="/inloggen">Stem nu!</a>';
+      }
+      else {
+        $primary_action = '';
       }
 
       $markup = '

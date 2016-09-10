@@ -22,6 +22,8 @@
 // @import "base/animations";
 // @import "base/visibility";
 
+@import 'fontawesome/font-awesome';
+
 //
 // Bootstrap components that are used @version 3.3.6
 @import "bootstrap/scaffolding";
@@ -56,6 +58,7 @@
 @import "project/view-filters.scss";
 @import "project/block.scss";
 @import "project/carousel.scss";
+@import "project/tile.scss";
 
 
 // Layout

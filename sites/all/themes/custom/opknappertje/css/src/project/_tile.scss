@@ -1,0 +1,88 @@
+#block-opknappertje-hero-block-campaign-phases {
+  h2 {
+    margin-bottom: 1em;
+  }
+}
+
+.tile {
+  width: 100%;
+  margin-right: 1%;
+  margin-bottom: 10px;
+  display: inline-block;
+  float: left;
+  background: white;
+  font-family: 'Nilland';
+  position: relative;
+
+  @include MQ($screen-sm) {
+    max-width: 32%;
+  }
+
+  > a,
+  span {
+    display: block;
+    // border: 2px solid white;
+    padding: 45px 0 45px 100px;
+    text-align: left;
+    font-size: 1.1em;
+    height: 150px;
+  }
+
+  i.fa {
+    color: $brand-primary;
+    position: absolute;
+    left: 35px;
+    font-size: 3em;
+  }
+
+  &.active {
+
+    i.fa {
+      color: #879528;
+    }
+
+    span,
+    > a {
+      border-color: #879528;
+      background: $brand-primary;
+      color: #879528;
+    }
+  }
+
+  &.winner {
+
+    i.fa {
+      color: #ff9800;
+    }
+
+    span,
+    > a {
+      color: #ff9800;
+      background-color: #ffe57f;
+      border-color: #ff9800;
+    }
+  }
+  &.disabled {
+    background-color: #e5e5e5;
+    color: #bfbfbf;
+
+    i.fa {
+      color: #bfbfbf;
+    }
+
+    span,
+    > a {
+      border-color: #bfbfbf;
+      color: #bfbfbf;
+    }
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @include MQ($screen-sm) {
+    display: inline-block;
+  }
+
+}
