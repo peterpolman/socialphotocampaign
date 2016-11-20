@@ -21,7 +21,10 @@
   if (!empty($variables['contributions'])) :
     foreach ($variables['contributions'] as $contribution) :
 ?>
-<div class="contribution col-xs-12 col-sm-4 col-md-3" data-created="<?php print $contribution['created']; ?>" data-name="<?php print $contribution['first_name']; ?>" data-votecount="<?php print $contribution['vote_count']; ?>">
+<div class="contribution col-xs-12 col-sm-4 col-md-3"
+data-created="<?php print $contribution['created']; ?>"
+data-name="<?php print $contribution['first_name']; ?>"
+data-votecount="<?php print str_pad($contribution['vote_count'], 4, '0', STR_PAD_LEFT); ?>">
   <a href="<?php print $contribution['path']; ?>">
 		<div class="picture" style="background-image: url(<?php print $contribution['image_url']; ?>);"></div>
     <div class="vote-count"><?php print $contribution['vote_count']; ?></div>

@@ -38,13 +38,17 @@
     <?php endif; ?>
   </div>
 </header>
-<header role="banner" id="page-header">
-  <?php if (!empty($site_slogan)): ?>
-    <p class="lead"><?php print $site_slogan; ?></p>
-  <?php endif; ?>
+<?php if (!empty($page['header'])) : ?>
+  <header role="banner" id="page-header">
 
-  <?php print render($page['header']); ?>
-</header> <!-- /#page-header -->
+    <?php if (!empty($site_slogan)): ?>
+      <p class="lead"><?php print $site_slogan; ?></p>
+    <?php endif; ?>
+
+    <?php print render($page['header']); ?>
+    
+  </header> <!-- /#page-header -->
+<?php endif; ?>
 <div class="main-container">
   <div class="<?php print $container_class; ?>">
     <div class="row">

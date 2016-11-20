@@ -29,7 +29,9 @@ if ($teaser) {
   </button>
   <ul class="dropdown-menu">
     <li><a href="/node/<?php print $variables['nid']; ?>/edit">Bewerken</a></li>
-    <li><a href="<?php print $variables['contribution']['fb_share_link']; ?>">Delen</a></li>
+    <?php if ($variables['campaign_status'] == 'voting') : ?>
+      <li><a href="<?php print $variables['contribution']['fb_share_link']; ?>">Delen</a></li>
+    <?php endif; ?>
     <li><a href="/node/<?php print $variables['nid']; ?>/delete">Verwijderen</a></li>
   </ul>
 </div>
@@ -42,9 +44,16 @@ if ($teaser) {
   </span>
  </h3>
 <p><i><?php print $variables['contribution']['body']; ?></i></p>
-<h3>Wil je <?php print $variables['user_profile']['first_name']; ?> helpen met het verzamelen van stemmen?</h3>
-<p><a class="btn btn-facebook" href="<?php print $variables['contribution']['fb_share_link']; ?>" target="_blank">Deel op Facebook!</a>
-</p><p>Gebruik de bovenstaande knop om de link van <?php print $variables['user_profile']['first_name']; ?> op je Facebook tijdlijn te plaatsen. Zo roep je niet alleen de vrienden van <?php print $variables['user_profile']['first_name']; ?>, maar ook jouw vrienden op om mee te helpen.</p>
+
+<?php if ($variables['campaign_status'] == 'signup') : ?>
+  <p><i><strong>Let op! Je kunt stemmen vanaf <?php print $variables['campaign_voting_start']; ?></strong></i></p>
+<?php endif; ?>
+
+<?php if ($variables['campaign_status'] == 'voting') : ?>
+  <h3>Wil je <?php print $variables['user_profile']['first_name']; ?> helpen met het verzamelen van stemmen?</h3>
+  <p><a class="btn btn-facebook" href="<?php print $variables['contribution']['fb_share_link']; ?>" target="_blank">Deel op Facebook!</a>
+  </p><p>Gebruik de bovenstaande knop om de link van <?php print $variables['user_profile']['first_name']; ?> op je Facebook tijdlijn te plaatsen. Zo roep je niet alleen de vrienden van <?php print $variables['user_profile']['first_name']; ?>, maar ook jouw vrienden op om mee te helpen.</p>
+<?php endif; ?>
 
 <?php
 }
